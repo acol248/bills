@@ -1,0 +1,49 @@
+.app {
+  & .app__bill-list {
+    list-style: none;
+    padding: 0;
+
+    & .app__bill-item {
+      & .app__bill-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 0 1rem 1rem;
+
+        & .app__bill-button {
+          border: 0;
+          background-color: var(--core-content-background-500);
+          color: var(--core-text-color);
+          padding: 0.6rem 1rem;
+          border-radius: 8px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: color-mix(
+              in srgb,
+              var(--core-content-background-500),
+              var(--color-common-black) 8%
+            );
+          }
+
+          &:active {
+            background-color: color-mix(
+              in srgb,
+              var(--core-content-background-500),
+              var(--color-common-black) 16%
+            );
+          }
+        }
+      }
+    }
+  }
+
+  & .app__add-modal {
+    & .app__add-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+}

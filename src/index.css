@@ -1,0 +1,8 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--core-content-background-100);
+  overflow: hidden;
+}
