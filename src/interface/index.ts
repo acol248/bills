@@ -24,21 +24,25 @@ const theme = {
       light: "#85aca2",
       main: "#52796F",
       dark: "#293c37",
+      contrast: "#ffffff",
     },
     secondary: {
       light: "#587483",
       main: "#2F3E46",
       dark: "#060809",
+      contrast: "#ffffff",
     },
     error: {
       light: "#ff3333",
       main: "#cc0000",
       dark: "#660000",
+      contrast: "#ffffff",
     },
     success: {
       light: "#8fd48a",
       main: "#4BB543",
       dark: "#2c6b27",
+      contrast: "#ffffff",
     },
   },
 };
