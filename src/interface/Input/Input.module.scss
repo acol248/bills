@@ -1,0 +1,17 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & .input__text {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--core-text-color);
+    margin-left: 2px;
+  }
+
+  & .input__input {
+    padding: 0.25rem 0.35rem;
+    border-radius: 6px;
+  }
+}
