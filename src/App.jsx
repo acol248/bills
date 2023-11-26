@@ -7,6 +7,8 @@ import useBills, { BillsContext } from "./hooks/useBills";
 // components
 import Modal from "./components/Modal/Modal";
 import ThemeWrapper from "./components/ThemeWrapper";
+import Button from "./interface/Button";
+import Input from "./interface/Input";
 
 // styles
 import "./index.css";
@@ -26,10 +28,12 @@ export default function App() {
 
   const classList = useClassList({ defaultClass: "app", maps, string: true });
 
-  const handleAdd = (e) => {
+  const handleAdd = e => {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(e.target).entries());
+
+    if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
 
     _list.addBill(formData);
     setIsOpen(false);
@@ -45,7 +49,7 @@ export default function App() {
     <main className={classList}>
       <BillsContext.Provider value={_list}>
         <ThemeWrapper value={String(theme)}>
-          <button onClick={() => setIsOpen(true)}>Add</button>
+          <Button onClick={() => setIsOpen(true)}>Add</Button>
 
           <div className={mc("app__bill-list")}>
             {Boolean(_list.bills.length > 0) &&
@@ -56,7 +60,7 @@ export default function App() {
                   value={value}
                   open={itemOpen === name}
                   onToggle={() =>
-                    setItemOpen((n) => {
+                    setItemOpen(n => {
                       if (n === name) return null;
 
                       return name;
@@ -66,10 +70,7 @@ export default function App() {
                 >
                   <div className={mc("app__bill-options")}>
                     <button className={mc("app__bill-button")}>Edit</button>
-                    <button
-                      className={mc("app__bill-button")}
-                      onClick={() => _list.removeBill(id)}
-                    >
+                    <button className={mc("app__bill-button")} onClick={() => _list.removeBill(id)}>
                       Delete
                     </button>
                   </div>
@@ -85,15 +86,15 @@ export default function App() {
             variant="mobile-full"
             onTransitionEnd={handleModalTransitionEnd}
           >
-            <form
-              className={mc("app__add-form")}
-              onSubmit={handleAdd}
-              ref={formRef}
-            >
-              <input name="name" placeholder="Item name" />
-              <input name="value" placeholder="Item value" />
+            <form className={mc("app__add-form")} onSubmit={handleAdd} ref={formRef}>
+              <Input name="name" placeholder="Item name">
+                Name
+              </Input>
+              <Input name="value" placeholder="Item value">
+                Value
+              </Input>
 
-              <button type="submit">Save</button>
+              <Button>Save</Button>
             </form>
           </Modal>
         </ThemeWrapper>
