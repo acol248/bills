@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 
 // hooks
@@ -9,15 +9,15 @@ import Modal from "./components/Modal/Modal";
 import ThemeWrapper from "./components/ThemeWrapper";
 import Button from "./interface/Button";
 import Input from "./interface/Input";
+import ListItem from "./components/ListItem/ListItem";
 
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
-import ListItem from "./components/ListItem/ListItem";
 const mc = mapClassesCurried(maps, true);
 
 export default function App() {
-  const _list = useBills();
+  const _bills = useBills();
 
   const formRef = useRef(null);
 
@@ -28,6 +28,11 @@ export default function App() {
 
   const classList = useClassList({ defaultClass: "app", maps, string: true });
 
+  /**
+   * Handle add form completion
+   *
+   * @param {Event} e FormEvent object
+   */
   const handleAdd = e => {
     e.preventDefault();
 
@@ -35,10 +40,35 @@ export default function App() {
 
     if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
 
-    _list.addBill(formData);
+    _bills.addBill(formData);
     setIsOpen(false);
   };
 
+  /**
+   * Handle open list item
+   *
+   * @param {string} name name identifier
+   */
+  const handleOpenItem = useCallback(
+    name => {
+      if (itemOpen && itemOpen !== name) {
+        setItemOpen(null);
+
+        return setTimeout(() => setItemOpen(name), 50);
+      }
+
+      setItemOpen(n => {
+        if (n === name) return null;
+
+        return name;
+      });
+    },
+    [itemOpen]
+  );
+
+  /**
+   * Reset form on close
+   */
   const handleModalTransitionEnd = () => {
     if (isOpen) return;
 
@@ -47,32 +77,34 @@ export default function App() {
 
   return (
     <main className={classList}>
-      <BillsContext.Provider value={_list}>
+      <BillsContext.Provider value={_bills}>
         <ThemeWrapper value={String(theme)}>
-          <Button onClick={() => setIsOpen(true)}>Add</Button>
+          <div className={mc("app__header")}>
+            <h2 className={mc("app__total")}>£{_bills.total}</h2>
+
+            <Button className={mc("app__add-button")} onClick={() => setIsOpen(true)}>
+              Add
+            </Button>
+          </div>
 
           <div className={mc("app__bill-list")}>
-            {Boolean(_list.bills.length > 0) &&
-              _list.bills.map(({ id, name, value }) => (
+            {Boolean(_bills.bills.length > 0) &&
+              _bills.bills.map(({ id, name, value }) => (
                 <ListItem
                   className={mc("app__bill-item")}
                   name={name}
                   value={value}
                   open={itemOpen === name}
-                  onToggle={() =>
-                    setItemOpen(n => {
-                      if (n === name) return null;
-
-                      return name;
-                    })
-                  }
+                  onToggle={() => handleOpenItem(name)}
                   key={name + value}
                 >
                   <div className={mc("app__bill-options")}>
-                    <button className={mc("app__bill-button")}>Edit</button>
-                    <button className={mc("app__bill-button")} onClick={() => _list.removeBill(id)}>
+                    <Button className={mc("app__bill-button")} disabled={true}>
+                      Edit
+                    </Button>
+                    <Button className={mc("app__bill-button")} onClick={() => _bills.removeBill(id)}>
                       Delete
-                    </button>
+                    </Button>
                   </div>
                 </ListItem>
               ))}
@@ -94,7 +126,7 @@ export default function App() {
                 Value
               </Input>
 
-              <Button>Save</Button>
+              <Button className={mc("app__submit")}>Save</Button>
             </form>
           </Modal>
         </ThemeWrapper>
