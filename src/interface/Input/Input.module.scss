@@ -1,6 +1,7 @@
 .input {
   display: flex;
   flex-direction: column;
+  gap: 0.125rem;
   width: 100%;
 
   & .input__text {
@@ -13,5 +14,6 @@
   & .input__input {
     padding: 0.25rem 0.35rem;
     border-radius: 6px;
+    font-size: 1rem;
   }
 }
