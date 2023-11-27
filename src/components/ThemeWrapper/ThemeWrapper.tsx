@@ -1,12 +1,7 @@
 import { createContext, useCallback, useMemo, useState } from "react";
 
 // theme
-import {
-  generateCSSVariables,
-  theme,
-  elementsLight,
-  elementsDark,
-} from "../../interface/index";
+import { generateCSSVariables, theme, elementsLight, elementsDark } from "../../interface/index";
 
 // helpers
 import { setCookie } from "../../helpers/cookie";
@@ -27,9 +22,9 @@ interface ITheme {
 function useTheme(value: string) {
   const [theme, setTheme] = useState(value);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((t) => {
-      const update = t === "light" ? "dark" : "light";
+  const toggleTheme = useCallback((_theme: string) => {
+    setTheme(t => {
+      const update = _theme ? _theme : t === "light" ? "dark" : "light";
 
       if (localStorage) setCookie("theme", update, 10000);
 
@@ -37,10 +32,7 @@ function useTheme(value: string) {
     });
   }, []);
 
-  return useMemo(
-    () => ({ themeState: theme, toggleTheme }),
-    [theme, toggleTheme]
-  );
+  return useMemo(() => ({ themeState: theme, toggleTheme }), [theme, toggleTheme]);
 }
 
 export const ThemeContext = createContext<ITheme | any>(null);
@@ -49,9 +41,7 @@ export default function ThemeWrapper({ children, value }: IThemeWrapper) {
   const _theme = useTheme(value);
 
   const themeStyles = generateCSSVariables(theme);
-  const elementsTheme = generateCSSVariables(
-    _theme.themeState === "light" ? elementsLight : elementsDark
-  );
+  const elementsTheme = generateCSSVariables(_theme.themeState === "light" ? elementsLight : elementsDark);
 
   return (
     <ThemeContext.Provider value={_theme}>

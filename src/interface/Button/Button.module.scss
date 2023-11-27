@@ -4,6 +4,10 @@
   --button-hover-color: color-mix(in srgb, var(--button-color), var(--core-content-background-100) 10%);
   --button-active-color: color-mix(in srgb, var(--button-color), var(--core-content-background-100) 20%);
 
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
   padding: 0.4rem 1rem;
   margin: 0;
   background-color: var(--button-color);
@@ -11,8 +15,14 @@
   border: 2px solid var(--button-color);
   border-radius: 6px;
 
-  & .button__inner {
+  & .button__text {
     font-size: 1rem;
+  }
+
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
   }
 
   &:hover {
@@ -21,6 +31,10 @@
 
   &:active {
     background-color: var(--button-active-color);
+  }
+
+  &.button--icon-only {
+    padding: 0.4rem;
   }
 
   &.button--secondary {
@@ -35,6 +49,22 @@
     &:active {
       background-color: var(--button-active-color);
       color: var(--button-text-color);
+    }
+  }
+
+  &.button--tertiary {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--core-text-color);
+
+    &:hover {
+      background-color: transparent;
+      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 10%);
+    }
+
+    &:active {
+      background-color: transparent;
+      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 20%);
     }
   }
 }

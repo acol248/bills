@@ -9,11 +9,16 @@
 
     & .app__total {
       margin: 0;
-      padding: 0;
+      padding: 0 0 0 0.25rem;
       font-size: 2rem;
       font-weight: 700;
       color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 35%);
     }
+  }
+
+  & .app__add-button {
+    position: absolute;
+    inset: auto 1rem 1rem auto;
   }
 
   & .app__bill-list {

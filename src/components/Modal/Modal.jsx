@@ -8,26 +8,17 @@ import Icon from "./Modal.icons";
 import maps from "./Modal.module.scss";
 const mc = mapClassesCurried(maps, true);
 
-export default function Modal({
-  className,
-  variant,
-  title,
-  open,
-  onClose,
-  children,
-  locked,
-  onTransitionEnd,
-}) {
+export default function Modal({ className, variant, title, open, onClose, children, locked, onTransitionEnd }) {
   const modalRef = useRef(null);
 
   const classList = useClassList(
     { defaultClass: "modal", className, variant, maps, string: true },
-    useCallback((_c) => !open && _c.push("modal--closing"), [open])
+    useCallback(_c => !open && _c.push("modal--closing"), [open])
   );
 
   // Eventlistener: trigger onclose when cancel detected
   const onCancel = useCallback(
-    (e) => {
+    e => {
       e.preventDefault();
       if (!locked) onClose();
     },
@@ -48,7 +39,7 @@ export default function Modal({
     const { current: el } = modalRef;
     if (!open) el.close();
 
-    onTransitionEnd();
+    onTransitionEnd && onTransitionEnd();
   }, [open]);
 
   // when open changes run open/close command
