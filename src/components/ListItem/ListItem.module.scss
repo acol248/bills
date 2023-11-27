@@ -7,7 +7,8 @@
   font-size: 0.875rem;
   border-radius: 16px;
   cursor: pointer;
-  max-height: 0px;
+  max-height: 56px;
+  margin: 0.75rem 0;
 
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -17,10 +18,9 @@
   -ms-user-select: none;
   user-select: none;
 
-  transition-property: background-color, box-shadow, max-height;
+  transition-property: background-color, box-shadow, max-height, margin;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.17, 0.33, 0.34, 0.92);
-  transition-delay: 0ms;
 
   & > summary {
     display: flex;
@@ -33,6 +33,7 @@
     font-size: 0.875rem;
     color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 40%);
     font-style: italic;
+    height: 56px;
 
     & > span {
       font-size: 1.25rem;
@@ -49,29 +50,50 @@
     }
   }
 
-  & .list-item__body {
+  & > .list-item__body {
     opacity: 0;
 
-    transition-property: opacity;
-    transition-duration: 250ms;
-    transition-timing-function: cubic-bezier(0.17, 0.33, 0.34, 0.92);
-    transition-delay: 0ms;
+    animation-duration: 0ms;
+    animation-name: close;
+    animation-fill-mode: forwards;
+    animation-delay: 0ms;
   }
 
   &.list-item--open {
     background-color: var(--core-content-background-300);
     box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.05);
-    max-height: 8rem;
-    transition-delay: 100ms;
+    max-height: 10rem;
+    margin: 0.75rem 0.5rem;
 
     & > summary {
       padding: 0.8rem 1rem;
     }
 
-    & .list-item__body {
-      opacity: 1;
+    & > .list-item__body {
+      animation: 250ms ease-in-out;
 
-      transition-delay: 200ms;
+      animation-duration: 200ms;
+      animation-name: open;
+      animation-delay: 100ms;
+      animation-fill-mode: forwards;
     }
+  }
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
