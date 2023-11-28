@@ -48,7 +48,7 @@ export default function App() {
     if (targetId.current) {
       _bills.updateBill({ ...formData, id: targetId.current });
     } else {
-    _bills.addBill(formData);
+      _bills.addBill(formData);
     }
 
     setIsAddOpen(false);
@@ -153,7 +153,7 @@ export default function App() {
                 <Input name="name" placeholder="Item name">
                   Name
                 </Input>
-                <Input name="value" type="number" placeholder="Item value">
+                <Input name="value" type="number" placeholder="Item value" step=".01">
                   Value
                 </Input>
 
