@@ -23,6 +23,7 @@ export default function App() {
   const _settings = useSettings();
   const _bills = useBills();
 
+  const targetId = useRef(null);
   const formRef = useRef(null);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -44,8 +45,27 @@ export default function App() {
 
     if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
 
+    if (targetId.current) {
+      _bills.updateBill({ ...formData, id: targetId.current });
+    } else {
     _bills.addBill(formData);
+    }
+
     setIsAddOpen(false);
+  };
+
+  const handleOpenEdit = target => {
+    const { current: form } = formRef;
+
+    if (!form) return;
+
+    const { id, name, value } = _bills.bills.find(({ id }) => id == target);
+
+    form.name.value = name;
+    form.value.value = value;
+    targetId.current = id;
+
+    setIsAddOpen(true);
   };
 
   /**
@@ -74,9 +94,10 @@ export default function App() {
    * Reset form on close
    */
   const handleModalTransitionEnd = () => {
-    if (isSettingsOpen) return;
+    if (isAddOpen) return;
 
     formRef.current.reset();
+    targetId.current = null;
   };
 
   return (
@@ -107,7 +128,7 @@ export default function App() {
                     key={name + value}
                   >
                     <div className={mc("app__bill-options")}>
-                      <Button className={mc("app__bill-button")} disabled={true}>
+                      <Button className={mc("app__bill-button")} onClick={() => handleOpenEdit(id)}>
                         Edit
                       </Button>
                       <Button className={mc("app__bill-button")} onClick={() => _bills.removeBill(id)}>
