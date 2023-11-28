@@ -4,11 +4,11 @@
   justify-content: space-between;
   margin: 0.4rem 0;
   color: var(--core-text-color);
-  font-size: 0.875rem;
+  font-size: max(1.3125vh, 0.875rem);
   border-radius: 16px;
   cursor: pointer;
   max-height: 56px;
-  margin: 0.75rem 0;
+  margin: max(1.125vh, 0.75rem) max(0.375vh, 0.25rem);
 
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -25,18 +25,18 @@
   & > summary {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
-    padding: 0.4rem 0.8rem;
+    gap: max(0.1875vh, 0.125rem);
+    padding: max(0.6vh, 0.4rem) max(1.2vh, 0.8rem);
     font-size: 1.35rem;
     list-style-type: none;
     user-select: none;
-    font-size: 0.875rem;
+    font-size: max(1.3125vh, 0.875rem);
     color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 40%);
     font-style: italic;
     height: 56px;
 
     & > span {
-      font-size: 1.25rem;
+      font-size: max(1.875vh, 1.25rem);
       color: var(--core-text-color);
       font-style: normal;
     }
@@ -62,11 +62,11 @@
   &.list-item--open {
     background-color: var(--core-content-background-300);
     box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.05);
-    max-height: 10rem;
-    margin: 0.75rem 0.5rem;
+    max-height: max(15vh, 10rem);
+    margin: max(1.2vh, 0.75rem) max(1.5vh, 1rem);
 
     & > summary {
-      padding: 0.8rem 1rem;
+      padding: max(1.5vh, 1rem) max(1.875vh, 1.25rem);
     }
 
     & > .list-item__body {

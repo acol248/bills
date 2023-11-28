@@ -5,41 +5,47 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem;
+    padding: max(1.5vh, 1rem);
 
     & .app__total {
       margin: 0;
-      padding: 0 0 0 0.25rem;
-      font-size: 2rem;
+      padding: 0 0 0 max(0.375vh, 0.25rem);
+      font-size: max(3.375vh, 2.25rem);
       font-weight: 700;
       color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 35%);
+      line-height: 1;
     }
   }
 
   & .app__add-button {
     position: absolute;
-    inset: auto 1rem 1rem auto;
+    inset: auto max(1.875vh, 1.25rem) max(1.875vh, 1.25rem) auto;
+
+    & svg {
+      width: max(3vh, 2rem);
+      height: max(3vh, 2rem);
+    }
   }
 
   & .app__bill-list {
     list-style: none;
     padding: 0;
-    margin: 0.25rem 0;
+    margin: max(0.375vh, 0.25rem) 0;
 
     & .app__bill-item {
       & .app__bill-options {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
-        padding: 0 1rem 1rem;
+        gap: max(1.5vh, 1rem);
+        padding: 0 max(1.5vh, 1rem) max(1.875vh, 1.25rem);
 
         & .app__bill-button {
           border: 0;
           background-color: var(--core-content-background-500);
           color: var(--core-text-color);
-          padding: 0.6rem 1rem;
-          border-radius: 8px;
+          padding: max(0.9vh, 0.6rem) max(1.5vh, 1rem);
+          border-radius: 12px;
           cursor: pointer;
 
           &:hover {
@@ -58,10 +64,10 @@
     & .app__add-form {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: max(1.125vh, 0.75rem);
 
       & .app__submit {
-        margin-top: 0.5rem;
+        margin-top: max(0.75vh, 0.5rem);
       }
     }
   }

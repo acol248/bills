@@ -1,19 +1,19 @@
 .input {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: max(0.1875vh, 0.125rem);
   width: 100%;
 
   & .input__text {
-    font-size: 0.875rem;
+    font-size: max(1.3125vh, 0.875rem);
     font-weight: 400;
     color: var(--core-text-color);
     margin-left: 2px;
   }
 
   & .input__input {
-    padding: 0.25rem 0.35rem;
+    padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: max(1.5vh, 1rem);
   }
 }
