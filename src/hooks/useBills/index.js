@@ -28,6 +28,15 @@ export default function useBills() {
     setBills(b => b.filter(({ id }) => id !== target));
   };
 
+  /**
+   * Update existing bill record
+   *
+   * @param {object} bill bill object
+   */
+  const updateBill = bill => {
+    setBills(b => [...b.filter(({ id }) => id !== bill.id), bill]);
+  };
+
   // update localstorage
   useEffect(() => {
     if (!initialised.current) {
@@ -40,8 +49,14 @@ export default function useBills() {
   }, [bills]);
 
   return useMemo(
-    () => ({ bills, total: bills.reduce((total, { value }) => (total += parseFloat(value)), 0), addBill, removeBill }),
-    [bills, addBill]
+    () => ({
+      bills,
+      total: bills.reduce((total, { value }) => (total += parseFloat(value)), 0),
+      addBill,
+      removeBill,
+      updateBill,
+    }),
+    [bills, addBill, removeBill, updateBill]
   );
 }
 
