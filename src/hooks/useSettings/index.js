@@ -18,6 +18,15 @@ export default function useSettings() {
     });
   }, []);
 
+  /**
+   * Handle toggle app vibrations on/off
+   */
+  const toggleVibration = useCallback(() => {
+    setSettings((s) => {
+      return { ...s, vibration: s.vibration === 'true' ? 'false' : 'true' }
+    })
+  }, []);
+
   // update localstorage
   useEffect(() => {
     if (!initialised.current) {
@@ -29,7 +38,7 @@ export default function useSettings() {
     localStorage.setItem("settings", encodeBase64(settings));
   }, [settings]);
 
-  return useMemo(() => ({ settings, toggleTheme }), [settings, toggleTheme]);
+  return useMemo(() => ({ settings, toggleTheme, toggleVibration }), [settings, toggleTheme, toggleVibration]);
 }
 
 export const SettingsContext = createContext(null);
