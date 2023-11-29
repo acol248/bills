@@ -26,6 +26,11 @@ function useTheme(value: string) {
     setTheme(t => {
       const update = _theme ? _theme : t === "light" ? "dark" : "light";
 
+      // update the meta theme color
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", update === "dark" ? "#181818" : "#ffffff");
+
       if (localStorage) setCookie("theme", update, 10000);
 
       return update;
