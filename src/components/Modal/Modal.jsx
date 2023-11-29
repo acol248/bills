@@ -6,6 +6,7 @@ import Icon from "./Modal.icons";
 
 // styles
 import maps from "./Modal.module.scss";
+import { vibrate } from "../../helpers/vibrate";
 const mc = mapClassesCurried(maps, true);
 
 export default function Modal({ className, variant, title, open, onClose, children, locked, onTransitionEnd }) {
@@ -60,7 +61,7 @@ export default function Modal({ className, variant, title, open, onClose, childr
       <div className={mc("modal__header")} tabIndex={0}>
         <h2 className={mc("modal__title")}>{title}</h2>
 
-        <button className={mc("modal__close")} onClick={onClose}>
+        <button className={mc("modal__close")} onClick={() => vibrate(8, () => onClose())}>
           <Icon type="close" />
         </button>
       </div>

@@ -14,6 +14,9 @@ import ListItem from "./components/ListItem";
 import Icon from "./components/Icon";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 
+// helpers
+import { vibrate } from './helpers/vibrate';
+
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
@@ -112,7 +115,7 @@ export default function App() {
                 className={mc("app__settings-button")}
                 variant="tertiary"
                 icon={<Icon type="settings" />}
-                onClick={() => setIsSettingsOpen(true)}
+                onClick={() => vibrate(8, () => setIsSettingsOpen(true))}
               />
             </div>
 
@@ -124,14 +127,14 @@ export default function App() {
                     name={name}
                     value={value}
                     open={itemOpen === name}
-                    onToggle={() => handleOpenItem(name)}
+                    onToggle={() => vibrate(8, () => handleOpenItem(name))}
                     key={name + value}
                   >
                     <div className={mc("app__bill-options")}>
-                      <Button className={mc("app__bill-button")} onClick={() => handleOpenEdit(id)}>
+                      <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => handleOpenEdit(id))}>
                         Edit
                       </Button>
-                      <Button className={mc("app__bill-button")} onClick={() => _bills.removeBill(id)}>
+                      <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => _bills.removeBill(id))}>
                         Delete
                       </Button>
                     </div>
@@ -139,7 +142,7 @@ export default function App() {
                 ))}
             </div>
 
-            <Button className={mc("app__add-button")} icon={<Icon type="add" />} onClick={() => setIsAddOpen(true)} />
+            <Button className={mc("app__add-button")} icon={<Icon type="add" />} onClick={() => vibrate(8, () => setIsAddOpen(true))} />
 
             <Modal
               className={mc("app__add-modal")}
@@ -149,7 +152,7 @@ export default function App() {
               variant="mobile-bottom"
               onTransitionEnd={handleModalTransitionEnd}
             >
-              <form className={mc("app__add-form")} onSubmit={handleAdd} ref={formRef}>
+              <form className={mc("app__add-form")} onSubmit={() => vibrate(8, () => handleAdd())} ref={formRef}>
                 <Input name="name" placeholder="Item name">
                   Name
                 </Input>
