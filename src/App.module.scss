@@ -64,7 +64,8 @@
     & .app__add-form {
       display: flex;
       flex-direction: column;
-      gap: max(1.125vh, 0.75rem);
+      gap: max(1.875vh, 1.25rem);
+      margin-bottom: max(1.125vh, 0.75rem);
 
       & .app__submit {
         margin-top: max(0.75vh, 0.5rem);
