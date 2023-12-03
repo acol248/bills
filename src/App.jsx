@@ -13,9 +13,10 @@ import Input from "./interface/Input";
 import ListItem from "./components/ListItem";
 import Icon from "./components/Icon";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
+import ScaleSelect from "./components/ScaleSelect/ScaleSelect";
 
 // helpers
-import { vibrate } from './helpers/vibrate';
+import { vibrate } from "./helpers/vibrate";
 
 // styles
 import "./index.css";
@@ -134,7 +135,10 @@ export default function App() {
                       <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => handleOpenEdit(id))}>
                         Edit
                       </Button>
-                      <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => _bills.removeBill(id))}>
+                      <Button
+                        className={mc("app__bill-button")}
+                        onClick={() => vibrate(8, () => _bills.removeBill(id))}
+                      >
                         Delete
                       </Button>
                     </div>
@@ -142,7 +146,11 @@ export default function App() {
                 ))}
             </div>
 
-            <Button className={mc("app__add-button")} icon={<Icon type="add" />} onClick={() => vibrate(8, () => setIsAddOpen(true))} />
+            <Button
+              className={mc("app__add-button")}
+              icon={<Icon type="add" />}
+              onClick={() => vibrate(8, () => setIsAddOpen(true))}
+            />
 
             <Modal
               className={mc("app__add-modal")}
@@ -152,7 +160,7 @@ export default function App() {
               variant="mobile-bottom"
               onTransitionEnd={handleModalTransitionEnd}
             >
-              <form className={mc("app__add-form")} onSubmit={() => vibrate(8, () => handleAdd())} ref={formRef}>
+              <form className={mc("app__add-form")} onSubmit={e => vibrate(8, () => handleAdd(e))} ref={formRef}>
                 <Input name="name" placeholder="Item name">
                   Name
                 </Input>
@@ -172,6 +180,8 @@ export default function App() {
               variant="mobile-full"
             >
               <ThemeToggle />
+
+              <ScaleSelect />
             </Modal>
           </BillsContext.Provider>
         </SettingsContext.Provider>
