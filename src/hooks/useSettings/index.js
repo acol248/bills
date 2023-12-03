@@ -22,9 +22,15 @@ export default function useSettings() {
    * Handle toggle app vibrations on/off
    */
   const toggleVibration = useCallback(() => {
-    setSettings((s) => {
-      return { ...s, vibration: s.vibration === 'true' ? 'false' : 'true' }
-    })
+    setSettings(s => {
+      return { ...s, vibration: s.vibration === "true" ? "false" : "true" };
+    });
+  }, []);
+
+  const setScale = useCallback(scale => {
+    setSettings(s => {
+      return { ...s, scale };
+    });
   }, []);
 
   // update localstorage
@@ -38,7 +44,20 @@ export default function useSettings() {
     localStorage.setItem("settings", encodeBase64(settings));
   }, [settings]);
 
-  return useMemo(() => ({ settings, toggleTheme, toggleVibration }), [settings, toggleTheme, toggleVibration]);
+  // update scale in styles
+  useEffect(() => {
+    const { scale } = settings || decodeBase64(_storage);
+
+    if (!scale) return;
+
+    const root = document.getElementById("root");
+    root.style.setProperty("--core-scale", scale);
+  }, [settings]);
+
+  return useMemo(
+    () => ({ settings, toggleTheme, toggleVibration, setScale }),
+    [settings, toggleTheme, toggleVibration, setScale]
+  );
 }
 
 export const SettingsContext = createContext(null);
