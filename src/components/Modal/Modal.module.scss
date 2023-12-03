@@ -19,7 +19,7 @@
     padding: max(0.75vh, 0.5rem) max(1.125vh, 0.75rem) max(0.75vh, 0.5rem) max(1.5vh, 1rem);
 
     & .modal__title {
-      font-size: max(1.875vh, 1.25rem);
+      font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
       color: var(--core-text-color);
       margin: 0;
       font-weight: 600;
@@ -36,8 +36,8 @@
       cursor: pointer;
 
       & > svg {
-        width: max(3vh, 2rem);
-        height: max(3vh, 2rem);
+        width: calc(max(3vh, 2rem) * var(--core-scale));
+        height: calc(max(3vh, 2rem) * var(--core-scale));
         fill: var(--core-text-color);
       }
     }
@@ -81,7 +81,7 @@
 
     & .modal__header {
       & .modal__title {
-        font-size: max(2.25vh, 1.5rem);
+        font-size: calc(max(2.25vh, 1.5rem) * var(--core-scale));
       }
     }
 
