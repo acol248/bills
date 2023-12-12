@@ -39,13 +39,14 @@
     & .toggle__switch-highlight:after {
       content: "";
       position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 26px;
-      height: 26px;
+      top: 4px;
+      left: 4px;
+      width: 22px;
+      height: 22px;
       background: var(--color-common-white);
       border-radius: 60px;
       transition: 300ms;
+      transform: scale(0.8);
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight {
@@ -53,8 +54,8 @@
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight:after {
-      left: calc(100% - 2px);
-      transform: translateX(-100%);
+      left: calc(100% - 4px);
+      transform: translateX(-100%) scale(1);
     }
 
     & .toggle__switch-checkbox[type="checkbox"]:focus-visible + .toggle__switch-highlight {
