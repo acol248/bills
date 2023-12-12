@@ -56,10 +56,10 @@ const elementsLight = {
     content: {
       background: {
         100: theme.color.common.white,
-        200: theme.color.grey[100],
-        300: theme.color.grey[200],
-        400: theme.color.grey[300],
-        500: theme.color.grey[400],
+        200: theme.color.grey[200],
+        300: theme.color.grey[300],
+        400: theme.color.grey[400],
+        500: theme.color.grey[500],
       },
     },
   },
