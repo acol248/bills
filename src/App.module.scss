@@ -6,6 +6,7 @@
     justify-content: space-between;
     align-items: center;
     padding: max(1.5vh, 1rem);
+    height: 42px;
 
     & .app__total {
       margin: 0;
@@ -30,7 +31,9 @@
   & .app__bill-list {
     list-style: none;
     padding: 0;
-    margin: max(0.375vh, 0.25rem) 0;
+    margin: 0;
+    height: calc(100% - 4.625rem);
+    overflow-y: auto;
 
     & .app__bill-item {
       & .app__bill-options {
@@ -56,6 +59,10 @@
             background-color: color-mix(in srgb, var(--core-content-background-500), var(--color-common-black) 16%);
           }
         }
+      }
+
+      &:last-of-type {
+        margin-bottom: max(2.25vh, 1.75rem);
       }
     }
   }
