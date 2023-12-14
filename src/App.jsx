@@ -58,6 +58,12 @@ export default function App() {
     setIsAddOpen(false);
   };
 
+  /**
+   * Handle open edit item, populated
+   *
+   * @param {string} target
+   * @returns
+   */
   const handleOpenEdit = target => {
     const { current: form } = formRef;
 
@@ -127,9 +133,9 @@ export default function App() {
                     className={mc("app__bill-item")}
                     name={name}
                     value={value}
-                    open={itemOpen === name}
-                    onToggle={() => vibrate(8, () => handleOpenItem(name))}
-                    key={name + value}
+                    open={itemOpen === id}
+                    onToggle={() => vibrate(8, () => handleOpenItem(id))}
+                    key={id + name}
                   >
                     <div className={mc("app__bill-options")}>
                       <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => handleOpenEdit(id))}>

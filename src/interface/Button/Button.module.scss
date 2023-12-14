@@ -16,12 +16,12 @@
   border-radius: 12px;
 
   & .button__text {
-    font-size: max(1.5vh, 1rem);
+    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
   }
 
   & > svg {
-    width: max(2.625vh, 1.75rem);
-    height: max(2.625vh, 1.75rem);
+    width: calc(max(2.625vh, 1.75rem) * var(--core-scale));
+    height: calc(max(2.625vh, 1.75rem) * var(--core-scale));
     fill: currentColor;
   }
 

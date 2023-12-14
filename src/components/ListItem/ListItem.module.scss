@@ -4,10 +4,10 @@
   justify-content: space-between;
   margin: 0.4rem 0;
   color: var(--core-text-color);
-  font-size: max(1.3125vh, 0.875rem);
+  font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
   border-radius: 16px;
   cursor: pointer;
-  max-height: 56px;
+  max-height: calc(56px * var(--core-scale));
   margin: max(1.125vh, 0.75rem) max(0.375vh, 0.25rem);
 
   -webkit-tap-highlight-color: transparent;
@@ -27,18 +27,20 @@
     flex-direction: column;
     gap: max(0.1875vh, 0.125rem);
     padding: max(0.6vh, 0.4rem) max(1.2vh, 0.8rem);
-    font-size: 1.35rem;
+    font-size: calc(max(2.025vh, 1.35rem) * var(--core-scale));
     list-style-type: none;
     user-select: none;
-    font-size: max(1.3125vh, 0.875rem);
+    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
     color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 40%);
     font-style: italic;
-    height: 56px;
+    height: calc(56px * var(--core-scale));
+    line-height: 1;
 
     & > span {
-      font-size: max(1.875vh, 1.25rem);
+      font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
       color: var(--core-text-color);
       font-style: normal;
+      line-height: 1.2;
     }
 
     transition-property: padding;
@@ -62,7 +64,7 @@
   &.list-item--open {
     background-color: var(--core-content-background-300);
     box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.05);
-    max-height: max(15vh, 10rem);
+    max-height: calc(max(15vh, 10rem) * var(--core-scale));
     margin: max(1.2vh, 0.75rem) max(1.5vh, 1rem);
 
     & > summary {

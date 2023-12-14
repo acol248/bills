@@ -5,7 +5,7 @@
   width: 100%;
 
   & .input__text {
-    font-size: max(1.3125vh, 0.875rem);
+    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
     font-weight: 400;
     color: var(--core-text-color);
     margin-left: 2px;
@@ -14,7 +14,7 @@
   & .input__input {
     padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
     border-radius: 6px;
-    font-size: max(1.5vh, 1rem);
+    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
     border: 2px solid var(--core-text-color);
 
     &:focus-visible {

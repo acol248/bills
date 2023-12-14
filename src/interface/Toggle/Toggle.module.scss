@@ -15,6 +15,7 @@
   user-select: none;
 
   & .toggle__label {
+    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
     flex: 1;
     color: var(--core-text-color);
   }
@@ -28,24 +29,25 @@
 
     & .toggle__switch-highlight {
       cursor: pointer;
-      width: 60px;
-      height: 30px;
+      width: calc(60px * var(--core-scale));
+      height: calc(30px * var(--core-scale));
       background: var(--color-grey-600);
       display: block;
-      border-radius: 26px;
+      border-radius: calc(26px * var(--core-scale));
       position: relative;
     }
 
     & .toggle__switch-highlight:after {
       content: "";
       position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 22px;
-      height: 22px;
+      top: calc(4px * var(--core-scale));
+      left: calc(4px * var(--core-scale));
+      width: calc(22px * var(--core-scale));
+      height: calc(22px * var(--core-scale));
       background: var(--color-common-white);
-      border-radius: 60px;
-      transition: 300ms;
+      border-radius: calc(60px * var(--core-scale));
+      transition-property: left, transform;
+      transition-duration: 300ms;
       transform: scale(0.8);
     }
 
@@ -54,12 +56,12 @@
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight:after {
-      left: calc(100% - 4px);
+      left: calc(100% - (4px * var(--core-scale)));
       transform: translateX(-100%) scale(1);
     }
 
     & .toggle__switch-checkbox[type="checkbox"]:focus-visible + .toggle__switch-highlight {
-      box-shadow: 0px 0px 0px 3px var(--color-primary-light);
+      box-shadow: 0px 0px 0px calc(3px * var(--core-scale)) var(--color-primary-light);
     }
   }
 
@@ -74,7 +76,7 @@
       }
 
       & .toggle__switch-checkbox[type="checkbox"]:focus-visible + .toggle__switch-highlight {
-        box-shadow: 0px 0px 0px 3px var(--color-grey-700);
+        box-shadow: 0px 0px 0px calc(3px * var(--core-scale)) var(--color-grey-700);
       }
     }
   }
