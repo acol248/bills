@@ -123,7 +123,7 @@ export default function App() {
                 className={mc("app__settings-button")}
                 variant="tertiary"
                 icon={<Icon type="settings" />}
-                onClick={() => vibrate(8, () => setIsSettingsOpen(true))}
+                onClick={() => _settings.useVibration(8, () => setIsSettingsOpen(true))}
               />
             </div>
 
@@ -135,16 +135,19 @@ export default function App() {
                     name={name}
                     value={value}
                     open={itemOpen === id}
-                    onToggle={() => vibrate(8, () => handleOpenItem(id))}
+                    onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}
                     key={id + name}
                   >
                     <div className={mc("app__bill-options")}>
-                      <Button className={mc("app__bill-button")} onClick={() => vibrate(8, () => handleOpenEdit(id))}>
+                      <Button
+                        className={mc("app__bill-button")}
+                        onClick={() => _settings.useVibration(8, () => handleOpenEdit(id))}
+                      >
                         Edit
                       </Button>
                       <Button
                         className={mc("app__bill-button")}
-                        onClick={() => vibrate(8, () => _bills.removeBill(id))}
+                        onClick={() => _settings.useVibration(8, () => _bills.removeBill(id))}
                       >
                         Delete
                       </Button>
@@ -156,7 +159,7 @@ export default function App() {
             <Button
               className={mc("app__add-button")}
               icon={<Icon type="add" />}
-              onClick={() => vibrate(8, () => setIsAddOpen(true))}
+              onClick={() => _settings.useVibration(8, () => setIsAddOpen(true))}
             />
 
             <Modal
@@ -167,7 +170,11 @@ export default function App() {
               variant="mobile-bottom"
               onTransitionEnd={handleModalTransitionEnd}
             >
-              <form className={mc("app__add-form")} onSubmit={e => vibrate(8, () => handleAdd(e))} ref={formRef}>
+              <form
+                className={mc("app__add-form")}
+                onSubmit={e => _settings.useVibration(8, () => handleAdd(e))}
+                ref={formRef}
+              >
                 <Input name="name" placeholder="Item name">
                   Name
                 </Input>
