@@ -27,10 +27,24 @@ export default function useSettings() {
     });
   }, []);
 
+  /**
+   * Handle toggle app scale
+   */
   const setScale = useCallback(scale => {
     setSettings(s => {
       return { ...s, scale };
     });
+  }, []);
+
+  /**
+   * Use system vibration
+   */
+  const useVibration = useCallback((time = 20, callback = () => {}) => {
+    if (settings.vibration !== "true") return;
+
+    navigator.vibrate(time);
+
+    return callback && callback();
   }, []);
 
   // update localstorage
@@ -55,8 +69,8 @@ export default function useSettings() {
   }, [settings]);
 
   return useMemo(
-    () => ({ settings, toggleTheme, toggleVibration, setScale }),
-    [settings, toggleTheme, toggleVibration, setScale]
+    () => ({ settings, toggleTheme, toggleVibration, setScale, useVibration }),
+    [settings, toggleTheme, toggleVibration, setScale, useVibration]
   );
 }
 

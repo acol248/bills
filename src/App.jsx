@@ -14,6 +14,7 @@ import ListItem from "./components/ListItem";
 import Icon from "./components/Icon";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import ScaleSelect from "./components/ScaleSelect/ScaleSelect";
+import Toggle from "./interface/Toggle";
 
 // helpers
 import { vibrate } from "./helpers/vibrate";
@@ -188,6 +189,10 @@ export default function App() {
               <ThemeToggle />
 
               <ScaleSelect />
+
+              <Toggle checked={_settings.settings.vibration === "true"} onChange={() => _settings.toggleVibration()}>
+                Touch Vibrations
+              </Toggle>
             </Modal>
           </BillsContext.Provider>
         </SettingsContext.Provider>
