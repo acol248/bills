@@ -5,7 +5,7 @@ import { ThemeContext } from "../ThemeWrapper/ThemeWrapper";
 import { vibrate } from "../../helpers/vibrate";
 
 export default function ThemeToggle({ className }) {
-  const { settings, toggleTheme, useVibration } = useContext(SettingsContext);
+  const { settings, toggleTheme, toggleSystemTheme, useVibration } = useContext(SettingsContext);
   const { toggleTheme: TT } = useContext(ThemeContext);
 
   // toggle theme in real-time
@@ -14,12 +14,22 @@ export default function ThemeToggle({ className }) {
   }, [settings]);
 
   return (
-    <Toggle
-      className={className}
-      checked={settings.theme === "dark"}
-      onChange={() => useVibration(8, () => toggleTheme())}
-    >
-      Dark Theme
-    </Toggle>
+    <>
+      <Toggle
+        className={className}
+        checked={settings.sysTheme}
+        onChange={() => useVibration(8, () => toggleSystemTheme())}
+      >
+        Use System Theme
+      </Toggle>
+      <Toggle
+        className={className}
+        checked={settings.theme === "dark"}
+        disabled={settings.sysTheme}
+        onChange={() => useVibration(8, () => toggleTheme())}
+      >
+        Dark Theme
+      </Toggle>
+    </>
   );
 }
