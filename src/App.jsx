@@ -12,16 +12,15 @@ import Button from "./interface/Button";
 import Input from "./interface/Input";
 import ListItem from "./components/ListItem";
 import Icon from "./components/Icon";
-import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
-import ScaleSelect from "./components/ScaleSelect/ScaleSelect";
+import ThemeToggle from "./components/ThemeToggle";
+import ScaleSelect from "./components/ScaleSelect";
 import Toggle from "./interface/Toggle";
-
-// helpers
-import { vibrate } from "./helpers/vibrate";
+import Calendar from "./components/Calendar";
 
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
+import BottomModal from "./components/BottomModal/BottomModal";
 const mc = mapClassesCurried(maps, true);
 
 export default function App() {
@@ -35,6 +34,8 @@ export default function App() {
 
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const classList = useClassList({ defaultClass: "app", maps, string: true });
 
@@ -51,9 +52,9 @@ export default function App() {
     if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
 
     if (targetId.current) {
-      _bills.updateBill({ ...formData, id: targetId.current });
+      _bills.updateBill({ ...formData, date: selectedDate, id: targetId.current });
     } else {
-      _bills.addBill(formData);
+      _bills.addBill({ ...formData, date: selectedDate });
     }
 
     setIsAddOpen(false);
@@ -70,11 +71,12 @@ export default function App() {
 
     if (!form) return;
 
-    const { id, name, value } = _bills.bills.find(({ id }) => id == target);
+    const { id, name, value, date } = _bills.bills.find(({ id }) => id == target);
 
     form.name.value = name;
     form.value.value = value;
     targetId.current = id;
+    selectedDate(date);
 
     setIsAddOpen(true);
   };
@@ -109,6 +111,7 @@ export default function App() {
 
     formRef.current.reset();
     targetId.current = null;
+    setSelectedDate(null);
   };
 
   return (
@@ -117,7 +120,7 @@ export default function App() {
         <SettingsContext.Provider value={_settings}>
           <BillsContext.Provider value={_bills}>
             <div className={mc("app__header")}>
-              <h2 className={mc("app__total")}>£{_bills.total}</h2>
+              <h2 className={mc("app__total")}>£{Math.round(_bills.total * 100) / 100}</h2>
 
               <Button
                 className={mc("app__settings-button")}
@@ -129,11 +132,12 @@ export default function App() {
 
             <div className={mc("app__bill-list")}>
               {Boolean(_bills.bills.length > 0) &&
-                _bills.bills.map(({ id, name, value }) => (
+                _bills.bills.map(({ id, name, value, date }) => (
                   <ListItem
                     className={mc("app__bill-item")}
                     name={name}
                     value={value}
+                    date={date}
                     open={itemOpen === id}
                     onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}
                     key={id + name}
@@ -162,16 +166,17 @@ export default function App() {
               onClick={() => _settings.useVibration(8, () => setIsAddOpen(true))}
             />
 
-            <Modal
-              className={mc("app__add-modal")}
+            <BottomModal
+              className={mc("add")}
               open={isAddOpen}
               onClose={() => setIsAddOpen(false)}
               title="Add"
               variant="mobile-bottom"
               onTransitionEnd={handleModalTransitionEnd}
+              id="dialogModalAdd"
             >
               <form
-                className={mc("app__add-form")}
+                className={mc("add__form")}
                 onSubmit={e => _settings.useVibration(8, () => handleAdd(e))}
                 ref={formRef}
               >
@@ -182,24 +187,48 @@ export default function App() {
                   Value
                 </Input>
 
-                <Button className={mc("app__submit")}>Save</Button>
+                <label className={mc("add__label")}>
+                  <span>Select billing date</span>
+                  <Calendar
+                    selectedDate={selectedDate}
+                    onChange={({ year, month, day }) => setSelectedDate(new Date(`${year}/${month}/${day}`))}
+                  />
+                </label>
+
+                <Button className={mc("add__submit")}>Save</Button>
               </form>
-            </Modal>
+            </BottomModal>
 
             <Modal
-              className={mc("app__add-modal")}
+              className={mc("settings")}
               open={isSettingsOpen}
               onClose={() => setIsSettingsOpen(false)}
               title="Settings"
               variant="mobile-full"
             >
-              <ThemeToggle />
+              <div className={mc("settings__section")}>
+                <h3>Display</h3>
 
-              <ScaleSelect />
+                <ScaleSelect />
+              </div>
 
-              <Toggle checked={_settings.settings.vibration === "true"} onChange={() => _settings.toggleVibration()}>
-                Touch Vibrations
-              </Toggle>
+              <div className={mc("settings__section")}>
+                <h3>Interactions</h3>
+
+                <Toggle checked={_settings.settings.vibration === "true"} onChange={() => _settings.toggleVibration()}>
+                  Touch Vibrations
+                </Toggle>
+              </div>
+
+              <div className={mc("settings__section")}>
+                <h3>Theme</h3>
+
+                <ThemeToggle />
+              </div>
+
+              <div className={mc("settings__section")}>
+                <h3>About</h3>
+              </div>
             </Modal>
           </BillsContext.Provider>
         </SettingsContext.Provider>
