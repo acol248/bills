@@ -13,9 +13,15 @@ export default function useSettings() {
    * Handle toggle theme between light and dark
    */
   const toggleTheme = useCallback(() => {
-    setSettings(s => {
-      return { ...s, theme: s.theme === "light" ? "dark" : "light" };
-    });
+    setSettings(s => ({ ...s, theme: s.theme === "light" ? "dark" : "light" }));
+  }, []);
+
+  /**
+   * Handle toggle setting to prefer use of system theme
+   */
+  const toggleSystemTheme = useCallback(() => {
+    const getSysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setSettings(s => ({ ...s, theme: getSysTheme ? "dark" : "light", sysTheme: s.sysTheme ? false : true }));
   }, []);
 
   /**
@@ -39,7 +45,7 @@ export default function useSettings() {
   /**
    * Use system vibration
    */
-  const useVibration = useCallback((time = 20, callback = () => {}) => {
+  const useVibration = useCallback((time = 10, callback = () => {}) => {
     if (settings.vibration !== "true") return callback && callback();
 
     navigator.vibrate(time);
@@ -69,8 +75,8 @@ export default function useSettings() {
   }, [settings]);
 
   return useMemo(
-    () => ({ settings, toggleTheme, toggleVibration, setScale, useVibration }),
-    [settings, toggleTheme, toggleVibration, setScale, useVibration]
+    () => ({ settings, toggleTheme, toggleSystemTheme, toggleVibration, setScale, useVibration }),
+    [settings, toggleTheme, toggleSystemTheme, toggleVibration, setScale, useVibration]
   );
 }
 
