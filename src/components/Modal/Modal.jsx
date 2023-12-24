@@ -1,13 +1,14 @@
 import { useRef, useCallback, useEffect, useContext } from "react";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
+
 // components
 import Icon from "./Modal.icons";
 
 // styles
 import maps from "./Modal.module.scss";
-import { vibrate } from "../../helpers/vibrate";
-import { SettingsContext } from "../../hooks/useSettings";
 const mc = mapClassesCurried(maps, true);
 
 export default function Modal({ className, variant, title, open, onClose, children, locked, onTransitionEnd }) {
