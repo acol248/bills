@@ -1,0 +1,50 @@
+.calendar {
+  text-align: left;
+}
+
+.calendar-menu {
+  background-color: var(--core-content-background-100);
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+
+  & .calendar-menu__calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    & .calendar-menu__header {
+      display: flex;
+      gap: 1rem;
+
+      & h2 {
+        margin: 0;
+        color: var(--core-text-color);
+        font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+      }
+    }
+
+    & .calendar-menu__inner {
+      color: var(--core-text-color);
+
+      & > table {
+        width: 100%;
+      }
+
+      & .calendar-menu__cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.15rem;
+        border-radius: 50%;
+
+        &[data-selected="true"] {
+          background-color: var(--color-primary-main);
+        }
+
+        &[data-disabled="true"] {
+          opacity: 0.35;
+        }
+      }
+    }
+  }
+}
