@@ -24,10 +24,9 @@
 
   & > summary {
     display: flex;
-    flex-direction: column;
-    gap: max(0.1875vh, 0.125rem);
+    justify-content: space-between;
+    align-items: center;
     padding: max(0.6vh, 0.4rem) max(1.2vh, 0.8rem);
-    font-size: calc(max(2.025vh, 1.35rem) * var(--core-scale));
     list-style-type: none;
     user-select: none;
     font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
@@ -36,11 +35,20 @@
     height: calc(56px * var(--core-scale));
     line-height: 1;
 
-    & > span {
+    & .list-item__left {
+      display: flex;
+      flex-direction: column;
+      gap: max(0.1875vh, 0.125rem);
+
+      & .list-item__value {
+        font-size: calc(max(2.025vh, 1.35rem) * var(--core-scale));
+        font-weight: 600;
+      }
+    }
+
+    & .list-item__date {
       font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
-      color: var(--core-text-color);
-      font-style: normal;
-      line-height: 1.2;
+      font-weight: 500;
     }
 
     transition-property: padding;
