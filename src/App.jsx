@@ -171,14 +171,13 @@ export default function App() {
               onClick={() => _settings.useVibration(8, () => setIsAddOpen(true))}
             />
 
-            <BottomModal
+            <Modal
               className={mc("add")}
               open={isAddOpen}
               onClose={() => setIsAddOpen(false)}
               title="Add"
-              variant="mobile-bottom"
+              variant="mobile-full"
               onTransitionEnd={handleModalTransitionEnd}
-              id="dialogModalAdd"
             >
               <form
                 className={mc("add__form")}
@@ -203,7 +202,7 @@ export default function App() {
 
                 <Button className={mc("add__submit")}>Save</Button>
               </form>
-            </BottomModal>
+            </Modal>
 
             <Modal
               className={mc("settings")}
