@@ -76,7 +76,7 @@ export default function App() {
     form.name.value = name;
     form.value.value = value;
     targetId.current = id;
-    selectedDate(date);
+    setSelectedDate(date);
 
     setIsAddOpen(true);
   };
