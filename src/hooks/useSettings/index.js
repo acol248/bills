@@ -7,7 +7,7 @@ export default function useSettings() {
   const initialised = useRef(false);
   const _storage = localStorage.getItem("settings");
 
-  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : {});
+  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true });
 
   /**
    * Handle toggle theme between light and dark
