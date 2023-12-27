@@ -7,5 +7,10 @@ const mc = mapClassesCurried(maps, true);
 export default function MenuItem({ className, variant, label, content }) {
   const classList = useClassList({ defaultClass: "menu-item", className, variant, maps, string: true });
 
-  return <div className={classList}></div>;
+  return (
+    <div className={classList}>
+      {label && <h3 className={mc('menu-item__label')}>{label}</h3>}
+      {content && <p className={mc('menu-item__content')}>{content}</p>}
+    </div>
+  );
 }
