@@ -1,5 +1,6 @@
 .bottom-modal {
-  position: relative;
+  position: fixed;
+  inset: 0;
   height: 100dvh;
   width: 100dvw;
   background-color: transparent;
@@ -7,6 +8,7 @@
   padding: 0;
   max-width: unset;
   max-height: unset;
+  overflow: hidden;
 
   &::backdrop {
     position: fixed;
@@ -40,10 +42,14 @@
   }
 
   &[open] {
-    animation: show 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    & .bottom-modal__inner {
+      animation: show 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
 
     &.bottom-modal--closing {
-      animation: hide 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      & .bottom-modal__inner {
+        animation: hide 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
     }
   }
 }
@@ -51,21 +57,21 @@
 @keyframes show {
   from {
     opacity: 0;
-    transform: translateY(min(100px, 5vh));
+    transform: translateY(max(6vh, 4rem))
   }
   to {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateY(0%)
   }
 }
 
 @keyframes hide {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateY(0%)
   }
   to {
     opacity: 0;
-    transform: translateY(min(100px, 5vh));
+    transform: translateY(max(6vh, 4rem))
   }
 }
