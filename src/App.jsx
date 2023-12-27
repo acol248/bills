@@ -16,11 +16,11 @@ import ThemeToggle from "./components/ThemeToggle";
 import ScaleSelect from "./components/ScaleSelect";
 import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
+import MenuItem from "./components/MenuItem/MenuItem";
 
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
-import BottomModal from "./components/BottomModal/BottomModal";
 const mc = mapClassesCurried(maps, true);
 
 export default function App() {
@@ -233,6 +233,8 @@ export default function App() {
 
               <div className={mc("settings__section")}>
                 <h3>About</h3>
+
+                <MenuItem label="App Version" content={__APP_VERSION__} />
               </div>
             </Modal>
           </BillsContext.Provider>
