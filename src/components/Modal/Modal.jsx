@@ -60,9 +60,10 @@ export default function Modal({ className, variant, title, open, onClose, childr
       onCancel={onCancel}
       onClick={onClick}
       onAnimationEnd={onAnimEnd}
+      tabIndex={0}
       ref={modalRef}
     >
-      <div className={mc("modal__header")} tabIndex={0}>
+      <div className={mc("modal__header")}>
         <h2 className={mc("modal__title")}>{title}</h2>
 
         <button className={mc("modal__close")} onClick={() => useVibration(8, () => onClose())}>
