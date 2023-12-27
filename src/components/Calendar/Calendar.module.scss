@@ -1,5 +1,22 @@
 .calendar {
   text-align: left;
+  padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
+  margin: 0.25rem 0;
+  border-radius: 6px;
+  font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+  border: 2px solid var(--core-text-color);
+  color: color-mix(in srgb, var(--core-text-inverted), var(--core-text-color) 40%);
+  font-weight: 400;
+  line-height: 1.1;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-main);
+    outline-offset: -3px;
+  }
+
+  &.calendar--value {
+    color: var(--core-text-inverted);
+  }
 }
 
 .calendar-menu {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useLayer } from "react-laag";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import { Calendar as AriaCalendar, Button, Heading, CalendarCell, CalendarGrid } from "react-aria-components";
@@ -16,14 +16,17 @@ export default function Calendar({ className, selectedDate, onChange }) {
     isOpen,
     onOutsideClick: () => setIsOpen(false),
     onDisappear: () => setIsOpen(false),
-    placement: "top-center",
+    auto: true,
     overflowContainer: true,
     triggerOffset: 5,
     containerOffset: 10,
     container: () => buttonRef.current.parentElement,
   });
 
-  const buttonClassList = useClassList({ defaultClass: "calendar", className, maps, string: true });
+  const buttonClassList = useClassList(
+    { defaultClass: "calendar", className, maps, string: true },
+    useCallback(c => selectedDate && c.push("calendar--value"), [selectedDate])
+  );
   const menuClassList = useClassList({ defaultClass: "calendar-menu", maps, string: true });
 
   return (
