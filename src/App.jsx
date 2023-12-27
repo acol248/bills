@@ -183,6 +183,7 @@ export default function App() {
               <form
                 className={mc("add__form")}
                 onSubmit={e => _settings.useVibration(8, () => handleAdd(e))}
+                autoComplete="off"
                 ref={formRef}
               >
                 <Input name="name" placeholder="Item name">
