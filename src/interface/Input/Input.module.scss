@@ -15,10 +15,16 @@
     padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
     border-radius: 6px;
     font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+    font-weight: 400;
     border: 2px solid var(--core-text-color);
 
     &:focus-visible {
       outline: 2px solid var(--color-primary-main);
+      outline-offset: -3px;
+    }
+
+    &:user-invalid {
+      outline: 2px solid var(--color-error-main);
       outline-offset: -3px;
     }
   }
