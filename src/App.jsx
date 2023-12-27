@@ -52,9 +52,14 @@ export default function App() {
     if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
 
     if (targetId.current) {
-      _bills.updateBill({ ...formData, date: selectedDate, id: targetId.current });
+      _bills.updateBill({
+        name: formData.name,
+        value: parseFloat(formData.value),
+        date: selectedDate,
+        id: targetId.current,
+      });
     } else {
-      _bills.addBill({ ...formData, date: selectedDate });
+      _bills.addBill({ name: formData.name, value: parseFloat(formData.value), date: selectedDate });
     }
 
     setIsAddOpen(false);
@@ -183,7 +188,7 @@ export default function App() {
                 <Input name="name" placeholder="Item name">
                   Name
                 </Input>
-                <Input name="value" type="number" placeholder="Item value" step=".01">
+                <Input name="value" pattern="^-?[\d,]+(?:\.\d{2})?$" placeholder="Item value">
                   Value
                 </Input>
 
