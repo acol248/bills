@@ -18,9 +18,18 @@ export default function ListItem({ className, variant, open, onToggle, name, val
    * @returns {string} current day with appropriate suffix
    */
   const appendSuffix = day => {
-    return `${day}${day % 100 >= 11 && day % 100 <= 13 ? "th" : ["st", "nd", "rd", "th"][(day % 10) - 1]}`;
+    if (day >= 11 && day <= 13) return day + "th";
+
+    const suffixes = ["th", "st", "nd", "rd"];
+
+    return day + (suffixes[day % 10] || "th");
   };
 
+  /**
+   * Passthrough the toggle click event
+   *
+   * @param {Event} e
+   */
   const handleToggle = e => {
     e.preventDefault();
 
@@ -37,7 +46,7 @@ export default function ListItem({ className, variant, open, onToggle, name, val
           {name}
         </div>
 
-        <h6 className={mc("list-item__date")}>{date ? appendSuffix(new Date(date)?.getDay()) : "--"}</h6>
+        <h6 className={mc("list-item__date")}>{date ? appendSuffix(new Date(date)?.getDate()) : "--"}</h6>
       </summary>
 
       <div className={mc("list-item__body")}>{children}</div>
