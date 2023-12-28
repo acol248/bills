@@ -7,7 +7,7 @@ export default function useSettings() {
   const initialised = useRef(false);
   const _storage = localStorage.getItem("settings");
 
-  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true });
+  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: "true" });
 
   /**
    * Handle toggle theme between light and dark
@@ -21,7 +21,7 @@ export default function useSettings() {
    */
   const toggleSystemTheme = useCallback(() => {
     const getSysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setSettings(s => ({ ...s, theme: getSysTheme ? "dark" : "light", sysTheme: s.sysTheme ? false : true }));
+    setSettings(s => ({ ...s, theme: getSysTheme ? "dark" : "light", sysTheme: s.sysTheme ? "false" : "true" }));
   }, []);
 
   /**
@@ -45,13 +45,16 @@ export default function useSettings() {
   /**
    * Use system vibration
    */
-  const useVibration = useCallback((time = 10, callback = () => {}) => {
-    if (settings.vibration !== "true") return callback && callback();
+  const useVibration = useCallback(
+    (time = 10, callback = () => {}) => {
+      if (settings.vibration !== "true") return callback();
 
-    navigator.vibrate(time);
+      navigator.vibrate(time);
 
-    return callback && callback();
-  }, []);
+      return callback();
+    },
+    [settings]
+  );
 
   // update localstorage
   useEffect(() => {
