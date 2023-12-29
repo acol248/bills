@@ -5,15 +5,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: max(1.5vh, 1rem);
-    height: calc(42px * var(--core-scale));
+    padding: max(1.125vh, 0.75rem);
+    height: calc(40px * var(--core-scale));
+    background-color: var(--core-content-background-100);
 
     & .app__total {
       margin: 0;
       padding: 0 0 0 max(0.375vh, 0.25rem);
-      font-size: calc(max(3.375vh, 2.25rem) * var(--core-scale));
+      font-size: calc(max(3vh, 2rem) * var(--core-scale));
       font-weight: 700;
-      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 35%);
+      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 35%);
       line-height: 1;
       max-width: calc(100vw - max(3vh, 2rem) - calc(max(2.625vh, 1.75rem) * var(--core-scale)));
       text-overflow: ellipsis;
@@ -48,18 +49,18 @@
 
         & .app__bill-button {
           border: 0;
-          background-color: var(--core-content-background-500);
+          background-color: var(--core-content-background-600);
           color: var(--core-text-color);
           padding: max(0.9vh, 0.6rem) max(1.5vh, 1rem);
           border-radius: 12px;
           cursor: pointer;
 
           &:hover {
-            background-color: color-mix(in srgb, var(--core-content-background-500), var(--color-common-black) 8%);
+            background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 8%);
           }
 
           &:active {
-            background-color: color-mix(in srgb, var(--core-content-background-500), var(--color-common-black) 16%);
+            background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 16%);
           }
         }
       }

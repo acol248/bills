@@ -5,7 +5,7 @@ interface ITheme {
 const theme = {
   color: {
     common: {
-      black: "#242424",
+      black: "#202020",
       white: "#fbf7f5",
       grey: "#808080",
     },
@@ -19,6 +19,7 @@ const theme = {
       700: "#757575",
       800: "#616161",
       900: "#424242",
+      1000: "#282828",
     },
     primary: {
       light: "#85aca2",
@@ -60,6 +61,7 @@ const elementsLight = {
         300: theme.color.grey[400],
         400: theme.color.grey[500],
         500: theme.color.grey[600],
+        600: theme.color.grey[700],
       },
     },
   },
@@ -74,10 +76,11 @@ const elementsDark = {
     content: {
       background: {
         100: theme.color.common.black,
-        200: theme.color.grey[900],
-        300: theme.color.grey[800],
-        400: theme.color.grey[700],
-        500: theme.color.grey[600],
+        200: theme.color.grey[1000],
+        300: theme.color.grey[900],
+        400: theme.color.grey[800],
+        500: theme.color.grey[700],
+        600: theme.color.grey[600],
       },
     },
   },

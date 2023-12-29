@@ -15,8 +15,8 @@
     border: 0;
     margin: 0;
     padding: 0;
-    background-color: var(--core-content-background-200);
-    color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 25%);
+    background-color: var(--core-content-background-300);
+    color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-300) 25%);
 
     & > svg {
       fill: currentColor;
@@ -27,7 +27,7 @@
     }
 
     &:nth-of-type(1) {
-      border-right: 1px solid var(--core-content-background-300);
+      border-right: 1px solid var(--core-content-background-400);
 
       & > svg {
         width: 1.5rem;
@@ -36,7 +36,7 @@
     }
 
     &:nth-of-type(2) {
-      border-right: 1px solid var(--core-content-background-300);
+      border-right: 1px solid var(--core-content-background-400);
 
       & > svg {
         width: 1.75rem;
@@ -52,18 +52,18 @@
     }
 
     &:hover {
-      background-color: color-mix(in srgb, var(--core-content-background-200), var(--core-text-color) 5%);
+      background-color: color-mix(in srgb, var(--core-content-background-300), var(--core-text-color) 5%);
     }
 
     &:active {
-      background-color: color-mix(in srgb, var(--core-content-background-200), var(--core-text-color) 10%);
+      background-color: color-mix(in srgb, var(--core-content-background-300), var(--core-text-color) 10%);
     }
   }
 
   &.scale-select--small {
     & .scale-select__button {
       &:nth-of-type(1) {
-        background-color: color-mix(in srgb, var(--core-content-background-200), var(--color-primary-main) 50%);
+        background-color: color-mix(in srgb, var(--core-content-background-300), var(--color-primary-main) 50%);
       }
     }
   }
@@ -71,7 +71,7 @@
   &.scale-select--medium {
     & .scale-select__button {
       &:nth-of-type(2) {
-        background-color: color-mix(in srgb, var(--core-content-background-200), var(--color-primary-main) 50%);
+        background-color: color-mix(in srgb, var(--core-content-background-300), var(--color-primary-main) 50%);
       }
     }
   }
@@ -79,7 +79,7 @@
   &.scale-select--large {
     & .scale-select__button {
       &:nth-of-type(3) {
-        background-color: color-mix(in srgb, var(--core-content-background-200), var(--color-primary-main) 50%);
+        background-color: color-mix(in srgb, var(--core-content-background-300), var(--color-primary-main) 50%);
       }
     }
   }

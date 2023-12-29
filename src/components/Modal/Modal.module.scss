@@ -3,7 +3,7 @@
   box-shadow:
     0 3px 6px rgba(0, 0, 0, 0.16),
     0 3px 6px rgba(0, 0, 0, 0.23);
-  background-color: var(--core-content-background-100);
+  background-color: var(--core-content-background-200);
   border-radius: 2px;
   border-width: 0;
   padding: 0;
@@ -14,15 +14,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - max(3.375vh, 2.25rem));
-    height: 52px;
-    padding: max(0.75vh, 0.5rem) max(1.125vh, 0.75rem) max(0.75vh, 0.5rem) max(1.5vh, 1rem);
+    width: calc(100% - max(2.8125vh, 1.875rem));
+    height: 48px;
+    padding: max(0.75vh, 0.5rem) max(1.5vh, 0.875rem) max(0.75vh, 0.5rem) max(1.5vh, 1rem);
 
     & .modal__title {
       font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
       color: var(--core-text-color);
       margin: 0;
-      font-weight: 600;
+      font-weight: 300;
     }
 
     & .modal__close {
@@ -88,6 +88,8 @@
     }
 
     & .modal__header {
+      background-color: var(--core-content-background-100);
+
       & .modal__title {
         font-size: calc(max(2.25vh, 1.5rem) * var(--core-scale));
       }
