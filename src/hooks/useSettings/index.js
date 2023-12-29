@@ -5,9 +5,13 @@ import { decodeBase64, encodeBase64 } from "../../helpers/encodeBase64";
 
 export default function useSettings() {
   const initialised = useRef(false);
+  const _initSysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
   const _storage = localStorage.getItem("settings");
 
-  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true });
+  const [settings, setSettings] = useState(
+    _storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true, theme: _initSysTheme ? "dark" : "light" }
+  );
 
   /**
    * Handle toggle theme between light and dark
@@ -65,6 +69,10 @@ export default function useSettings() {
   // update localstorage
   useEffect(() => {
     if (!initialised.current) {
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", _initSysTheme ? "#242424" : "#fbf7f5");
+
       initialised.current = true;
 
       return;
