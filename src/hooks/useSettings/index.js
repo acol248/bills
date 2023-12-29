@@ -65,7 +65,16 @@ export default function useSettings() {
     if (!initialised.current) {
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", _initSysTheme ? "#202020" : "#fbf7f5");
+        ?.setAttribute(
+          "content",
+          settings.sysTheme
+            ? _initSysTheme
+              ? "#202020"
+              : "#fbf7f5"
+            : settings.theme === "dark"
+              ? "#202020"
+              : "#fbf7f5"
+        );
 
       initialised.current = true;
 
