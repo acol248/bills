@@ -5,8 +5,8 @@ interface ITheme {
 const theme = {
   color: {
     common: {
-      black: "#181818",
-      white: "#ffffff",
+      black: "#242424",
+      white: "#fbf7f5",
       grey: "#808080",
     },
     grey: {
@@ -56,10 +56,10 @@ const elementsLight = {
     content: {
       background: {
         100: theme.color.common.white,
-        200: theme.color.grey[200],
-        300: theme.color.grey[300],
-        400: theme.color.grey[400],
-        500: theme.color.grey[500],
+        200: theme.color.grey[300],
+        300: theme.color.grey[400],
+        400: theme.color.grey[500],
+        500: theme.color.grey[600],
       },
     },
   },
