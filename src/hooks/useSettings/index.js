@@ -20,7 +20,7 @@ export default function useSettings() {
     setSettings(s => {
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", target === "dark" ? "#242424" : "#fbf7f5");
+        ?.setAttribute("content", s.theme === "light" ? "#242424" : "#fbf7f5");
 
       return { ...s, theme: s.theme === "light" ? "dark" : "light" };
     });
