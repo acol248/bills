@@ -18,6 +18,9 @@ import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
 import MenuItem from "./components/MenuItem/MenuItem";
 
+// helpers
+import { formatCurrency } from "./helpers/formatCurrency";
+
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
@@ -125,7 +128,7 @@ export default function App() {
         <SettingsContext.Provider value={_settings}>
           <BillsContext.Provider value={_bills}>
             <div className={mc("app__header")}>
-              <h2 className={mc("app__total")}>£{Math.round(_bills.total * 100) / 100}</h2>
+              <h2 className={mc("app__total")}>{formatCurrency(Math.round(_bills.total * 100) / 100)}</h2>
 
               <Button
                 className={mc("app__settings-button")}
@@ -141,7 +144,7 @@ export default function App() {
                   <ListItem
                     className={mc("app__bill-item")}
                     name={name}
-                    value={value}
+                    value={formatCurrency(value)}
                     date={date}
                     open={itemOpen === id}
                     onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}

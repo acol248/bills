@@ -42,7 +42,7 @@ export default function ListItem({ className, variant, open, onToggle, name, val
     <details {...props} className={classList} open={open}>
       <summary onClick={handleToggle}>
         <div className={mc("list-item__left")}>
-          <span className={mc("list-item__value")}>£{value}</span>
+          <span className={mc("list-item__value")}>{value}</span>
           {name}
         </div>
 
