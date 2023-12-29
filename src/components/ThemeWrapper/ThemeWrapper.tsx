@@ -29,7 +29,7 @@ function useTheme(value: string) {
       // update the meta theme color
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", update === "dark" ? "#181818" : "#ffffff");
+        ?.setAttribute("content", update === "dark" ? "#202020" : "#eeeeee");
 
       if (localStorage) setCookie("theme", update, 10000);
 

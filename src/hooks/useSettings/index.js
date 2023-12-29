@@ -17,13 +17,7 @@ export default function useSettings() {
    * Handle toggle theme between light and dark
    */
   const toggleTheme = useCallback(() => {
-    setSettings(s => {
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", s.theme === "light" ? "#242424" : "#fbf7f5");
-
-      return { ...s, theme: s.theme === "light" ? "dark" : "light" };
-    });
+    setSettings(s => ({ ...s, theme: s.theme === "light" ? "dark" : "light" }));
   }, []);
 
   /**
@@ -71,7 +65,7 @@ export default function useSettings() {
     if (!initialised.current) {
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", _initSysTheme ? "#242424" : "#fbf7f5");
+        ?.setAttribute("content", _initSysTheme ? "#202020" : "#eeeeee");
 
       initialised.current = true;
 
