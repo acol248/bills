@@ -88,23 +88,25 @@
   & .add__form {
     display: flex;
     flex-direction: column;
-    gap: max(1.875vh, 1.25rem);
-    margin-bottom: max(1.125vh, 0.75rem);
+    justify-content: space-between;
+    height: calc(100% - max(0.375vh, 0.25rem));
 
-    & .add__label {
+    & .add__inputs {
       display: flex;
       flex-direction: column;
+      gap: max(1.5vh, 1rem);
 
-      & > span {
-        color: var(--core-text-color);
-        font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
-        font-weight: 400;
-        margin-left: 2px;
+      & .add__label {
+        display: flex;
+        flex-direction: column;
+
+        & > span {
+          color: var(--core-text-color);
+          font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
+          font-weight: 400;
+          margin-left: 2px;
+        }
       }
-    }
-
-    & .app__submit {
-      margin-top: max(0.75vh, 0.5rem);
     }
   }
 }

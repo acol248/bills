@@ -188,22 +188,24 @@ export default function App() {
                 autoComplete="off"
                 ref={formRef}
               >
-                <Input name="name" placeholder="Item name">
-                  Name
-                </Input>
-                <Input name="value" pattern="^-?[\d,]+(?:\.\d{2})?$" placeholder="Item value">
-                  Value
-                </Input>
+                <div className={mc("add__inputs")}>
+                  <Input name="name" placeholder="Item name">
+                    Name
+                  </Input>
+                  <Input name="value" pattern="^-?[\d,]+(?:\.\d{2})?$" placeholder="Item value">
+                    Value
+                  </Input>
 
-                <label className={mc("add__label")}>
-                  <span>Select billing date</span>
-                  <Calendar
-                    selectedDate={selectedDate}
-                    onChange={({ year, month, day }) => setSelectedDate(new Date(`${year}/${month}/${day}`))}
-                  />
-                </label>
+                  <label className={mc("add__label")}>
+                    <span>Select billing date</span>
+                    <Calendar
+                      selectedDate={selectedDate}
+                      onChange={({ year, month, day }) => setSelectedDate(new Date(`${year}/${month}/${day}`))}
+                    />
+                  </label>
+                </div>
 
-                <Button className={mc("add__submit")}>Save</Button>
+                <Button>Save</Button>
               </form>
             </Modal>
 
