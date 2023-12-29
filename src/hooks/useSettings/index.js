@@ -7,13 +7,19 @@ export default function useSettings() {
   const initialised = useRef(false);
   const _storage = localStorage.getItem("settings");
 
-  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: "true" });
+  const [settings, setSettings] = useState(_storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true });
 
   /**
    * Handle toggle theme between light and dark
    */
   const toggleTheme = useCallback(() => {
-    setSettings(s => ({ ...s, theme: s.theme === "light" ? "dark" : "light" }));
+    setSettings(s => {
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", target === "dark" ? "#242424" : "#fbf7f5");
+
+      return { ...s, theme: s.theme === "light" ? "dark" : "light" };
+    });
   }, []);
 
   /**
@@ -21,7 +27,7 @@ export default function useSettings() {
    */
   const toggleSystemTheme = useCallback(() => {
     const getSysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setSettings(s => ({ ...s, theme: getSysTheme ? "dark" : "light", sysTheme: s.sysTheme ? "false" : "true" }));
+    setSettings(s => ({ ...s, theme: getSysTheme ? "dark" : "light", sysTheme: s.sysTheme ? false : true }));
   }, []);
 
   /**
@@ -29,7 +35,7 @@ export default function useSettings() {
    */
   const toggleVibration = useCallback(() => {
     setSettings(s => {
-      return { ...s, vibration: s.vibration === "true" ? "false" : "true" };
+      return { ...s, vibration: s.vibration ? false : true };
     });
   }, []);
 
