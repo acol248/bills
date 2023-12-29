@@ -13,7 +13,7 @@ import maps from "./ScaleSelect.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function ScaleSelect({ className }) {
-  const { settings, setScale } = useContext(SettingsContext);
+  const { settings, setScale, useVibration } = useContext(SettingsContext);
 
   const classList = useClassList(
     { defaultClass: "scale-select", className, maps, string: true },
@@ -25,15 +25,15 @@ export default function ScaleSelect({ className }) {
 
   return (
     <div className={classList}>
-      <button className={mc("scale-select__button")} onClick={() => setScale(0.75)}>
+      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(0.75))}>
         <Icon type="text" />
         <span>Small</span>
       </button>
-      <button className={mc("scale-select__button")} onClick={() => setScale(1)}>
+      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(1))}>
         <Icon type="text" />
         <span>Medium</span>
       </button>
-      <button className={mc("scale-select__button")} onClick={() => setScale(1.25)}>
+      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(1.25))}>
         <Icon type="text" />
         <span>Large</span>
       </button>
