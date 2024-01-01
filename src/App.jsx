@@ -17,6 +17,7 @@ import ScaleSelect from "./components/ScaleSelect";
 import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
 import MenuItem from "./components/MenuItem/MenuItem";
+import FloatingMenu from "./components/FloatingMenu/FloatingMenu";
 
 // helpers
 import { formatCurrency } from "./helpers/formatCurrency";
@@ -168,10 +169,8 @@ export default function App() {
                 ))}
             </div>
 
-            <Button
-              className={mc("app__add-button")}
-              icon={<Icon type="add" />}
-              onClick={() => _settings.useVibration(8, () => setIsAddOpen(true))}
+            <FloatingMenu
+              buttons={[{ label: "Add", func: () => _settings.useVibration(8, () => setIsAddOpen(true)) }]}
             />
 
             <Modal
