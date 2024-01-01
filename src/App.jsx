@@ -130,12 +130,12 @@ export default function App() {
             <div className={mc("app__header")}>
               <h2 className={mc("app__total")}>{formatCurrency(Math.round(_bills.total * 100) / 100)}</h2>
 
-              <Button
+              <button
                 className={mc("app__settings-button")}
-                variant="tertiary"
-                icon={<Icon type="settings" />}
                 onClick={() => _settings.useVibration(8, () => setIsSettingsOpen(true))}
-              />
+              >
+                <Icon type="settings" />
+              </button>
             </div>
 
             <div className={mc("app__bill-list")}>

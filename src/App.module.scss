@@ -14,11 +14,27 @@
       padding: 0 0 0 max(0.375vh, 0.25rem);
       font-size: calc(max(3vh, 2rem) * var(--core-scale));
       font-weight: 700;
-      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 35%);
+      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
       line-height: 1;
       max-width: calc(100vw - max(3vh, 2rem) - calc(max(2.625vh, 1.75rem) * var(--core-scale)));
       text-overflow: ellipsis;
       overflow: hidden;
+    }
+
+    & .app__settings-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      border: 0;
+      padding: max(0.1875vh, 0.125rem);
+      margin: 0;
+
+      & > svg {
+        width: calc(max(3vh, 2rem) * var(--core-scale));
+        height: calc(max(3vh, 2rem) * var(--core-scale));
+        fill: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
+      }
     }
   }
 
@@ -49,8 +65,8 @@
 
         & .app__bill-button {
           border: 0;
-          background-color: var(--core-content-background-600);
-          color: var(--core-text-color);
+          background-color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 30%);
+          color: var(--core-text-inverted);
           padding: max(0.9vh, 0.6rem) max(1.5vh, 1rem);
           border-radius: 12px;
           cursor: pointer;
