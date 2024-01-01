@@ -30,7 +30,7 @@
     list-style-type: none;
     user-select: none;
     font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
-    color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 40%);
+    color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 35%);
     font-style: italic;
     height: calc(48px * var(--core-scale));
     line-height: 1;
@@ -41,12 +41,15 @@
       gap: max(0.1875vh, 0.125rem);
 
       & .list-item__value {
+        color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 20%);
         font-size: calc(max(2.025vh, 1.35rem) * var(--core-scale));
         font-weight: 600;
+        font-style: normal;
       }
     }
 
     & .list-item__date {
+      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 20%);
       font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
       font-weight: 500;
       margin: 0;
