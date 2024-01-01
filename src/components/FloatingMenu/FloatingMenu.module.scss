@@ -1,13 +1,24 @@
 .button {
   position: absolute;
-  inset: auto max(1.875vh, 1.25rem) max(1.875vh, 1.25rem) auto;
+  inset: auto max(1.5vh, 1rem) max(1.5vh, 1rem) auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: max(0.375vh, 0.25rem);
+  margin: 0;
+  background-color: var(--color-primary-main);
+  border: 0;
+  border-radius: 12px;
 
   & svg {
     width: calc(max(3vh, 2rem) * var(--core-scale));
     height: calc(max(3vh, 2rem) * var(--core-scale));
+    fill: var(--color-common-white);
   }
 }
 
 .menu {
   padding: max(0.75vh, 0.5rem);
+  background-color: var(--core-content-background-100);
+  border-radius: 4px;
 }
