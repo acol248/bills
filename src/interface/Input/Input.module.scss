@@ -17,6 +17,12 @@
     font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
     font-weight: 400;
     border: 2px solid var(--core-text-color);
+    background-color: var(--core-content-background-100);
+
+    &::placeholder {
+      font-style: italic;
+      color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 65%);
+    }
 
     &:focus-visible {
       outline: 2px solid var(--color-primary-main);
