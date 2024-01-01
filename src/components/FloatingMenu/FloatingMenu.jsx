@@ -1,3 +1,4 @@
+import { useState, useRef, useCallback } from "react";
 import { useLayer } from "react-laag";
 
 // components
@@ -56,7 +57,7 @@ export default function FloatingMenu({ className, buttons }) {
         }}
         onClick={() => setIsOpen(o => !o)}
       >
-        <Icon />
+        <Icon type="add" />
       </button>
 
       {isOpen &&
