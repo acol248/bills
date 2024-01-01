@@ -1,0 +1,14 @@
+.menu-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.35rem 0;
+  margin: 0.35rem 0;
+
+  & .menu-button__content {
+    margin: 0;
+    font-size: calc(max(1.125vh, 0.75rem) * var(--core-scale));
+    font-weight: 400;
+    color: color-mix(in srgb, var(--core-text-color), transparent 40%);
+  }
+}
