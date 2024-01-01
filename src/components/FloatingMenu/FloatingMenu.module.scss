@@ -1,0 +1,13 @@
+.button {
+  position: absolute;
+  inset: auto max(1.875vh, 1.25rem) max(1.875vh, 1.25rem) auto;
+
+  & svg {
+    width: calc(max(3vh, 2rem) * var(--core-scale));
+    height: calc(max(3vh, 2rem) * var(--core-scale));
+  }
+}
+
+.menu {
+  padding: max(0.75vh, 0.5rem);
+}
