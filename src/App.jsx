@@ -16,8 +16,9 @@ import ThemeToggle from "./components/ThemeToggle";
 import ScaleSelect from "./components/ScaleSelect";
 import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
-import MenuItem from "./components/MenuItem/MenuItem";
-import FloatingMenu from "./components/FloatingMenu/FloatingMenu";
+import MenuItem from "./components/MenuItem";
+import FloatingMenu from "./components/FloatingMenu";
+import MenuButton from "./components/MenuButton";
 
 // helpers
 import { formatCurrency } from "./helpers/formatCurrency";
@@ -25,6 +26,8 @@ import { formatCurrency } from "./helpers/formatCurrency";
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
+import Category from "./components/Category/Category";
+import SelectList from "./components/SelectList/SelectList";
 const mc = mapClassesCurried(maps, true);
 
 export default function App() {
@@ -140,37 +143,53 @@ export default function App() {
             </div>
 
             <div className={mc("app__bill-list")}>
-              {Boolean(_bills.bills.length > 0) &&
-                _bills.bills.map(({ id, name, value, date }) => (
-                  <ListItem
-                    className={mc("app__bill-item")}
-                    name={name}
-                    value={formatCurrency(value)}
-                    date={date}
-                    open={itemOpen === id}
-                    onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}
-                    key={id + name}
-                  >
-                    <div className={mc("app__bill-options")}>
-                      <Button
-                        className={mc("app__bill-button")}
-                        onClick={() => _settings.useVibration(8, () => handleOpenEdit(id))}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        className={mc("app__bill-button")}
-                        onClick={() => _settings.useVibration(8, () => _bills.removeBill(id))}
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  </ListItem>
+              {Boolean(_bills.bills) &&
+                Object.keys(_bills.bills).map(k => (
+                  <Category name={k} key={k}>
+                    {Boolean(_bills.bills[k].length > 0) &&
+                      _bills.bills[k].map(({ id, name, value, date }) => (
+                        <ListItem
+                          className={mc("app__bill-item")}
+                          name={name}
+                          value={formatCurrency(value)}
+                          date={date}
+                          open={itemOpen === id}
+                          onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}
+                          key={id + name}
+                        >
+                          <div className={mc("app__bill-options")}>
+                            <Button
+                              className={mc("app__bill-button")}
+                              onClick={() => _settings.useVibration(8, () => handleOpenEdit(id))}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              className={mc("app__bill-button")}
+                              onClick={() => _settings.useVibration(8, () => _bills.removeBill(id))}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </ListItem>
+                      ))}
+                  </Category>
                 ))}
             </div>
 
             <FloatingMenu
-              buttons={[{ label: "Add", func: () => _settings.useVibration(8, () => setIsAddOpen(true)) }]}
+              buttons={[
+                {
+                  label: "Add Item",
+                  icon: <Icon type="item-add" />,
+                  func: () => _settings.useVibration(8, () => setIsAddOpen(true)),
+                },
+                {
+                  label: "Add Category",
+                  icon: <Icon type="category-add" />,
+                  func: () => _settings.useVibration(8, () => setIsAddOpen(true)),
+                },
+              ]}
             />
 
             <Modal
@@ -194,6 +213,10 @@ export default function App() {
                   <Input name="value" pattern="^-?[\d,]+(?:\.\d{2})?$" placeholder="Item value">
                     Value
                   </Input>
+
+                  {/* <MenuButton>Select Date</MenuButton> */}
+
+                  <SelectList list={Object.keys(_bills.bills)} onSelect={() => } />
 
                   <label className={mc("add__label")}>
                     <span>Select billing date</span>
