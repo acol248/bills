@@ -26,7 +26,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: max(0.6vh, 0.4rem) max(1.2vh, 0.8rem);
+    padding: max(0.6vh, 0.4rem);
     list-style-type: none;
     user-select: none;
     font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
@@ -77,15 +77,14 @@
     background-color: var(--core-content-background-300);
     box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.05);
     max-height: calc(max(15vh, 10rem) * var(--core-scale));
-    margin: max(1.2vh, 0.75rem) max(1.5vh, 1rem);
 
     & > summary {
       height: calc(54px * var(--core-scale));
-      padding: max(1.125vh, 0.75rem) max(1.875vh, 1.25rem);
+      padding: max(0.75vh, 0.5rem) max(1.125vh, 0.75rem);
     }
 
     & > .list-item__body {
-      animation: 250ms ease-in-out;
+      animation: 300ms ease-in-out;
 
       animation-duration: 200ms;
       animation-name: open;
