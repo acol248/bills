@@ -10,11 +10,7 @@ export default function Icon({ type, ...props }) {
           </svg>
         );
       default:
-        return (
-          <svg {...props} viewBox="0 -960 960 960">
-            <path d="M560-320v-1040H160v-240h1040v240H800v1040H560Zm720 0v-640h-240v-240h720v240h-240v640h-240Z" />
-          </svg>
-        );
+        return null;
     }
   }, [props, type]);
 
