@@ -8,15 +8,20 @@ export default function useBills() {
   const initialised = useRef(false);
   const _storageList = localStorage.getItem("bills");
 
-  const [bills, setBills] = useState(_storageList ? decodeBase64(_storageList) : []);
+  const [bills, setBills] = useState(_storageList ? decodeBase64(_storageList) : { default: [] });
 
   /**
    * Add new bill to list
    *
    * @param {object} payload name and value of bill
    */
-  const addBill = payload => {
-    setBills(b => [...b, { id: generateUniqueId(16), ...payload }]);
+  const addBill = (payload, category = "default") => {
+    setBills(b => ({
+      ...b,
+      ...(b[category]
+        ? { [category]: [...b[category], { id: generateUniqueId(16), ...payload }] }
+        : { [category]: [{ id: generateUniqueId(16), ...payload }] }),
+    }));
   };
 
   /**
@@ -25,7 +30,11 @@ export default function useBills() {
    * @param {string} target id of target item
    */
   const removeBill = target => {
-    setBills(b => b.filter(({ id }) => id !== target));
+    setBills(b => {
+      for (const key in b) if (Array.isArray(b[key])) b[key] = b[key].filter(item => item.id !== target);
+
+      return b;
+    });
   };
 
   /**
@@ -51,7 +60,10 @@ export default function useBills() {
   return useMemo(
     () => ({
       bills,
-      total: bills.reduce((total, { value }) => (total += parseFloat(value)), 0),
+      total:
+        Object.keys(bills).reduce((t, k) => {
+          t += bills[k].reduce((it, itm) => (it += itm.value), 0) || 0;
+        }, 0) || 0,
       addBill,
       removeBill,
       updateBill,
