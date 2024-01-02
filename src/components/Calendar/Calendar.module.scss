@@ -1,24 +1,31 @@
 .calendar {
   text-align: left;
-  padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
-  margin: 0.25rem 0;
-  border-radius: 6px;
+  padding: max(0.75vh, 0.5rem) max(1.5vh, 1rem);
+  margin: max(0.375vh, 0.25rem) 0;
+  border: 0;
+  border-radius: calc(max(3vh, 32px) * var(--core-scale));
   font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
-  border: 2px solid var(--core-text-color);
   font-style: italic;
-  color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 65%);
   font-weight: 400;
   line-height: 1.1;
-  background-color: var(--core-content-background-100);
+  background-color: var(--color-primary-main);
+  color: var(--core-text-color);
 
   &:focus-visible {
     outline: 2px solid var(--color-primary-main);
     outline-offset: -3px;
   }
 
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 10%);
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
+  }
+
   &.calendar--value {
     font-style: normal;
-    color: var(--color-common-black);
   }
 }
 
