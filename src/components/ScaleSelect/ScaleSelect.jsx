@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 
 // hooks
@@ -23,20 +23,40 @@ export default function ScaleSelect({ className }) {
     )
   );
 
+  /**
+   * Increase scale by 0.1, up to 1.3
+   */
+  const handleIncreaseScale = () => setScale(settings.scale < 1.3 ? settings.scale + 0.1 : 1.3);
+
+  /**
+   * Reduce scale by 0.1, up to 0.7
+   */
+  const handleReduceScale = () => setScale(settings.scale > 0.7 ? settings.scale - 0.1 : 0.7);
+
   return (
     <div className={classList}>
-      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(0.75))}>
-        <Icon type="text" />
-        <span>Small</span>
-      </button>
-      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(1))}>
-        <Icon type="text" />
-        <span>Medium</span>
-      </button>
-      <button className={mc("scale-select__button")} onClick={() => useVibration(8, () => setScale(1.25))}>
-        <Icon type="text" />
-        <span>Large</span>
-      </button>
+      <span>Display Scale</span>
+
+      <div className={mc("scale-select__scaler")}>
+        <button className={mc("scale-select__button")} aria-label="Reduce display scale" onClick={handleReduceScale}>
+          <Icon type="minus" />
+        </button>
+        <input
+          type="range"
+          onChange={({ target }) => useVibration(() => setScale(parseFloat(target.value)))}
+          step="0.1"
+          min="0.7"
+          max="1.3"
+          value={settings.scale}
+        />
+        <button
+          className={mc("scale-select__button")}
+          aria-label="Increase display scale"
+          onClick={handleIncreaseScale}
+        >
+          <Icon type="plus" />
+        </button>
+      </div>
     </div>
   );
 }
