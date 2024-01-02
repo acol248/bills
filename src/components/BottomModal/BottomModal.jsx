@@ -31,7 +31,7 @@ export default function BottomModal({ className, variant, title, open, onClose, 
   const onClick = useCallback(
     ({ target }) => {
       const { current: el } = modalRef;
-      if (target === el && !locked) useVibration(8, () => onClose());
+      if (target === el && !locked) useVibration(() => onClose());
     },
     [locked, onClose]
   );

@@ -166,7 +166,7 @@ export default function App() {
 
               <button
                 className={mc("app__settings-button")}
-                onClick={() => _settings.useVibration(8, () => setIsSettingsOpen(true))}
+                onClick={() => _settings.useVibration(() => setIsSettingsOpen(true))}
               >
                 <Icon type="settings" />
               </button>
@@ -189,19 +189,19 @@ export default function App() {
                           value={formatCurrency(value)}
                           date={date}
                           open={itemOpen === id}
-                          onToggle={() => _settings.useVibration(8, () => handleOpenItem(id))}
+                          onToggle={() => _settings.useVibration(() => handleOpenItem(id))}
                           key={id + name}
                         >
                           <div className={mc("app__bill-options")}>
                             <Button
                               className={mc("app__bill-button")}
-                              onClick={() => _settings.useVibration(8, () => handleOpenEdit(id))}
+                              onClick={() => _settings.useVibration(() => handleOpenEdit(id))}
                             >
                               Edit
                             </Button>
                             <Button
                               className={mc("app__bill-button")}
-                              onClick={() => _settings.useVibration(8, () => _bills.removeBill(id))}
+                              onClick={() => _settings.useVibration(() => _bills.removeBill(id))}
                             >
                               Delete
                             </Button>
@@ -220,12 +220,12 @@ export default function App() {
                 {
                   label: "Add Item",
                   icon: <Icon type="item-add" />,
-                  func: () => _settings.useVibration(8, () => setIsAddItemOpen(true)),
+                  func: () => _settings.useVibration(() => setIsAddItemOpen(true)),
                 },
                 {
                   label: "Add Category",
                   icon: <Icon type="category-add" />,
-                  func: () => _settings.useVibration(8, () => setIsAddCategoryOpen(true)),
+                  func: () => _settings.useVibration(() => setIsAddCategoryOpen(true)),
                 },
               ]}
             />
@@ -240,7 +240,7 @@ export default function App() {
             >
               <form
                 className={mc("add__form")}
-                onSubmit={e => _settings.useVibration(8, () => handleAddItem(e))}
+                onSubmit={e => _settings.useVibration(() => handleAddItem(e))}
                 autoComplete="off"
                 ref={itemFormRef}
               >
@@ -282,7 +282,7 @@ export default function App() {
             >
               <form
                 className={mc("add__form")}
-                onSubmit={e => _settings.useVibration(8, () => handleAddCategory(e))}
+                onSubmit={e => _settings.useVibration(() => handleAddCategory(e))}
                 autoComplete="off"
                 ref={categoryFormRef}
               >
