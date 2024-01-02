@@ -35,14 +35,17 @@ export default function App() {
   const _bills = useBills();
 
   const targetId = useRef(null);
-  const formRef = useRef(null);
+  const itemFormRef = useRef(null);
+  const categoryFormRef = useRef(null);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isAddItemOpen, setIsAddItemOpen] = useState(false);
+  const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedList, setSelectedList] = useState(null);
 
   const classList = useClassList({ defaultClass: "app", maps, string: true });
 
@@ -51,12 +54,14 @@ export default function App() {
    *
    * @param {Event} e FormEvent object
    */
-  const handleAdd = e => {
+  const handleAddItem = e => {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(e.target).entries());
 
     if (Object.keys(formData).reduce((bool, key) => (formData[key].length && !bool ? false : true), false)) return;
+
+    if (!selectedList) return;
 
     if (targetId.current) {
       _bills.updateBill({
@@ -66,10 +71,25 @@ export default function App() {
         id: targetId.current,
       });
     } else {
-      _bills.addBill({ name: formData.name, value: parseFloat(formData.value), date: selectedDate });
+      _bills.addBill({ name: formData.name, value: parseFloat(formData.value), date: selectedDate }, selectedList);
     }
 
-    setIsAddOpen(false);
+    setIsAddItemOpen(false);
+  };
+
+  /**
+   * Handle add form completion
+   *
+   * @param {Event} e FormEvent object
+   */
+  const handleAddCategory = e => {
+    e.preventDefault();
+
+    const { name } = Object.fromEntries(new FormData(e.target).entries());
+
+    _bills.addList(name);
+
+    setIsAddCategoryOpen(false);
   };
 
   /**
@@ -90,7 +110,7 @@ export default function App() {
     targetId.current = id;
     setSelectedDate(date);
 
-    setIsAddOpen(true);
+    setIsAddItemOpen(true);
   };
 
   /**
@@ -118,12 +138,22 @@ export default function App() {
   /**
    * Reset form on close
    */
-  const handleModalTransitionEnd = () => {
-    if (isAddOpen) return;
+  const handleCategoryModalTransitionEnd = () => {
+    if (isAddCategoryOpen) return;
 
-    formRef.current.reset();
+    categoryFormRef.current.reset();
+  };
+
+  /**
+   * Reset form on close
+   */
+  const handleItemModalTransitionEnd = () => {
+    if (isAddItemOpen) return;
+
+    itemFormRef.current.reset();
     targetId.current = null;
     setSelectedDate(null);
+    setSelectedList(null);
   };
 
   return (
@@ -145,8 +175,13 @@ export default function App() {
             <div className={mc("app__bill-list")}>
               {Boolean(_bills.bills) &&
                 Object.keys(_bills.bills).map(k => (
-                  <Category name={k} key={k}>
-                    {Boolean(_bills.bills[k].length > 0) &&
+                  <Category
+                    className={mc("app__bill-category")}
+                    name={k}
+                    total={formatCurrency(_bills.bills[k].reduce((t, i) => (t += i.value), 0))}
+                    key={k}
+                  >
+                    {Boolean(_bills.bills[k].length > 0) ? (
                       _bills.bills[k].map(({ id, name, value, date }) => (
                         <ListItem
                           className={mc("app__bill-item")}
@@ -172,7 +207,10 @@ export default function App() {
                             </Button>
                           </div>
                         </ListItem>
-                      ))}
+                      ))
+                    ) : (
+                      <p className={mc("app__category-empty")}>Empty</p>
+                    )}
                   </Category>
                 ))}
             </div>
@@ -182,29 +220,29 @@ export default function App() {
                 {
                   label: "Add Item",
                   icon: <Icon type="item-add" />,
-                  func: () => _settings.useVibration(8, () => setIsAddOpen(true)),
+                  func: () => _settings.useVibration(8, () => setIsAddItemOpen(true)),
                 },
                 {
                   label: "Add Category",
                   icon: <Icon type="category-add" />,
-                  func: () => _settings.useVibration(8, () => setIsAddOpen(true)),
+                  func: () => _settings.useVibration(8, () => setIsAddCategoryOpen(true)),
                 },
               ]}
             />
 
             <Modal
               className={mc("add")}
-              open={isAddOpen}
-              onClose={() => setIsAddOpen(false)}
-              title="Add"
+              open={isAddItemOpen}
+              onClose={() => setIsAddItemOpen(false)}
+              title="Add Item"
               variant="mobile-full"
-              onTransitionEnd={handleModalTransitionEnd}
+              onTransitionEnd={handleItemModalTransitionEnd}
             >
               <form
                 className={mc("add__form")}
-                onSubmit={e => _settings.useVibration(8, () => handleAdd(e))}
+                onSubmit={e => _settings.useVibration(8, () => handleAddItem(e))}
                 autoComplete="off"
-                ref={formRef}
+                ref={itemFormRef}
               >
                 <div className={mc("add__inputs")}>
                   <Input name="name" placeholder="Item name">
@@ -214,10 +252,6 @@ export default function App() {
                     Value
                   </Input>
 
-                  {/* <MenuButton>Select Date</MenuButton> */}
-
-                  <SelectList list={Object.keys(_bills.bills)} onSelect={() => } />
-
                   <label className={mc("add__label")}>
                     <span>Select billing date</span>
                     <Calendar
@@ -225,6 +259,37 @@ export default function App() {
                       onChange={({ year, month, day }) => setSelectedDate(new Date(`${year}/${month}/${day}`))}
                     />
                   </label>
+
+                  <label className={mc("add__label")}>
+                    <span>Select category</span>
+                    <SelectList list={Object.keys(_bills.bills)} selectedList={selectedList} onSelect={setSelectedList}>
+                      No category selected
+                    </SelectList>
+                  </label>
+                </div>
+
+                <Button>Save</Button>
+              </form>
+            </Modal>
+
+            <Modal
+              className={mc("add")}
+              open={isAddCategoryOpen}
+              onClose={() => setIsAddCategoryOpen(false)}
+              title="Add Category"
+              variant="mobile-full"
+              onTransitionEnd={handleCategoryModalTransitionEnd}
+            >
+              <form
+                className={mc("add__form")}
+                onSubmit={e => _settings.useVibration(8, () => handleAddCategory(e))}
+                autoComplete="off"
+                ref={categoryFormRef}
+              >
+                <div className={mc("add__inputs")}>
+                  <Input name="name" placeholder="Category name">
+                    Name
+                  </Input>
                 </div>
 
                 <Button>Save</Button>

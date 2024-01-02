@@ -55,34 +55,44 @@
     height: calc(100% - 4.625rem);
     overflow-y: auto;
 
-    & .app__bill-item {
-      & .app__bill-options {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: max(1.5vh, 1rem);
-        padding: 0 max(1.5vh, 1rem) max(1.875vh, 1.25rem);
+    & .app__bill-category {
+      & .app__bill-item {
+        & .app__bill-options {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: max(1.5vh, 1rem);
+          padding: 0 max(1.5vh, 1rem) max(1.875vh, 1.25rem);
 
-        & .app__bill-button {
-          border: 0;
-          background-color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 30%);
-          color: var(--core-text-inverted);
-          padding: max(0.9vh, 0.6rem) max(1.5vh, 1rem);
-          border-radius: 12px;
-          cursor: pointer;
+          & .app__bill-button {
+            border: 0;
+            background-color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 30%);
+            color: var(--core-text-inverted);
+            padding: max(0.9vh, 0.6rem) max(1.5vh, 1rem);
+            border-radius: 12px;
+            cursor: pointer;
 
-          &:hover {
-            background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 8%);
-          }
+            &:hover {
+              background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 8%);
+            }
 
-          &:active {
-            background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 16%);
+            &:active {
+              background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-black) 16%);
+            }
           }
         }
       }
 
+      & .app__category-empty {
+        text-align: center;
+        margin: max(0.375vh, 0.25rem) 0 0;
+        color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 20%);
+        font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+        font-style: italic;
+      }
+
       &:last-of-type {
-        margin-bottom: calc(max(9vh, 6rem) * var(--core-scale));
+        margin-bottom: calc(max(7.5vh, 5rem) * var(--core-scale));
       }
     }
   }
@@ -115,6 +125,8 @@
 
       & .add__label {
         display: flex;
+        align-items: flex-start;
+        justify-content: center;
         flex-direction: column;
 
         & > span {
