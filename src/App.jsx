@@ -312,7 +312,7 @@ export default function App() {
               <div className={mc("settings__section")}>
                 <h3>Interactions</h3>
 
-                <Toggle checked={_settings.settings.vibration === "true"} onChange={() => _settings.toggleVibration()}>
+                <Toggle checked={_settings.settings.vibration} onChange={() => _settings.toggleVibration()}>
                   Touch Vibrations
                 </Toggle>
               </div>

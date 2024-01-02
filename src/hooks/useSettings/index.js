@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // helpers
 import { decodeBase64, encodeBase64 } from "../../helpers/encodeBase64";
@@ -51,7 +51,7 @@ export default function useSettings() {
    */
   const useVibration = useCallback(
     (time = 10, callback = () => {}) => {
-      if (settings.vibration !== "true") return callback();
+      if (settings.vibration) return callback();
 
       navigator.vibrate(time);
 
