@@ -24,6 +24,14 @@
     transition-timing-function: ease-in-out;
   }
 
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 10%);
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
+  }
+
   &.button--open {
     box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.125);
 
@@ -37,10 +45,9 @@
   display: flex;
   flex-direction: column;
   gap: calc(max(0.75vh, 0.5rem) * var(--core-scale));
-  padding: max(0.975vh, 0.65rem);
-  background-color: var(--core-content-background-100);
+  background-color: transparent;
   border-radius: max(3vh, 32px);
-  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.125);
+  padding: 0 0 calc(max(0.75vh, 0.5rem) * var(--core-scale)) 0;
 
   & .menu__button {
     display: flex;
@@ -48,28 +55,30 @@
     align-items: center;
     gap: calc(max(0.525vh, 0.35rem) * var(--core-scale));
     padding: calc(max(0.75vh, 0.5rem) * var(--core-scale)) calc(max(0.975vh, 0.65rem) * var(--core-scale));
+    width: 100%;
     background-color: var(--color-primary-main);
     border: 0;
-    color: var(--core-text-color);
-    width: 100%;
-
-    &:first-of-type {
-      border-radius: max(1.5vh, 16px) max(1.5vh, 16px) 0 0;
-    }
-
-    &:last-of-type {
-      border-radius: 0 0 max(1.5vh, 16px) max(1.5vh, 16px);
-    }
+    border-radius: max(3vh, 32px);
+    color: var(--color-common-white);
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.125);
 
     & > svg {
-      width: calc(max(2.25vh, 1.5rem) * var(--core-scale));
-      height: calc(max(2.25vh, 1.5rem) * var(--core-scale));
+      width: calc(max(1.875vh, 1.25rem) * var(--core-scale));
+      height: calc(max(1.875vh, 1.25rem) * var(--core-scale));
       fill: currentColor;
     }
 
     & > span {
       font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
       color: currentColor;
+    }
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 10%);
+    }
+
+    &:active {
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
     }
   }
 }
