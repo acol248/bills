@@ -1,9 +1,9 @@
 .menu-button {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.35rem 0;
-  margin: 0.35rem 0;
+  gap: max(0.375vh, 0.25rem);
+  padding: max(0.525vh, 0.35rem) 0;
+  margin: max(0.525vh, 0.35rem) 0;
 
   & .menu-button__content {
     margin: 0;
