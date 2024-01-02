@@ -4,21 +4,72 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: max(0.375vh, 0.25rem);
+  padding: calc(max(0.75vh, 0.5rem) * var(--core-scale));
   margin: 0;
   background-color: var(--color-primary-main);
   border: 0;
-  border-radius: 12px;
+  border-radius: max(4vh, 48px);
+
+  transition-property: box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
 
   & svg {
-    width: calc(max(3vh, 2rem) * var(--core-scale));
-    height: calc(max(3vh, 2rem) * var(--core-scale));
+    width: calc(max(3.525vh, 2.35rem) * var(--core-scale));
+    height: calc(max(3.525vh, 2.35rem) * var(--core-scale));
     fill: var(--color-common-white);
+
+    transition-property: transform;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  &.button--open {
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.125);
+
+    & > svg {
+      transform: rotate(45deg);
+    }
   }
 }
 
 .menu {
-  padding: max(0.75vh, 0.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: calc(max(0.75vh, 0.5rem) * var(--core-scale));
+  padding: max(0.975vh, 0.65rem);
   background-color: var(--core-content-background-100);
-  border-radius: 4px;
+  border-radius: max(3vh, 32px);
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.125);
+
+  & .menu__button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(max(0.525vh, 0.35rem) * var(--core-scale));
+    padding: calc(max(0.75vh, 0.5rem) * var(--core-scale)) calc(max(0.975vh, 0.65rem) * var(--core-scale));
+    background-color: var(--color-primary-main);
+    border: 0;
+    color: var(--core-text-color);
+    width: 100%;
+
+    &:first-of-type {
+      border-radius: max(1.5vh, 16px) max(1.5vh, 16px) 0 0;
+    }
+
+    &:last-of-type {
+      border-radius: 0 0 max(1.5vh, 16px) max(1.5vh, 16px);
+    }
+
+    & > svg {
+      width: calc(max(2.25vh, 1.5rem) * var(--core-scale));
+      height: calc(max(2.25vh, 1.5rem) * var(--core-scale));
+      fill: currentColor;
+    }
+
+    & > span {
+      font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+      color: currentColor;
+    }
+  }
 }

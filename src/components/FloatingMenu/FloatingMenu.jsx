@@ -21,7 +21,7 @@ export default function FloatingMenu({ className, buttons }) {
     placement: "top-end",
     overflowContainer: true,
     triggerOffset: 5,
-    containerOffset: 10,
+    containerOffset: 16,
     container: () => buttonRef.current.parentElement,
   });
 
@@ -64,7 +64,12 @@ export default function FloatingMenu({ className, buttons }) {
         renderLayer(
           <div {...layerProps} className={menuClassList}>
             {Boolean(buttons.length > 0) &&
-              buttons.map(({ label, func }) => <button onClick={() => handleFunc(func)}>{label}</button>)}
+              buttons.map(({ label, icon, func }) => (
+                <button className={mc("menu__button")} key={label} onClick={() => handleFunc(func)}>
+                  {icon}
+                  <span>{label}</span>
+                </button>
+              ))}
           </div>
         )}
     </>
