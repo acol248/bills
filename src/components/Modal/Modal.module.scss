@@ -15,8 +15,8 @@
     justify-content: space-between;
     align-items: center;
     width: calc(100% - max(2.4375vh, 1.625rem));
-    height: 48px;
-    padding: max(0.75vh, 0.5rem) max(1.125vh, 0.75rem) max(0.75vh, 0.5rem) max(1.3125vh, 0.875rem);
+    height: calc(64px * var(--core-scale));
+    padding: 0 max(1.125vh, 0.75rem) 0 max(1.3125vh, 0.875rem);
 
     & .modal__title {
       font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));

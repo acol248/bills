@@ -5,8 +5,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: max(1.125vh, 0.75rem);
-    height: calc(40px * var(--core-scale));
+    padding: 0 max(1.125vh, 0.75rem);
+    height: calc(64px * var(--core-scale));
     background-color: var(--core-content-background-100);
 
     & .app__total {
