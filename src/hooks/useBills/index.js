@@ -11,19 +11,6 @@ export default function useBills() {
   const [bills, setBills] = useState(_storageList ? decodeBase64(_storageList) : {});
 
   /**
-   * Add new bill to list
-   *
-   * @param {object} payload name and value of bill
-   */
-  const addBill = (payload, list = "default") => {
-    setBills(b => {
-      if (!b[list]) return b;
-
-      return { ...b, [list]: [...b[list], { ...payload, id: generateUniqueId(16) }] };
-    });
-  };
-
-  /**
    * Add new list
    *
    * @param {string} name new category name
@@ -40,19 +27,6 @@ export default function useBills() {
   };
 
   /**
-   * Remove bill from list
-   *
-   * @param {string} target id of target item
-   */
-  const removeBill = target => {
-    setBills(b => {
-      for (const key in b) if (Array.isArray(b[key])) b[key] = b[key].filter(item => item.id !== target);
-
-      return b;
-    });
-  };
-
-  /**
    * Remove a list
    *
    * @param {string} list name of list to delete
@@ -61,7 +35,35 @@ export default function useBills() {
     setBills(b => {
       delete b[list];
 
-      return b;
+      return { ...b };
+    });
+  };
+
+  /**
+   * Add new bill to list
+   *
+   * @param {object} payload name and value of bill
+   */
+  const addBill = (payload, list = "default") => {
+    setBills(b => {
+      if (!b[list]) return b;
+
+      return { ...b, [list]: [...b[list], { ...payload, id: generateUniqueId(16) }] };
+    });
+  };
+
+  /**
+   * Remove bill from list
+   *
+   * @param {string} target id of target item
+   */
+  const removeBill = target => {
+    setBills(b => {
+      return Object.keys(b).reduce((a, k) => {
+        if (a[k].find(({ id }) => id !== target)) return { ...a, [k]: a[k].filter(({ id }) => id !== target) };
+
+        return a;
+      }, b);
     });
   };
 
@@ -70,8 +72,12 @@ export default function useBills() {
    *
    * @param {object} bill bill object
    */
-  const updateBill = bill => {
-    setBills(b => [...b.filter(({ id }) => id !== bill.id), bill]);
+  const updateBill = (bill, previousList, newlist) => {
+    setBills(b => ({
+      ...b,
+      [previousList]: [...b[previousList].filter(({ id }) => id !== bill.id)],
+      [newlist]: [...b[newlist].filter(({ id }) => id !== bill.id), bill],
+    }));
   };
 
   // update localstorage
