@@ -2,12 +2,13 @@ import { createContext, useCallback, useEffect, useMemo, useRef, useState } from
 
 // helpers
 import { decodeBase64, encodeBase64 } from "../../helpers/encodeBase64";
+import { getSize } from "../../helpers/getSize";
 
 export default function useSettings() {
   const initialised = useRef(false);
   const _initSysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  const _storage = localStorage.getItem("settings");
+  const _storage = localStorage.getItem("bills__settings");
 
   const [settings, setSettings] = useState(
     _storage ? decodeBase64(_storage) : { scale: 1, sysTheme: true, theme: _initSysTheme ? "dark" : "light" }
@@ -62,6 +63,23 @@ export default function useSettings() {
     [settings]
   );
 
+  /**
+   * Get total amount of storage used by application
+   */
+  const getStorageSize = useCallback((size = "kb") => {
+    try {
+      const items = Object.keys({ ...localStorage }).filter(key => key.startsWith(`bills__`));
+      const sizes = items.reduce((a, c) => [...a, getSize(c, size) || 0], []);
+      const total = Math.round(sizes.reduce((a, c) => a + c, 0) * 100) / 100;
+
+      return total;
+    } catch (err) {
+      console.error(err);
+
+      return 0;
+    }
+  }, []);
+
   // update localstorage
   useEffect(() => {
     if (!initialised.current) {
@@ -83,7 +101,7 @@ export default function useSettings() {
       return;
     }
 
-    localStorage.setItem("settings", encodeBase64(settings));
+    localStorage.setItem("bills__settings", encodeBase64(settings));
   }, [settings]);
 
   // update scale in styles
@@ -97,8 +115,16 @@ export default function useSettings() {
   }, [settings]);
 
   return useMemo(
-    () => ({ settings, toggleTheme, toggleSystemTheme, toggleVibration, setScale, useVibration }),
-    [settings, toggleTheme, toggleSystemTheme, toggleVibration, setScale, useVibration]
+    () => ({
+      settings,
+      toggleTheme,
+      toggleSystemTheme,
+      toggleVibration,
+      setScale,
+      useVibration,
+      getStorageSize,
+    }),
+    [settings, toggleTheme, toggleSystemTheme, toggleVibration, setScale, useVibration, getStorageSize]
   );
 }
 

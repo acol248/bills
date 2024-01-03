@@ -6,7 +6,7 @@ import { decodeBase64, encodeBase64 } from "../../helpers/encodeBase64";
 
 export default function useBills() {
   const initialised = useRef(false);
-  const _storageList = localStorage.getItem("bills");
+  const _storageList = localStorage.getItem("bills__lists");
 
   const [bills, setBills] = useState(_storageList ? decodeBase64(_storageList) : {});
 
@@ -88,7 +88,7 @@ export default function useBills() {
       return;
     }
 
-    localStorage.setItem("bills", encodeBase64(bills));
+    localStorage.setItem("bills__lists", encodeBase64(bills));
   }, [bills]);
 
   return useMemo(
