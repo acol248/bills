@@ -2,12 +2,14 @@
   height: 100%;
 
   & .app__header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 max(1.125vh, 0.75rem);
     height: calc(64px * var(--core-scale));
     background-color: var(--core-content-background-100);
+    z-index: 10;
 
     & .app__total {
       margin: 0;
@@ -52,7 +54,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    height: calc(100% - 4.625rem);
+    height: calc(100% - calc(64px * var(--core-scale)));
     overflow-y: auto;
 
     & .app__bill-category {
@@ -136,29 +138,6 @@
           margin-left: 2px;
         }
       }
-    }
-  }
-}
-
-.settings {
-  & .settings__section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 0.15rem;
-    margin: calc(max(2.625vh, 1.75rem) * var(--core-scale)) 0;
-
-    & > h3 {
-      margin: 0 0 calc(max(0.375vh, 0.25rem) * var(--core-scale));
-      font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
-      font-weight: 500;
-      font-style: italic;
-      color: color-mix(in srgb, var(--color-primary-main), var(--core-text-color) 15%);
-    }
-
-    &:first-of-type {
-      margin: 0 0 calc(max(2.625vh, 1.75rem) * var(--core-scale));
     }
   }
 }

@@ -12,15 +12,14 @@ import Button from "./interface/Button";
 import Input from "./interface/Input";
 import ListItem from "./components/ListItem";
 import Icon from "./components/Icon";
-import ThemeToggle from "./components/ThemeToggle";
-import ScaleSelect from "./components/ScaleSelect";
-import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
-import MenuItem from "./components/MenuItem";
 import FloatingMenu from "./components/FloatingMenu";
 import Category from "./components/Category/Category";
 import SelectList from "./components/SelectList/SelectList";
 import ConfirmModal from "./components/ConfirmModal/ConfirmModal";
+
+// parts
+import Settings from "./parts/Settings";
 
 // helpers
 import { formatCurrency } from "./helpers/formatCurrency";
@@ -95,10 +94,7 @@ export default function App() {
   const handleAddCategory = e => {
     e.preventDefault();
 
-    const { name } = Object.fromEntries(new FormData(e.target).entries());
-
-    _bills.addList(name);
-
+    _bills.addList(Object.fromEntries(new FormData(e.target).entries()).name);
     setIsAddCategoryOpen(false);
   };
 
@@ -363,42 +359,7 @@ export default function App() {
               </form>
             </Modal>
 
-            <Modal
-              className={mc("settings")}
-              open={isSettingsOpen}
-              onClose={() => setIsSettingsOpen(false)}
-              title="Settings"
-              variant="mobile-full"
-            >
-              <div className={mc("settings__section")}>
-                <h3>Display</h3>
-
-                <ScaleSelect />
-              </div>
-
-              <div className={mc("settings__section")}>
-                <h3>Interactions</h3>
-
-                <Toggle
-                  checked={_settings.settings.vibration}
-                  onChange={() => _settings.useVibration({ callback: () => _settings.toggleVibration() })}
-                >
-                  Touch Vibrations
-                </Toggle>
-              </div>
-
-              <div className={mc("settings__section")}>
-                <h3>Theme</h3>
-
-                <ThemeToggle />
-              </div>
-
-              <div className={mc("settings__section")}>
-                <h3>About</h3>
-
-                <MenuItem label="App Version" content={__APP_VERSION__} />
-              </div>
-            </Modal>
+            <Settings open={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
           </BillsContext.Provider>
         </SettingsContext.Provider>
       </ThemeWrapper>
