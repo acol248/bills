@@ -93,10 +93,9 @@ export default function Modal({
       onCancel={onCancel}
       onClick={onClick}
       onAnimationEnd={onAnimEnd}
-      tabIndex={0}
       ref={modalRef}
     >
-      <div className={mc("modal__header")}>
+      <div className={mc("modal__header")} tabIndex={0}>
         <h2 className={mc("modal__title")}>{title}</h2>
 
         <button className={mc("modal__close")} onClick={e => useVibration({ callback: () => handleClose(e) })}>
