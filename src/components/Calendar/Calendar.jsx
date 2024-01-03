@@ -43,7 +43,7 @@ export default function Calendar({ className, selectedDate, onChange }) {
         }}
         onClick={() => setIsOpen(o => !o)}
       >
-        {selectedDate ? selectedDate?.toLocaleDateString() || "" : "No date selected"}
+        {selectedDate ? new Date(selectedDate)?.toLocaleDateString() || "" : "No date selected"}
       </button>
 
       {isOpen &&
