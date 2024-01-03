@@ -48,6 +48,10 @@
       height: calc(max(3h, 2rem) * var(--core-scale));
       fill: currentColor;
     }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
   }
 
   & .category__body {
