@@ -85,7 +85,7 @@
 
       & .app__category-empty {
         text-align: center;
-        margin: max(0.375vh, 0.25rem) 0 0;
+        margin: max(0.75vh, 0.5rem) 0;
         color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 20%);
         font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
         font-style: italic;

@@ -18,7 +18,9 @@ import Toggle from "./interface/Toggle";
 import Calendar from "./components/Calendar";
 import MenuItem from "./components/MenuItem";
 import FloatingMenu from "./components/FloatingMenu";
-import MenuButton from "./components/MenuButton";
+import Category from "./components/Category/Category";
+import SelectList from "./components/SelectList/SelectList";
+import ConfirmModal from "./components/ConfirmModal/ConfirmModal";
 
 // helpers
 import { formatCurrency } from "./helpers/formatCurrency";
@@ -26,8 +28,6 @@ import { formatCurrency } from "./helpers/formatCurrency";
 // styles
 import "./index.css";
 import maps from "./App.module.scss";
-import Category from "./components/Category/Category";
-import SelectList from "./components/SelectList/SelectList";
 const mc = mapClassesCurried(maps, true);
 
 export default function App() {
@@ -38,11 +38,16 @@ export default function App() {
   const itemFormRef = useRef(null);
   const categoryFormRef = useRef(null);
 
+  const previousSelectedList = useRef(null);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
+
+  const [deleteItemConfirmOpen, setDeleteItemConfirmOpen] = useState(false);
+  const [deleteCategoryConfirmOpen, setDeleteCategoryConfirmOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedList, setSelectedList] = useState(null);
@@ -64,17 +69,22 @@ export default function App() {
     if (!selectedList) return;
 
     if (targetId.current) {
-      _bills.updateBill({
-        name: formData.name,
-        value: parseFloat(formData.value),
-        date: selectedDate,
-        id: targetId.current,
-      });
+      _bills.updateBill(
+        {
+          name: formData.name,
+          value: parseFloat(formData.value),
+          date: selectedDate,
+          id: targetId.current,
+        },
+        previousSelectedList.current,
+        selectedList
+      );
     } else {
       _bills.addBill({ name: formData.name, value: parseFloat(formData.value), date: selectedDate }, selectedList);
     }
 
     setIsAddItemOpen(false);
+    setItemOpen(false);
   };
 
   /**
@@ -99,16 +109,23 @@ export default function App() {
    * @returns
    */
   const handleOpenEdit = target => {
-    const { current: form } = formRef;
+    const { current: form } = itemFormRef;
 
     if (!form) return;
 
-    const { id, name, value, date } = _bills.bills.find(({ id }) => id == target);
+    const { id, name, value, date, category } = Object.keys(_bills.bills).reduce((a, k) => {
+      if (_bills.bills[k].find(({ id }) => id === target))
+        return { ..._bills.bills[k].find(({ id }) => id === target), category: k };
+
+      return a;
+    }, {});
 
     form.name.value = name;
     form.value.value = value;
     targetId.current = id;
     setSelectedDate(date);
+    previousSelectedList.current = category;
+    setSelectedList(category);
 
     setIsAddItemOpen(true);
   };
@@ -156,6 +173,16 @@ export default function App() {
     setSelectedList(null);
   };
 
+  /**
+   * Trigger confirmation for deletion of category
+   *
+   * @param {string} name name of target
+   */
+  const handleRemoveCategory = name => {
+    targetId.current = name;
+    setDeleteCategoryConfirmOpen(true);
+  };
+
   return (
     <main className={classList}>
       <ThemeWrapper value={_settings.settings.theme}>
@@ -179,6 +206,7 @@ export default function App() {
                     className={mc("app__bill-category")}
                     name={k}
                     total={formatCurrency(_bills.bills[k].reduce((t, i) => (t += i.value), 0))}
+                    onDelete={handleRemoveCategory}
                     key={k}
                   >
                     {Boolean(_bills.bills[k].length > 0) ? (
@@ -201,7 +229,14 @@ export default function App() {
                             </Button>
                             <Button
                               className={mc("app__bill-button")}
-                              onClick={() => _settings.useVibration({ callback: () => _bills.removeBill(id) })}
+                              onClick={() =>
+                                _settings.useVibration({
+                                  callback: () => {
+                                    targetId.current = id;
+                                    setDeleteItemConfirmOpen(true);
+                                  },
+                                })
+                              }
                             >
                               Delete
                             </Button>
@@ -229,6 +264,38 @@ export default function App() {
                 },
               ]}
             />
+
+            <ConfirmModal
+              title="Delete item?"
+              open={deleteItemConfirmOpen}
+              onClose={() => {
+                targetId.current = null;
+                setDeleteItemConfirmOpen(false);
+              }}
+              action={() => {
+                _bills.removeBill(targetId.current);
+                targetId.current = null;
+                setDeleteItemConfirmOpen(false);
+              }}
+            >
+              Are you sure you want to delete this item?
+            </ConfirmModal>
+
+            <ConfirmModal
+              title="Delete category?"
+              open={deleteCategoryConfirmOpen}
+              onClose={() => {
+                targetId.current = null;
+                setDeleteCategoryConfirmOpen(false);
+              }}
+              action={() => {
+                _bills.removeList(targetId.current);
+                targetId.current = null;
+                setDeleteCategoryConfirmOpen(false);
+              }}
+            >
+              Are you sure you want to delete this category?
+            </ConfirmModal>
 
             <Modal
               className={mc("add")}
