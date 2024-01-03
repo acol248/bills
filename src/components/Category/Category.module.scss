@@ -53,5 +53,15 @@
   & .category__body {
     border-radius: 0 0 calc(12px * var(--core-scale)) calc(12px * var(--core-scale));
     padding: 0 calc(max(0.375vh, 0.25rem) * var(--core-scale)) calc(max(0.525vh, 0.35rem) * var(--core-scale));
+
+    & .category__remove-category {
+      font-size: calc(max(1.125vh, 0.75rem) * var(--core-scale));
+      border: 0;
+      border-radius: max(1.5vh, 16px);
+      background-color: var(--color-warning-main);
+      color: var(--color-warning-contrast);
+      margin: max(1.125vh, 0.75rem) max(0.6vh, 0.4rem) max(0.6vh, 0.4rem);
+      padding: max(0.375vh, 0.25rem) max(1.125vh, 0.75rem);
+    }
   }
 }

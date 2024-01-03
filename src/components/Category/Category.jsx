@@ -11,7 +11,7 @@ import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./Category.module.scss";
 const mc = mapClassesCurried(maps, true);
 
-export default function Category({ className, name, total, children }) {
+export default function Category({ className, name, total, onDelete = () => {}, children }) {
   const { useVibration } = useContext(SettingsContext);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,16 @@ export default function Category({ className, name, total, children }) {
         <Icon type={isOpen ? "remove" : "add"} />
       </summary>
 
-      <div className={mc("category__body")}>{children}</div>
+      <div className={mc("category__body")}>
+        {children}
+
+        <button
+          className={mc("category__remove-category")}
+          onClick={() => useVibration({ callback: () => onDelete(name) })}
+        >
+          Remove Category
+        </button>
+      </div>
     </details>
   );
 }
