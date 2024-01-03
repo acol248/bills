@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 
 // hooks
@@ -15,23 +15,49 @@ const mc = mapClassesCurried(maps, true);
 export default function ScaleSelect({ className }) {
   const { settings, setScale, useVibration } = useContext(SettingsContext);
 
-  const classList = useClassList(
-    { defaultClass: "scale-select", className, maps, string: true },
-    useCallback(
-      c => c.push(`scale-select--${settings.scale < 1 ? "small" : settings.scale > 1 ? "large" : "medium"}`),
-      [settings]
-    )
-  );
+  const [constraints, setConstraints] = useState({
+    min: Math.round(0.7 * (window.innerWidth / 375) * 10) / 10,
+    max: Math.round(1.3 * (window.innerWidth / 375) * 10) / 10,
+    default:
+      Math.round(
+        (0.7 * (window.innerWidth / 375) + (1.3 * (window.innerWidth / 375) - 0.7 * (window.innerWidth / 375)) / 2) * 10
+      ) / 10,
+  });
+
+  const classList = useClassList({ defaultClass: "scale-select", className, maps, string: true });
 
   /**
    * Increase scale by 0.1, up to 1.3
    */
-  const handleIncreaseScale = () => setScale(settings.scale < 1.3 ? settings.scale + 0.1 : 1.3);
+  const handleIncreaseScale = () => setScale(settings.scale < constraints.max ? settings.scale + 0.1 : constraints.max);
 
   /**
    * Reduce scale by 0.1, up to 0.7
    */
-  const handleReduceScale = () => setScale(settings.scale > 0.7 ? settings.scale - 0.1 : 0.7);
+  const handleReduceScale = () => setScale(settings.scale > constraints.min ? settings.scale - 0.1 : constraints.min);
+
+  // listen for window size change
+  useEffect(() => {
+    const handleResize = () => {
+      const _constraints = {
+        min: Math.round(0.7 * (window.innerWidth / 375) * 10) / 10,
+        max: Math.round(1.3 * (window.innerWidth / 375) * 10) / 10,
+        default:
+          Math.round(
+            (0.7 * (window.innerWidth / 375) +
+              (1.3 * (window.innerWidth / 375) - 0.7 * (window.innerWidth / 375)) / 2) *
+              10
+          ) / 10,
+      };
+
+      setConstraints(_constraints);
+      setScale(_constraints.default);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className={classList}>
@@ -45,9 +71,9 @@ export default function ScaleSelect({ className }) {
           type="range"
           onChange={({ target }) => useVibration(() => setScale(parseFloat(target.value)))}
           step="0.1"
-          min="0.7"
-          max="1.3"
-          value={settings.scale}
+          min={constraints.min}
+          max={constraints.max}
+          value={settings.scale || constraints.default}
         />
         <button
           className={mc("scale-select__button")}
