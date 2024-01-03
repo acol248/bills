@@ -1,5 +1,8 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useContext } from "react";
 import { useLayer } from "react-laag";
+
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import Icon from "./FloatingMenu.icons";
@@ -10,6 +13,8 @@ import maps from "./FloatingMenu.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function FloatingMenu({ className, buttons }) {
+  const { useVibration } = useContext(SettingsContext);
+
   const buttonRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +60,7 @@ export default function FloatingMenu({ className, buttons }) {
 
           return r;
         }}
-        onClick={() => setIsOpen(o => !o)}
+        onClick={() => useVibration({ callback: () => setIsOpen(o => !o) })}
       >
         <Icon type="add" />
       </button>
@@ -65,7 +70,11 @@ export default function FloatingMenu({ className, buttons }) {
           <div {...layerProps} className={menuClassList}>
             {Boolean(buttons.length > 0) &&
               buttons.map(({ label, icon, func }) => (
-                <button className={mc("menu__button")} key={label} onClick={() => handleFunc(func)}>
+                <button
+                  className={mc("menu__button")}
+                  key={label}
+                  onClick={() => useVibration({ callback: () => handleFunc(func) })}
+                >
                   {icon}
                   <span>{label}</span>
                 </button>

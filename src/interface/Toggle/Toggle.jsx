@@ -9,7 +9,7 @@ import maps from "./Toggle.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 function Toggle({ className, variant, children, disabled, ...props }, ref) {
-  const idRef = useRef(generateString(8));
+  const idRef = useRef(props.id || generateString(8));
 
   const classList = useClassList(
     { defaultClass: "toggle", className, variant, maps, string: true },
