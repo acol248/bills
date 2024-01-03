@@ -55,7 +55,7 @@ export default function useSettings() {
 
       if (!settings.vibration) return callback();
 
-      navigator.vibrate(time);
+      if (navigator.vibrate) navigator.vibrate(time);
 
       return callback();
     },
