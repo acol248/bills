@@ -51,7 +51,6 @@ export default function ScaleSelect({ className }) {
       };
 
       setConstraints(_constraints);
-      setScale(_constraints.default);
     };
 
     window.addEventListener("resize", handleResize);
