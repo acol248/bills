@@ -8,15 +8,15 @@
   justify-content: center;
   gap: max(0.75vh, 0.5rem);
   align-items: center;
-  padding: max(0.6vh, 0.4rem) max(1.5vh, 1rem);
+  padding: calc(max(0.525vh, 0.35rem) * var(--core-scale)) calc(max(1.3125vh, 0.875rem) * var(--core-scale));
   margin: 0;
   background-color: var(--button-color);
   color: var(--button-text-color);
   border: 2px solid var(--button-color);
-  border-radius: max(3vh, 2em);
+  border-radius: calc(max(3vh, 2rem) * var(--core-scale));
 
   & .button__text {
-    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
   }
 
   & > svg {
