@@ -50,7 +50,7 @@ export default function useSettings() {
    * Use system vibration
    */
   const useVibration = useCallback(
-    (callback = () => {}, time = 8) => {
+    ({ callback = () => {}, time = 8 }) => {
       if (settings.vibration) return callback();
 
       navigator.vibrate(time);

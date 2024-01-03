@@ -69,7 +69,7 @@ export default function ScaleSelect({ className }) {
         </button>
         <input
           type="range"
-          onChange={({ target }) => useVibration(() => setScale(parseFloat(target.value)))}
+          onChange={({ target }) => useVibration({ callback: () => setScale(parseFloat(target.value)) })}
           step="0.1"
           min={constraints.min}
           max={constraints.max}

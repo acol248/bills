@@ -18,7 +18,7 @@ export default function ThemeToggle({ className }) {
       <Toggle
         className={className}
         checked={settings.sysTheme}
-        onChange={() => useVibration(() => toggleSystemTheme())}
+        onChange={() => useVibration({ callback: () => toggleSystemTheme() })}
       >
         Use System Theme
       </Toggle>
@@ -26,7 +26,7 @@ export default function ThemeToggle({ className }) {
         className={className}
         checked={settings.theme === "dark"}
         disabled={settings.sysTheme}
-        onChange={() => useVibration(() => toggleTheme())}
+        onChange={() => useVibration({ callback: () => toggleTheme() })}
       >
         Dark Theme
       </Toggle>

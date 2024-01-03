@@ -99,7 +99,7 @@ export default function Modal({
       <div className={mc("modal__header")}>
         <h2 className={mc("modal__title")}>{title}</h2>
 
-        <button className={mc("modal__close")} onClick={e => useVibration(() => handleClose(e))}>
+        <button className={mc("modal__close")} onClick={e => useVibration({ callback: () => handleClose(e) })}>
           <Icon type="close" />
         </button>
       </div>

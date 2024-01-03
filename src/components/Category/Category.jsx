@@ -1,4 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import Icon from "./Category.icons";
@@ -9,6 +12,8 @@ import maps from "./Category.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function Category({ className, name, total, children }) {
+  const { useVibration } = useContext(SettingsContext);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const classList = useClassList(
@@ -24,6 +29,8 @@ export default function Category({ className, name, total, children }) {
   const handleToggle = e => {
     e.preventDefault();
     setIsOpen(o => !o);
+
+    useVibration();
   };
 
   return (
