@@ -1,0 +1,26 @@
+.confirm-modal {
+  & [class~="modal__body"] {
+    display: flex;
+    flex-direction: column;
+    gap: calc(max(1.5vh, 1rem) * var(--core-scale));
+    padding: calc(max(0.375vh, 0.25rem) * var(--core-scale)) calc(max(1.5vh, 1rem) * var(--core-scale))
+      calc(max(1.5vh, 1rem) * var(--core-scale));
+
+    & .confirm-modal__body {
+      color: var(--core-text-color);
+
+      margin: 0;
+      padding: 0;
+    }
+
+    & .confirm-modal__buttons {
+      display: flex;
+      gap: calc(max(0.75vh, 0.5rem) * var(--core-scale));
+      width: 100%;
+
+      & > button {
+        flex-grow: 1;
+      }
+    }
+  }
+}
