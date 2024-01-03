@@ -53,7 +53,7 @@ export default function useSettings() {
     params => {
       const { callback = () => {}, time = 8 } = params || {};
 
-      if (settings.vibration) return callback();
+      if (!settings.vibration) return callback();
 
       navigator.vibrate(time);
 
