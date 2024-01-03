@@ -11,12 +11,16 @@
   max-width: 80vw;
 
   & .modal__header {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: calc(100% - max(2.4375vh, 1.625rem));
-    height: calc(64px * var(--core-scale));
+    height: calc(52px * var(--core-scale));
     padding: 0 max(1.125vh, 0.75rem) 0 max(1.3125vh, 0.875rem);
+    background-color: var(--core-content-background-100);
+    z-index: 10;
 
     & .modal__title {
       font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale));
@@ -45,6 +49,10 @@
         outline: 2px solid var(--core-text-color);
       }
     }
+
+    &:focus-visible {
+      outline: 0;
+    }
   }
 
   & .modal__body {
@@ -57,7 +65,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(51, 51, 51, 0.3);
+    background-color: rgba(51, 51, 51, 0.2);
     backdrop-filter: blur(1px);
     animation: none;
   }
@@ -89,6 +97,7 @@
 
     & .modal__header {
       background-color: var(--core-content-background-100);
+      height: calc(64px * var(--core-scale));
 
       & .modal__title {
         font-size: calc(max(2.25vh, 1.5rem) * var(--core-scale));
