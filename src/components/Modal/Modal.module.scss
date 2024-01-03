@@ -84,7 +84,7 @@
 
     & .modal__body {
       width: calc(100% - max(3vh, 2rem));
-      height: calc(100% - max(7.875vh, 6.25rem));
+      height: calc(100% - calc(max(7.875vh, 6.25rem) * var(--core-scale)));
     }
 
     & .modal__header {
