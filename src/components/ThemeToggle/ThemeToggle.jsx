@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import Toggle from "../../interface/Toggle";
 import { SettingsContext } from "../../hooks/useSettings";
 import { ThemeContext } from "../ThemeWrapper/ThemeWrapper";
-import { vibrate } from "../../helpers/vibrate";
 
 export default function ThemeToggle({ className }) {
   const { settings, toggleTheme, toggleSystemTheme, useVibration } = useContext(SettingsContext);
