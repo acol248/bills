@@ -196,7 +196,7 @@ export default function App() {
             </div>
 
             <div className={mc("app__bill-list")}>
-              {Boolean(_bills.bills) &&
+              {Boolean(Object.keys(_bills.bills).length > 0) ? (
                 Object.keys(_bills.bills).map(k => (
                   <Category
                     className={mc("app__bill-category")}
@@ -243,7 +243,12 @@ export default function App() {
                       <p className={mc("app__category-empty")}>Empty</p>
                     )}
                   </Category>
-                ))}
+                ))
+              ) : (
+                <p className={mc("app__welcome-message")}>
+                  To get started, add a category using the add button at the bottom right of the screen
+                </p>
+              )}
             </div>
 
             <FloatingMenu
@@ -252,6 +257,7 @@ export default function App() {
                   label: "Add Item",
                   icon: <Icon type="item-add" />,
                   func: () => _settings.useVibration({ callback: () => setIsAddItemOpen(true) }),
+                  disabled: Boolean(Object.keys(_bills.bills).length <= 0),
                 },
                 {
                   label: "Add Category",

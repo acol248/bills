@@ -97,6 +97,23 @@
         margin-bottom: calc(max(7.5vh, 5rem) * var(--core-scale));
       }
     }
+
+    & .app__welcome-message {
+      position: relative;
+      margin: calc(max(3.325vh, 2.25rem) * var(--core-scale)) auto 0;
+      text-align: center;
+      color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 10%);
+      width: 80dvw;
+      font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
+
+      &::after {
+        content: "...";
+        position: absolute;
+        top: calc(min(-2.25vh, -1.5rem) * var(--core-scale));
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
   }
 
   & .app__add-modal {
