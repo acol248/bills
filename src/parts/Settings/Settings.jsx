@@ -10,7 +10,7 @@ import MenuItem from "../../components/MenuItem";
 import Toggle from "../../interface/Toggle";
 import ScaleSelect from "../../components/ScaleSelect";
 import Button from "../../interface/Button";
-import ConfirmModal from "../../components/ConfirmModal/ConfirmModal";
+import ConfirmModal from "../../components/ConfirmModal";
 
 // helpers
 import { encodeBase64 } from "../../helpers/encodeBase64";
@@ -23,7 +23,6 @@ const mc = mapClassesCurried(maps, true);
 export default function Category({ className, open, onClose = () => {} }) {
   const { settings, useVibration, toggleVibration, getStorageSize } = useContext(SettingsContext);
 
-  const [exportOpen, setExportOpen] = useState(false);
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   const storageUsage = useMemo(() => `${getStorageSize()}KB`, [open]);
