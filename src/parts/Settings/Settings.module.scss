@@ -18,5 +18,9 @@
     &:first-of-type {
       margin: 0 0 calc(max(2.625vh, 1.75rem) * var(--core-scale));
     }
+
+    &:last-of-type {
+      padding: 0 0 calc(max(2.625vh, 1.75rem) * var(--core-scale));
+    }
   }
 }
