@@ -1,7 +1,7 @@
 {
   "name": "bills",
   "private": true,
-  "version": "0.2.240103-2B",
+  "version": "0.2.240104-1B",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -13,11 +13,13 @@
     "@blocdigital/useclasslist": "^0.1.5",
     "buffer": "^6.0.3",
     "encode-utf8": "^2.0.0",
+    "encrypt-with-password": "^1.0.0",
     "react": "^18.2.0",
     "react-aria-components": "^1.0.0-rc.0",
     "react-dom": "^18.2.0",
     "react-laag": "^2.0.5",
     "react-qr-code": "^2.0.12",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "sass": "^1.69.5"
   },
   "devDependencies": {
