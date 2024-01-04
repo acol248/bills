@@ -1,6 +1,6 @@
 .button {
   position: absolute;
-  inset: auto max(1.5vh, 1rem) max(1.5vh, 1rem) auto;
+  inset: auto calc(max(1.5vh, 1rem) * var(--core-scale)) calc(max(1.5vh, 1rem) * var(--core-scale)) auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +74,10 @@
 
     &:active {
       background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
+    }
+
+    &:disabled {
+      background-color: var(--color-grey-600);
     }
   }
 }

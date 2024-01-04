@@ -69,11 +69,12 @@ export default function FloatingMenu({ className, buttons }) {
         renderLayer(
           <div {...layerProps} className={menuClassList}>
             {Boolean(buttons.length > 0) &&
-              buttons.map(({ label, icon, func }) => (
+              buttons.map(({ label, icon, func, disabled }) => (
                 <button
                   className={mc("menu__button")}
                   key={label}
                   onClick={() => useVibration({ callback: () => handleFunc(func) })}
+                  disabled={disabled}
                 >
                   {icon}
                   <span>{label}</span>
