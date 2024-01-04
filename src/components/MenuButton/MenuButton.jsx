@@ -9,7 +9,7 @@ export default function MenuItem({ className, variant, children, ...props }) {
 
   return (
     <button className={classList} {...props}>
-      <p className={mc("menu-button__content")}>{children}</p>
+      {children}
     </button>
   );
 }
