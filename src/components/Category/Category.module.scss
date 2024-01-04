@@ -1,6 +1,6 @@
 .category {
   background-color: var(--core-content-background-300);
-  margin: max(1.125vh, 0.75rem);
+  margin: calc(max(1.125vh, 0.75rem) * var(--core-scale));
   padding: 0;
   border-radius: calc(12px * var(--core-scale));
   overflow: hidden;
