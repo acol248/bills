@@ -6,16 +6,7 @@
   width: 100%;
   margin: 0.35rem 0;
 
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
   & .toggle__label {
-    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
     flex: 1;
     color: var(--core-text-color);
   }
@@ -25,30 +16,34 @@
       position: absolute;
       height: 0;
       width: 0;
+
+      &:focus-visible {
+        border-color: red;
+        border-width: 4px;
+        border-style: solid;
+      }
     }
 
     & .toggle__switch-highlight {
       cursor: pointer;
-      width: calc(60px * var(--core-scale));
-      height: calc(30px * var(--core-scale));
-      background: var(--color-grey-600);
+      width: 60px;
+      height: 30px;
+      background: grey;
       display: block;
-      border-radius: calc(26px * var(--core-scale));
+      border-radius: 26px;
       position: relative;
     }
 
     & .toggle__switch-highlight:after {
       content: "";
       position: absolute;
-      top: calc(4px * var(--core-scale));
-      left: calc(4px * var(--core-scale));
-      width: calc(22px * var(--core-scale));
-      height: calc(22px * var(--core-scale));
-      background: var(--color-common-white);
-      border-radius: calc(60px * var(--core-scale));
-      transition-property: left, transform;
-      transition-duration: 300ms;
-      transform: scale(0.8);
+      top: 6px;
+      left: 5px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 60px;
+      transition: 300ms;
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight {
@@ -56,28 +51,15 @@
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight:after {
-      left: calc(100% - (4px * var(--core-scale)));
-      transform: translateX(-100%) scale(1);
+      left: calc(100% - 5px);
+      transform: translateX(-100%);
+      top: 4px;
+      width: 22px;
+      height: 22px;
     }
 
-    & .toggle__switch-checkbox[type="checkbox"]:focus-visible + .toggle__switch-highlight {
-      box-shadow: 0px 0px 0px calc(3px * var(--core-scale)) var(--color-primary-light);
-    }
-  }
-
-  &--disabled {
-    & .toggle__switch {
-      & .toggle__switch-highlight {
-        background: var(--color-grey-500);
-      }
-
-      & .toggle__switch-checkbox:checked + .toggle__switch-highlight {
-        background: var(--color-grey-500);
-      }
-
-      & .toggle__switch-checkbox[type="checkbox"]:focus-visible + .toggle__switch-highlight {
-        box-shadow: 0px 0px 0px calc(3px * var(--core-scale)) var(--color-grey-700);
-      }
+    & .toggle__switch-highlight:active:after {
+      width: 30px;
     }
   }
 }

@@ -1,38 +1,36 @@
 .input {
   display: flex;
   flex-direction: column;
-  gap: max(0.1875vh, 0.125rem);
-  width: 100%;
+  gap: 0.25rem;
 
-  & .input__text {
-    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
-    font-weight: 400;
-    color: var(--core-text-color);
-    margin-left: 2px;
+  & .input__label {
+    font-size: 1rem;
+    font-style: italic;
+    margin-left: 0.125rem;
+    color: color-mix(in srgb, var(--core-text-color), transparent 25%);
   }
 
   & .input__input {
-    padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
-    border-radius: 6px;
-    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
-    font-weight: 400;
-    border: 2px solid var(--core-text-color);
+    padding: calc(max(0.75vh, 0.5rem) * var(--core-scale, 1));
+    border: 0;
+    border-radius: 8px;
+    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale, 1));
+    outline: 0;
+    border-width: 2px;
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 50%);
     background-color: var(--core-content-background-100);
-    color: var(--core-text-color);
 
     &::placeholder {
       font-style: italic;
-      color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 65%);
+      color: color-mix(in srgb, var(--core-text-color), transparent 65%);
     }
 
-    &:focus-visible {
-      outline: 2px solid var(--color-primary-main);
-      outline-offset: -3px;
-    }
-
-    &:user-invalid {
-      outline: 2px solid var(--color-error-main);
-      outline-offset: -3px;
+    &:focus {
+      background-color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 90%);
+      border-color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-100) 20%);
+      border-width: 2px;
+      border-style: solid;
     }
   }
 }

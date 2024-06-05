@@ -1,32 +1,25 @@
-import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
+import { useMemo } from "react";
 
 // styles
-import maps from "./Button.module.scss";
-const mc = mapClassesCurried(maps, true) as (cn: string | string[]) => string;
+import styles from "./Button.module.scss";
 
 // types
-import { useCallback, type ButtonHTMLAttributes, type ReactNode } from "react";
+import type { IButton } from "./Button.interface";
 
-interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: string;
-  icon?: ReactNode;
-}
+export default function Button({ className, variant, onClick, icon, children, ...props }: IButton) {
+  const classList = useMemo(() => {
+    const _classlist = [styles["button"]];
 
-export default function Button({ className, variant, icon, children, ...props }: IButton) {
-  const classList = useClassList(
-    { defaultClass: "button", className, variant, maps, string: true },
-    useCallback(
-      (_c: string[]) => {
-        !children && icon && _c.push("button--icon-only");
-      },
-      [children, icon]
-    )
-  ) as string;
+    if (className) for (const item of className.split(" ")) _classlist.push(item);
+
+    if (variant) for (const item of variant.split(" ")) _classlist.push(styles[`button--${item}`]);
+
+    return _classlist.join(" ");
+  }, [className, variant]);
 
   return (
-    <button className={classList} {...props}>
-      {children && <span className={mc("button__text")}>{children}</span>}
-      {icon && icon}
+    <button className={classList} onClick={onClick} {...props}>
+      {icon && icon} <span>{children}</span>
     </button>
   );
 }

@@ -57,7 +57,7 @@ const theme = {
 const elementsLight = {
   core: {
     text: {
-      color: theme.color.common.black,
+      color: theme.color.grey[1000],
       inverted: theme.color.common.white,
     },
     content: {
@@ -77,7 +77,7 @@ const elementsDark = {
   core: {
     text: {
       color: theme.color.common.white,
-      inverted: theme.color.common.black,
+      inverted: theme.color.grey[1000],
     },
     content: {
       background: {
