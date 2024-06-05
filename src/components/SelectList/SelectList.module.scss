@@ -4,13 +4,13 @@
     padding: max(0.75vh, 0.5rem) max(1.5vh, 1rem);
     margin: max(0.375vh, 0.25rem) 0;
     border: 0;
-    border-radius: calc(max(3vh, 32px) * var(--core-scale));
-    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+    border-radius: calc(max(3vh, 32px) * var(--core-scale, 1));
+    font-size: calc(max(1.5vh, 1rem) * var(--core-scale, 1));
     font-style: italic;
     font-weight: 400;
     line-height: 1.1;
     background-color: var(--color-primary-main);
-    color: var(--core-text-color);
+    color: var(--color-common-white);
 
     &:focus-visible {
       outline: 2px solid var(--color-primary-main);
@@ -40,20 +40,21 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.25rem;
 
     & .select-modal__button {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: calc(max(0.575vh, 0.35rem) * var(--core-scale));
+      gap: calc(max(0.575vh, 0.35rem) * var(--core-scale, 1));
       background-color: transparent;
       color: var(--core-text-color);
       border: 0;
       padding: max(0.375vh, 0.25rem) 0;
 
       & > svg {
-        width: calc(max(2.25vh, 1.5rem) * var(--core-scale));
-        height: calc(max(2.25vh, 1.5rem) * var(--core-scale));
+        width: calc(max(2.25vh, 1.5rem) * var(--core-scale, 1));
+        height: calc(max(2.25vh, 1.5rem) * var(--core-scale, 1));
         fill: var(--core-text-color);
       }
     }
