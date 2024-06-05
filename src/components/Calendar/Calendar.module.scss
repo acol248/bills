@@ -3,13 +3,13 @@
   padding: max(0.75vh, 0.5rem) max(1.5vh, 1rem);
   margin: max(0.375vh, 0.25rem) 0;
   border: 0;
-  border-radius: calc(max(3vh, 32px) * var(--core-scale));
-  font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+  border-radius: calc(max(3vh, 32px) * var(--core-scale, 1));
+  font-size: calc(max(1.5vh, 1rem) * var(--core-scale, 1));
   font-style: italic;
   font-weight: 400;
   line-height: 1.1;
   background-color: var(--color-primary-main);
-  color: var(--core-text-color);
+  color: var(--color-common-white);
 
   &:focus-visible {
     outline: 2px solid var(--color-primary-main);
@@ -30,31 +30,54 @@
 }
 
 .calendar-menu {
-  background-color: var(--core-content-background-100);
-  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-
   & .calendar-menu__calendar {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    justify-content: center;
+    align-self: center;
+    gap: 1.25rem;
+    padding: calc(max(1.125vh, 0.75rem) * var(--core-scale, 1));
+    width: calc(80dvw - 4rem);
 
     & .calendar-menu__header {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 1rem;
 
-      & h2 {
+      & > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+
+        & > svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      & > h2 {
         margin: 0;
         color: var(--core-text-color);
-        font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+        font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale, 1));
+        font-weight: 500;
       }
     }
 
     & .calendar-menu__inner {
       color: var(--core-text-color);
+      height: 225px;
 
       & > table {
         width: 100%;
+
+        & [class~="react-aria-CalendarHeaderCell"] {
+          font-weight: 600;
+          color: var(--color-grey-800);
+        }
       }
 
       & .calendar-menu__cell {
@@ -66,10 +89,11 @@
 
         &[data-selected="true"] {
           background-color: var(--color-primary-main);
+          color: var(--color-common-white);
         }
 
         &[data-disabled="true"] {
-          opacity: 0.35;
+          opacity: 0.3;
         }
       }
     }
