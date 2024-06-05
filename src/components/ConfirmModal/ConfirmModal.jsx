@@ -22,7 +22,9 @@ export default function ConfirmModal({ className, title, children, open, onClose
       <p className={mc("confirm-modal__body")}>{children}</p>
 
       <div className={mc("confirm-modal__buttons")}>
-        <Button onClick={() => useVibration({ callback: onClose })}>Cancel</Button>
+        <Button variant="secondary" onClick={() => useVibration({ callback: onClose })}>
+          Cancel
+        </Button>
         <Button onClick={() => useVibration({ callback: action })}>Confirm</Button>
       </div>
     </Modal>
