@@ -156,5 +156,16 @@
         }
       }
     }
+
+    & .add__buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0 0.5rem;
+
+      & > button {
+        width: 50%;
+      }
+    }
   }
 }

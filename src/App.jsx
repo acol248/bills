@@ -304,7 +304,7 @@ export default function App() {
               open={isAddItemOpen}
               onClose={() => setIsAddItemOpen(false)}
               title="Add Item"
-              variant="mobile-full"
+              variant="mobile-bottom"
               onTransitionEnd={handleItemModalTransitionEnd}
             >
               <form
@@ -337,7 +337,12 @@ export default function App() {
                   </label>
                 </div>
 
-                <Button>Save</Button>
+                <div className={mc("add__buttons")}>
+                  <Button variant="secondary" type="button" onClick={() => setIsAddItemOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button>Save</Button>
+                </div>
               </form>
             </Modal>
 
@@ -346,7 +351,7 @@ export default function App() {
               open={isAddCategoryOpen}
               onClose={() => setIsAddCategoryOpen(false)}
               title="Add Category"
-              variant="mobile-full"
+              variant="mobile-bottom"
               onTransitionEnd={handleCategoryModalTransitionEnd}
             >
               <form
@@ -361,7 +366,12 @@ export default function App() {
                   </Input>
                 </div>
 
-                <Button>Save</Button>
+                <div className={mc("add__buttons")}>
+                  <Button variant="secondary" type="button" onClick={() => setIsAddCategoryOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button>Save</Button>
+                </div>
               </form>
             </Modal>
 
