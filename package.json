@@ -1,7 +1,7 @@
 {
   "name": "bills",
   "private": true,
-  "version": "0.2.240104-4B",
+  "version": "0.2.6-bda792c5",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
