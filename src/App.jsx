@@ -190,6 +190,7 @@ export default function App() {
 
                 <button
                   className={mc("app__settings-button")}
+                  aria-label="settings"
                   onClick={() => _settings.useVibration({ callback: () => setIsSettingsOpen(true) })}
                 >
                   <Icon type="settings" />

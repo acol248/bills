@@ -34,6 +34,11 @@
     background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--color-common-white);
+    outline-offset: -4px;
+  }
+
   &.button--open {
     & > svg {
       transform: rotate(45deg);

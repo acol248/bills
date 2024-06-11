@@ -40,7 +40,7 @@ export default function ListItem({ className, variant, open, onToggle, name, val
 
   return (
     <details {...props} className={classList} open={open}>
-      <summary onClick={handleToggle}>
+      <summary onClick={handleToggle} aria-label="toggle open item">
         <div className={mc("list-item__left")}>
           <span className={mc("list-item__value")}>{value}</span>
           {name}

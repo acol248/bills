@@ -13,8 +13,8 @@
     color: var(--color-common-white);
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary-main);
-      outline-offset: -3px;
+      outline: 2px solid var(--color-common-white);
+      outline-offset: -4px;
     }
 
     &:hover {

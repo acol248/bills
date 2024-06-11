@@ -53,6 +53,11 @@
     &::-webkit-details-marker {
       display: none;
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-main);
+      outline-offset: -2px;
+    }
   }
 
   & .category__body {
@@ -68,6 +73,10 @@
       margin: max(1.125vh, 0.75rem) max(0.6vh, 0.4rem) max(0.6vh, 0.4rem);
       padding: max(0.375vh, 0.25rem) max(1.125vh, 0.75rem);
       cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary-main);
+      }
     }
   }
 }

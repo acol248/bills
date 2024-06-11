@@ -35,7 +35,7 @@ export default function Category({ className, name, total, onDelete = () => {}, 
 
   return (
     <details className={classList} open={isOpen}>
-      <summary className={mc("category__summary")} onClick={handleToggle}>
+      <summary className={mc("category__summary")} onClick={handleToggle} aria-label="toggle open category">
         <div className={mc("category__text")}>
           <h2>{name}</h2>
           <h4>{total}</h4>

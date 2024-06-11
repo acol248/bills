@@ -2,6 +2,7 @@ import { useContext, useMemo, useState } from "react";
 
 // hooks
 import { SettingsContext } from "../../hooks/useSettings";
+import useMediaQuery from "@blocdigital/usemediaquery";
 
 // components
 import Modal from "../../components/Modal";
@@ -23,6 +24,8 @@ const mc = mapClassesCurried(maps, true);
 export default function Category({ className, open, onClose = () => {} }) {
   const { settings, useVibration, toggleVibration, getStorageSize } = useContext(SettingsContext);
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   const storageUsage = useMemo(() => `${getStorageSize()}KB`, [open]);
@@ -43,7 +46,13 @@ export default function Category({ className, open, onClose = () => {} }) {
 
   return (
     <>
-      <Modal className={classList} open={open} onClose={() => onClose()} title="Settings" variant="mobile-full">
+      <Modal
+        className={classList}
+        open={open}
+        onClose={() => onClose()}
+        title="Settings"
+        variant={isMobile ? "mobile-full" : ""}
+      >
         <div className={mc("settings__section")}>
           <h3>Display</h3>
 

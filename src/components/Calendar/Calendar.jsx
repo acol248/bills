@@ -30,7 +30,7 @@ export default function Calendar({ className, selectedDate, onChange }) {
 
   return (
     <>
-      <button type="button" className={buttonClassList} onClick={() => setIsOpen(true)}>
+      <button type="button" className={buttonClassList} onClick={() => setIsOpen(true)} aria-label="open date select">
         {selectedDate ? new Date(selectedDate)?.toLocaleDateString() || "" : "No date selected"}
       </button>
 

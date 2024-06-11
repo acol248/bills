@@ -29,7 +29,7 @@ export default function SelectList({ className, children, list = [], selectedLis
 
   return (
     <div className={classList}>
-      <button className={mc("select-list__button")} onClick={() => setIsOpen(true)} type="button">
+      <button className={mc("select-list__button")} onClick={() => setIsOpen(true)} type="button" aria-label="open selection list">
         {selectedList ? selectedList : children}
       </button>
 

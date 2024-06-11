@@ -33,6 +33,7 @@
     font-style: italic;
     height: calc(48px * var(--core-scale));
     line-height: 1;
+    border-radius: 16px;
 
     & .list-item__left {
       display: flex;
@@ -60,6 +61,11 @@
 
     &::-webkit-details-marker {
       display: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-main);
+      outline-offset: -2px;
     }
   }
 

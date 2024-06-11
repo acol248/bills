@@ -61,5 +61,14 @@
     & .toggle__switch-highlight:active:after {
       width: 30px;
     }
+
+    &:has(.toggle__switch-checkbox:focus-visible) {
+      outline: 0;
+
+      & label {
+        outline: 2px solid var(--color-primary-main);
+        outline-offset: 2px;
+      }
+    }
   }
 }
