@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@blocdigital/useclasslist": "^0.2.0",
+    "@blocdigital/usemediaquery": "^0.1.2",
     "buffer": "^6.0.3",
     "encode-utf8": "^2.0.0",
     "encrypt-with-password": "^1.0.0",
