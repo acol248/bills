@@ -34,7 +34,8 @@
 }
 
 .select-modal {
-  min-width: min(67.5vw, 552px);
+  max-width: 384px;
+  width: 100%;
 
   & .select-modal__inner {
     display: flex;

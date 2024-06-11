@@ -185,14 +185,16 @@ export default function App() {
         <SettingsContext.Provider value={_settings}>
           <BillsContext.Provider value={_bills}>
             <div className={mc("app__header")}>
-              <h2 className={mc("app__total")}>{formatCurrency(Math.round(_bills.total * 100) / 100)}</h2>
+              <div className={mc("app__header-inner")}>
+                <h2 className={mc("app__total")}>{formatCurrency(Math.round(_bills.total * 100) / 100)}</h2>
 
-              <button
-                className={mc("app__settings-button")}
-                onClick={() => _settings.useVibration({ callback: () => setIsSettingsOpen(true) })}
-              >
-                <Icon type="settings" />
-              </button>
+                <button
+                  className={mc("app__settings-button")}
+                  onClick={() => _settings.useVibration({ callback: () => setIsSettingsOpen(true) })}
+                >
+                  <Icon type="settings" />
+                </button>
+              </div>
             </div>
 
             <div className={mc("app__bill-list")}>

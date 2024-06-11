@@ -2,40 +2,46 @@
   height: 100%;
 
   & .app__header {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 max(1.125vh, 0.75rem);
-    height: calc(64px * var(--core-scale));
     background-color: var(--core-content-background-100);
     z-index: 10;
 
-    & .app__total {
-      margin: 0;
-      padding: 0 0 0 max(0.375vh, 0.25rem);
-      font-size: calc(max(3vh, 2rem) * var(--core-scale));
-      font-weight: 700;
-      color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
-      line-height: 1;
-      max-width: calc(100vw - max(3vh, 2rem) - calc(max(2.625vh, 1.75rem) * var(--core-scale)));
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    & .app__settings-button {
+    & .app__header-inner {
+      position: relative;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      background-color: transparent;
-      border: 0;
-      padding: max(0.1875vh, 0.125rem);
-      margin: 0;
+      padding: 0 max(1.125vh, 0.75rem);
+      max-width: 768px;
+      width: 100%;
+      height: calc(64px * var(--core-scale, 1));
+      margin: auto;
 
-      & > svg {
-        width: calc(max(3vh, 2rem) * var(--core-scale));
-        height: calc(max(3vh, 2rem) * var(--core-scale));
-        fill: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
+      & .app__total {
+        margin: 0;
+        padding: 0 0 0 max(0.375vh, 0.25rem);
+        font-size: calc(max(3vh, 2rem) * var(--core-scale, 1));
+        font-weight: 700;
+        color: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
+        line-height: 1;
+        max-width: calc(100vw - max(3vh, 2rem) - calc(max(2.625vh, 1.75rem) * var(--core-scale, 1)));
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      & .app__settings-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: 0;
+        padding: max(0.1875vh, 0.125rem);
+        margin: 0;
+
+        & > svg {
+          width: calc(max(3vh, 2rem) * var(--core-scale, 1));
+          height: calc(max(3vh, 2rem) * var(--core-scale, 1));
+          fill: color-mix(in srgb, var(--core-text-color), var(--core-content-background-200) 15%);
+        }
       }
     }
   }
@@ -45,8 +51,8 @@
     inset: auto max(1.875vh, 1.25rem) max(1.875vh, 1.25rem) auto;
 
     & svg {
-      width: calc(max(3vh, 2rem) * var(--core-scale));
-      height: calc(max(3vh, 2rem) * var(--core-scale));
+      width: calc(max(3vh, 2rem) * var(--core-scale, 1));
+      height: calc(max(3vh, 2rem) * var(--core-scale, 1));
     }
   }
 
@@ -54,8 +60,10 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    height: calc(100% - calc(64px * var(--core-scale)));
+    height: calc(100% - calc(64px * var(--core-scale, 1)));
     overflow-y: auto;
+    max-width: 768px;
+    margin: 0 auto;
 
     & .app__bill-category {
       & .app__bill-item {
@@ -89,27 +97,27 @@
         text-align: center;
         margin: max(0.75vh, 0.5rem) 0;
         color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 20%);
-        font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+        font-size: calc(max(1.5vh, 1rem) * var(--core-scale, 1));
         font-style: italic;
       }
 
       &:last-of-type {
-        margin-bottom: calc(max(7.5vh, 5rem) * var(--core-scale));
+        margin-bottom: calc(max(7.5vh, 5rem) * var(--core-scale, 1));
       }
     }
 
     & .app__welcome-message {
       position: relative;
-      margin: calc(max(3.325vh, 2.25rem) * var(--core-scale)) auto 0;
+      margin: calc(max(3.325vh, 2.25rem) * var(--core-scale, 1)) auto 0;
       text-align: center;
       color: color-mix(in srgb, var(--core-text-color), var(--core-text-inverted) 10%);
       width: 80dvw;
-      font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
+      font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale, 1));
 
       &::after {
         content: "...";
         position: absolute;
-        top: calc(min(-2.25vh, -1.5rem) * var(--core-scale));
+        top: calc(min(-2.25vh, -1.5rem) * var(--core-scale, 1));
         left: 50%;
         transform: translateX(-50%);
       }
@@ -150,7 +158,7 @@
 
         & > span {
           color: var(--core-text-color);
-          font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
+          font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale, 1));
           font-weight: 400;
           margin-left: 2px;
         }

@@ -23,6 +23,7 @@
       calc(max(1.125vh, 0.75rem) * var(--core-scale)) calc(max(1.5vh, 1rem) * var(--core-scale));
     background-color: var(--core-content-background-100);
     border-radius: calc(12px * var(--core-scale));
+    cursor: pointer;
 
     & .category__text {
       display: flex;
@@ -66,6 +67,7 @@
       color: var(--color-warning-contrast);
       margin: max(1.125vh, 0.75rem) max(0.6vh, 0.4rem) max(0.6vh, 0.4rem);
       padding: max(0.375vh, 0.25rem) max(1.125vh, 0.75rem);
+      cursor: pointer;
     }
   }
 }

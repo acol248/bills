@@ -10,6 +10,7 @@
   line-height: 1.1;
   background-color: var(--color-primary-main);
   color: var(--color-common-white);
+  cursor: pointer;
 
   &:focus-visible {
     outline: 2px solid var(--color-primary-main);
@@ -30,14 +31,16 @@
 }
 
 .calendar-menu {
+  max-width: 384px;
+  width: 100%;
+
   & .calendar-menu__calendar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-self: center;
     gap: 1.25rem;
-    padding: calc(max(1.125vh, 0.75rem) * var(--core-scale, 1));
-    width: calc(80dvw - 4rem);
+    padding: calc(max(0.75vh, 0.5rem) * var(--core-scale, 1)) 0;
 
     & .calendar-menu__header {
       display: flex;
@@ -52,6 +55,7 @@
         background-color: transparent;
         border: 0;
         padding: 0;
+        cursor: pointer;
 
         & > svg {
           width: 1.5rem;
@@ -85,7 +89,12 @@
         justify-content: center;
         align-items: center;
         padding: 0.15rem;
-        border-radius: 50%;
+        border-radius: 10px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: color-mix(in srgb, var(--color-primary-main), transparent 70%);
+        }
 
         &[data-selected="true"] {
           background-color: var(--color-primary-main);
