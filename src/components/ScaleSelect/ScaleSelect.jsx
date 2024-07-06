@@ -16,12 +16,9 @@ export default function ScaleSelect({ className }) {
   const { settings, setScale, useVibration } = useContext(SettingsContext);
 
   const [constraints, setConstraints] = useState({
-    min: Math.round(0.7 * (window.innerWidth / 375) * 10) / 10,
-    max: Math.round(1.3 * (window.innerWidth / 375) * 10) / 10,
-    default:
-      Math.round(
-        (0.7 * (window.innerWidth / 375) + (1.3 * (window.innerWidth / 375) - 0.7 * (window.innerWidth / 375)) / 2) * 10
-      ) / 10,
+    min: 0.7,
+    max: 1.3,
+    default: 1,
   });
 
   const classList = useClassList({ defaultClass: "scale-select", className, maps, string: true });
@@ -35,28 +32,6 @@ export default function ScaleSelect({ className }) {
    * Reduce scale by 0.1, up to 0.7
    */
   const handleReduceScale = () => setScale(settings.scale > constraints.min ? settings.scale - 0.1 : constraints.min);
-
-  // listen for window size change
-  useEffect(() => {
-    const handleResize = () => {
-      const _constraints = {
-        min: Math.round(0.7 * (window.innerWidth / 375) * 10) / 10,
-        max: Math.round(1.3 * (window.innerWidth / 375) * 10) / 10,
-        default:
-          Math.round(
-            (0.7 * (window.innerWidth / 375) +
-              (1.3 * (window.innerWidth / 375) - 0.7 * (window.innerWidth / 375)) / 2) *
-              10
-          ) / 10,
-      };
-
-      setConstraints(_constraints);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <div className={classList}>
