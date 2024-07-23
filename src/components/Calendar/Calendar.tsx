@@ -19,7 +19,7 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 // types
 interface CalendarProps {
   className?: Element["className"];
-  selectedDate: string;
+  selectedDate: DateValue | undefined;
   onChange: (v: DateValue) => void;
 }
 
@@ -62,7 +62,7 @@ export default function Calendar({
         aria-label="open date select"
       >
         {selectedDate
-          ? new Date(selectedDate)?.toLocaleDateString() || ""
+          ? new Date(String(selectedDate))?.toLocaleDateString() || ""
           : "No date selected"}
       </button>
 
