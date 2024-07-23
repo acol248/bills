@@ -7,18 +7,21 @@ import { DataContext } from "../../hooks/useData";
 // components
 import BottomModal from "../../components/BottomModal";
 import Button from "../../interface/Button";
-import Input from "../../interface/Input";
 import Calendar from "../../components/Calendar";
+import Input from "../../interface/Input";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./AddItem.module.scss";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
+// types
+import type { DateValue } from "react-aria-components";
+
 export default function AddItem() {
   const { addItemOpen, setAddItemOpen, addItem } = useContext(DataContext);
 
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<DateValue>();
 
   const classList = useClassList({
     defaultClass: "add-item",
@@ -44,8 +47,11 @@ export default function AddItem() {
       id: uuidv4(),
       name: String(itemName),
       value: parseFloat(String(value)),
-      date,
+      date: new Date(String(date)).toLocaleDateString(),
     });
+
+    setDate(undefined);
+    setAddItemOpen(false);
   };
 
   return (
@@ -62,7 +68,7 @@ export default function AddItem() {
           Value
         </Input>
 
-        <Calendar selectedDate={date} onChange={(e) => console.log(e)} />
+        <Calendar selectedDate={date} onChange={(e) => setDate(e)} />
 
         <div className={mc("add-item__buttons")}>
           <Button type="button" onClick={() => setAddItemOpen(false)}>
