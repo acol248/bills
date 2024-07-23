@@ -1,0 +1,13 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & .item__label {
+    margin: 0;
+  }
+
+  & .item__value {
+    margin: 0;
+  }
+}
