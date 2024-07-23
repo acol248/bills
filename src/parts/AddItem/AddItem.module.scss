@@ -1,0 +1,21 @@
+.add-item {
+  & .add-item__form {
+    & > label {
+      margin: 0 0 0.5rem;
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+
+  & .add-item__buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0 0 0;
+
+    & > button {
+      width: 50%;
+    }
+  }
+}

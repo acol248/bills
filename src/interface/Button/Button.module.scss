@@ -6,8 +6,8 @@
   margin: 0;
   padding: 0.45rem;
   background-color: var(--color-primary-main);
-  border: 2px solid var(--color-primary-main);
-  border-radius: 6px;
+  border: 0;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 300;
   color: var(--color-primary-contrast);
@@ -28,20 +28,16 @@
   }
 
   &:hover {
-    background-color: color-mix(in srgb, var(--color-primary-main), var(--core-text-color) 10%);
+    background-color: var(--color-primary-dark);
 
     & svg {
       opacity: 1;
     }
   }
 
-  &:active {
-    background-color: color-mix(in srgb, var(--color-primary-main), var(--core-text-color) 20%);
-  }
-
   &:focus-visible {
     outline: 2px solid var(--color-primary-contrast);
-    outline-offset: -4px;
+    outline-offset: -6px;
   }
 
   &--secondary {
@@ -53,16 +49,16 @@
     font-weight: 500;
 
     &:hover {
-      background-color: color-mix(in srgb, var(--core-text-color), transparent 92.5%);
-    }
+      background-color: var(--color-primary-main);
 
-    &:active {
-      background-color: color-mix(in srgb, var(--core-text-color), transparent 85%);
+      & span {
+        color: var(--core-text-inverted);
+      }
     }
 
     &:focus-visible {
       outline: 2px solid var(--color-primary-main);
-      outline-offset: -5px;
+      outline-offset: -4px;
     }
   }
 

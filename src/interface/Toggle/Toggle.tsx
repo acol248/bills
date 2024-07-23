@@ -1,25 +1,32 @@
-import { useState, useEffect, forwardRef, useRef } from "react";
+import { useState, useEffect, forwardRef, useRef, HTMLProps } from "react";
 
 // styles
 import styles from "./Toggle.module.scss";
 
-/**
- * Generates random string
- *
- * @param {number} len length of string
- * @returns generated string
- */
-function generateString(len) {
-  let gen = "";
-  const charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz#@$%^&*!~";
-  for (let i = 0; i < len; i++) {
-    const randomPoz = Math.floor(Math.random() * charset.length);
-    gen += charset.substring(randomPoz, randomPoz + 1);
-  }
-  return gen;
+// types
+
+interface IToggle extends HTMLProps<HTMLInputElement> {
+  variant?: string;
 }
 
-function Toggle({ className, variant, children, ...props }, ref) {
+/**
+ * Generate random string
+ * 
+ * @param length target length of return string
+ * @returns random string based on length param
+ */
+function generateString(length: number) {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return result;
+}
+
+const Toggle = forwardRef<HTMLInputElement, IToggle>(({ className, variant, children, ...props }, ref) => {
   const idRef = useRef(generateString(8));
 
   const [classlist, setClasslist] = useState("");
@@ -45,6 +52,8 @@ function Toggle({ className, variant, children, ...props }, ref) {
       </div>
     </div>
   );
-}
+});
 
-export default forwardRef(Toggle);
+Toggle.displayName = "Toggle";
+
+export default Toggle;

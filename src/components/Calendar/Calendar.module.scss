@@ -18,11 +18,19 @@
   }
 
   &:hover {
-    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 10%);
+    background-color: color-mix(
+      in srgb,
+      var(--color-primary-main),
+      var(--color-common-black) 10%
+    );
   }
 
   &:active {
-    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-common-black) 20%);
+    background-color: color-mix(
+      in srgb,
+      var(--color-primary-main),
+      var(--color-common-black) 20%
+    );
   }
 
   &.calendar--value {
@@ -31,8 +39,7 @@
 }
 
 .calendar-menu {
-  max-width: 384px;
-  width: 100%;
+  width: unset;
 
   & .calendar-menu__calendar {
     display: flex;
@@ -73,7 +80,6 @@
 
     & .calendar-menu__inner {
       color: var(--core-text-color);
-      height: 225px;
 
       & > table {
         width: 100%;
@@ -93,7 +99,11 @@
 
         &:hover {
           cursor: pointer;
-          background-color: color-mix(in srgb, var(--color-primary-main), transparent 70%);
+          background-color: color-mix(
+            in srgb,
+            var(--color-primary-main),
+            transparent 70%
+          );
         }
 
         &[data-selected="true"] {

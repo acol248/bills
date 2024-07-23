@@ -1,6 +1,10 @@
-import { useMemo } from "react";
+import { SVGProps, useMemo } from "react";
 
-export default function Icon({ type, ...props }) {
+interface Props extends SVGProps<SVGSVGElement> {
+  type: "add" | "settings" | "item-add" | "category-add";
+}
+
+export default function Icon({ type, ...props }: Props) {
   const icon = useMemo(() => {
     switch (type) {
       case "add":

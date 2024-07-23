@@ -10,7 +10,7 @@ body,
 }
 
 body {
-  background-color: var(--core-content-background-200);
+  background-color: var(--core-content-background-100);
   overflow: hidden;
   margin: 0;
 }

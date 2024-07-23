@@ -1,187 +1,97 @@
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.15);
+  position: fixed;
+  inset: 0;
+
+  &[data-state="open"] {
+    animation: fadeIn 100ms ease-out;
+  }
+
+  &[data-state="closed"] {
+    animation: fadeOut 100ms ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+
 .modal {
-  position: relative;
-  box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.16),
-    0 3px 6px rgba(0, 0, 0, 0.23);
-  background-color: var(--core-content-background-200);
+  background-color: var(--core-content-background-100);
   border-radius: 12px;
-  border-width: 0;
-  padding: 0;
-  max-height: 80dvh;
-  max-width: 80dvw;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  inset: 0 auto auto 50%;
+  transform: translate(-50%, -50%);
+  max-width: 552px;
+  max-height: 85dvh;
+  padding: 3.75rem 1rem 1rem;
+  z-index: 10;
 
-  & .modal__header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100% - max(2.4375vh, 1.625rem));
-    height: calc(52px * var(--core-scale, 1));
-    padding: 0 max(1.125vh, 0.75rem) 0 max(1.3125vh, 0.875rem);
-    background-color: var(--core-content-background-100);
-    z-index: 10;
-
-    & .modal__title {
-      font-size: calc(max(1.875vh, 1.25rem) * var(--core-scale, 1));
-      color: var(--core-text-color);
-      margin: 0;
-      font-weight: 300;
-    }
-
-    & .modal__close {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: transparent;
-      border: 0;
-      margin: 0;
-      padding: 0;
-      cursor: pointer;
-
-      & > svg {
-        width: calc(max(3vh, 2rem) * var(--core-scale, 1));
-        height: calc(max(3vh, 2rem) * var(--core-scale, 1));
-        fill: var(--core-text-color);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--core-text-color);
-      }
-    }
-
-    &:focus-visible {
-      outline: 0;
-    }
-  }
-
-  & .modal__body {
-    padding: max(1.5vh, 1rem);
-  }
-
-  &::backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(51, 51, 51, 0.2);
-    backdrop-filter: blur(1px);
-    animation: none;
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
-
-  &[open] {
-    animation: show 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-    &.modal--closing {
-      animation: hide 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-  }
-
-  &.modal--mobile-full {
-    max-width: unset;
-    max-height: unset;
-    height: 100dvh;
-    width: 100dvw;
+  & .modal__title {
+    position: absolute;
+    inset: 1rem auto auto 1rem;
     margin: 0;
-    border-radius: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 
-    & .modal__body {
-      width: calc(100% - max(3vh, 2rem));
-      height: calc(100% - calc(max(7.875vh, 6.25rem) * var(--core-scale, 1)));
-    }
+  & .modal__close {
+    position: absolute;
+    inset: 1rem 1rem auto auto;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
 
-    & .modal__header {
-      background-color: var(--core-content-background-100);
-      height: calc(64px * var(--core-scale, 1));
-
-      & .modal__title {
-        font-size: calc(max(2.25vh, 1.5rem) * var(--core-scale, 1));
-      }
-    }
-
-    &::backdrop {
-      background-color: rgba(51, 51, 51, 0);
-    }
-
-    &[open] {
-      animation: showFull 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-      &.modal--closing {
-        animation: hideFull 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      }
+    & > svg {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
-  &.modal--mobile-bottom {
-    max-width: unset;
-    max-height: 95dvh;
-    width: 100%;
-    margin: auto 0 0 0;
-    border-radius: 30px 30px 0 0;
-    background-color: var(--core-content-background-100);
-    max-width: 768px;
-    margin: auto auto 0;
+  &[data-state="open"] {
+    animation: openModal 100ms ease-out;
+  }
 
-    & .modal__header {
-      justify-content: center;
-      height: calc(52px * var(--core-scale, 1));
+  &[data-state="closed"] {
+    animation: closeModal 100ms ease-in;
+  }
 
-      & .modal__close {
-        display: none;
-      }
+  @keyframes openModal {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.95);
     }
-
-    & .modal__body {
-      padding: max(0.75vh, 0.5rem) max(1.5vh, 1rem);
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
     }
   }
-}
 
-@keyframes show {
-  from {
-    opacity: 0;
-    transform: translateY(min(100px, 5vh));
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes hide {
-  from {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(min(100px, 5vh));
-  }
-}
-
-@keyframes showFull {
-  from {
-    opacity: 0;
-    transform: translateX(min(-35px, -3vw));
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes hideFull {
-  from {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(min(-35px, -3vw));
+  @keyframes closeModal {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.95);
+    }
   }
 }
