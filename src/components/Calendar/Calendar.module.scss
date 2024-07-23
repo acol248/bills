@@ -1,7 +1,7 @@
 .calendar {
   text-align: left;
   padding: max(0.75vh, 0.5rem) max(1.5vh, 1rem);
-  margin: max(0.375vh, 0.25rem) 0;
+  margin: max(1.5vh, 1rem) 0;
   border: 0;
   border-radius: calc(max(3vh, 32px) * var(--core-scale, 1));
   font-size: calc(max(1.5vh, 1rem) * var(--core-scale, 1));
@@ -67,6 +67,7 @@
         & > svg {
           width: 1.5rem;
           height: 1.5rem;
+          fill: var(--core-text-color);
         }
       }
 
