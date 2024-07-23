@@ -3,6 +3,9 @@ import { useContext } from "react";
 // hooks
 import { DataContext } from "../../hooks/useData";
 
+// components
+import Item from "../../components/Item";
+
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./UpComing.module.scss";
@@ -25,7 +28,11 @@ export default function UpComing() {
         <span>£250.58</span> <br /> to go
       </div>
 
-      <div className={mc("up-coming__items")}></div>
+      <div className={mc("up-coming__items")}>
+        {items.map(({ name, value }) => (
+          <Item label={name} value={value.toString()} />
+        ))}
+      </div>
     </div>
   );
 }
