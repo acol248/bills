@@ -15,7 +15,7 @@ export type Item = {
   id: string;
   name: string;
   value: number;
-  date: string;
+  date: Date;
 };
 
 export type Category = {

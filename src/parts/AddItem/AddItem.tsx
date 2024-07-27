@@ -47,7 +47,7 @@ export default function AddItem() {
       id: uuidv4(),
       name: String(itemName),
       value: parseFloat(String(value)),
-      date: new Date(String(date)).toLocaleDateString(),
+      date: new Date(String(date)),
     });
 
     setDate(undefined);

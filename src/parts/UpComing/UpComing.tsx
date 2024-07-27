@@ -33,14 +33,14 @@ export default function UpComing() {
 
     /**
      * Get the day from an item date string (mm/dd/yyyy)
-     * 
+     *
      * @param dateStr item date input string
      */
-    const getDay = (dateStr: Item["date"]) => dateStr.split("/").map(Number)[1];
+    const getDay = (date: Item["date"]) => new Date(date).getDate();
 
     /**
      * Calculate the effective day difference considering only the day of the month\
-     * 
+     *
      * @param day input day number
      */
     const getDayDiff = (day: number) => (day >= currentDay ? day - currentDay : day + 30 - currentDay);
@@ -53,7 +53,7 @@ export default function UpComing() {
 
   /**
    * Get the total value of all items left in this month
-   * 
+   *
    * @param arr array of items
    * @returns totalled up value
    */
@@ -62,7 +62,8 @@ export default function UpComing() {
     const currentMonth = new Date().getMonth() + 1;
 
     return arr.reduce((a, { value, date }) => {
-      const [month, day] = date.split("/").map(Number);
+      const month = new Date(date).getMonth();
+      const day = new Date().getDate();
 
       if (month !== currentMonth || day < currentDay) return a;
 

@@ -8,7 +8,7 @@ interface ItemProps {
   className?: Element["className"];
   label: string;
   value: string;
-  date: string;
+  date: Date;
 }
 
 export default function ListItem({ className, label, value, date }: ItemProps) {
