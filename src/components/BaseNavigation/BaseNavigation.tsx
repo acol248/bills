@@ -37,7 +37,7 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
         </svg>
       </a>
 
-      <button onClick={() => setAddItemOpen(true)} aria-label="open add item">
+      <button className={mc('base-nav__button')} onClick={() => setAddItemOpen(true)} aria-label="open add item">
         <PlusCircledIcon />
       </button>
 

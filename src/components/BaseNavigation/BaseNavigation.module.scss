@@ -28,20 +28,20 @@
     }
   }
 
-  & > button {
+  & .base-nav__button {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 0.25rem;
-    background-color: var(--color-grey-300);
+    background-color: var(--core-content-background-500);
+    color: var(--color-common-black);
     border: 0;
     border-radius: 8px;
 
     & > svg {
       width: 1.5rem;
       height: 1.5rem;
-      fill: var(--color-grey-500);
     }
   }
 
