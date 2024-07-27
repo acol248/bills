@@ -1,8 +1,11 @@
+import useLocalStorage from "@blocdigital/uselocalstorage";
 import {
   Dispatch,
   SetStateAction,
   createContext,
   useCallback,
+  useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -64,6 +67,8 @@ interface UseData {
 }
 
 export default function useData(): UseData {
+  const storage = useLocalStorage('local');
+
   const [addItemOpen, setAddItemOpen] = useState(false);
 
   const [items, setItems] = useState<Array<Item>>([]);
@@ -108,6 +113,32 @@ export default function useData(): UseData {
   const removeItem = useCallback<UseData["removeItem"]>((targetId) => {
     setItems((itms) => itms.filter(({ id }) => id !== targetId));
   }, []);
+
+  // update localstorage on change
+  useEffect(() => {
+    if (!storage) return;
+
+    const _items = storage.get<Array<Item>>('items');
+
+    if (!_items || !_items.length || (_items.length && items.length < 1)) return;
+
+    storage.set('items', items);
+  }, [storage, items]);
+
+  // get/init data when app loads
+  useLayoutEffect(() => {
+    if (!storage.get('items')) {
+      console.log("dog's bollocks");
+
+      storage.init('items', []);
+
+      return;
+    }
+
+    const items = storage.get<Array<Item>>('items');
+    
+    setItems(items ?? [])
+  }, [storage]);
 
   return {
     addItemOpen,
