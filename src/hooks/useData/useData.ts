@@ -8,14 +8,14 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 // types
-type Item = {
+export type Item = {
   id: string;
   name: string;
   value: number;
   date: string;
 };
 
-type Category = {
+export type Category = {
   id: string;
   name: string;
 };
