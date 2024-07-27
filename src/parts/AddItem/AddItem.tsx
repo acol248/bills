@@ -64,7 +64,7 @@ export default function AddItem() {
       <form className={mc('add-item__form')} onSubmit={submitForm}>
         <Input name="itemName">Name</Input>
 
-        <Input name="value" type="number">
+        <Input name="value" type="number" step={0.01}>
           Value
         </Input>
 
