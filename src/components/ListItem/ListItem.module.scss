@@ -2,18 +2,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 calc(1rem * var(--core-scale, 1));
+  padding: calc(0.5rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
+  background-color: var(--core-content-background-500);
+  border-radius: calc(12px * var(--core-scale, 1));
 
   & .list-item__left {
     & .list-item__label {
       margin: 0;
+      font-size: calc(0.75rem * var(--core-scale, 1));
+      font-weight: 300;
+      color: var(--core-text-color);
     }
 
     & .list-item__value {
       margin: 0;
+      font-size: calc(1rem * var(--core-scale, 1));
+      font-weight: 600;
+      color: var(--core-text-color);
     }
   }
 
   & .list-item__date {
     margin: 0;
+    font-size: calc(1.125rem * var(--core-scale, 1));
+    font-weight: 600;
+    color: var(--core-text-color);
   }
 }
