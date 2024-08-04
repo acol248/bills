@@ -21,9 +21,9 @@ const theme = {
       900: "#424242",
     },
     primary: {
-      light: "#9aac5e",
-      main: "#606c38",
-      dark: "#333a1e",
+      light: "#7c9f58",
+      main: "#566e3d",
+      dark: "#3c4d2b",
       contrast: "#ffffff",
     },
     secondary: {
