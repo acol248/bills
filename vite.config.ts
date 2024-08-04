@@ -4,21 +4,22 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/app/bills-beta/",
   plugins: [
     react(),
     VitePWA({
-      registerType: "prompt",
+      registerType: "autoUpdate",
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
-        globPatterns: ["**/*.{js,css,html,ico,png}"]
+        globPatterns: ["**/*.{js,css,html,ico,png}"],
       },
       manifest: {
-        name: 'Bills',
-        short_name: 'Bills',
-        description: 'Keep track of your monthly expenditures.',
-        display: 'standalone',
-        background_color: '#fff',
+        name: "Bills",
+        short_name: "Bills",
+        description: "Keep track of your monthly expenditures.",
+        display: "fullscreen",
+        background_color: "#fff",
         icons: [
           {
             src: "icons/icon-72x72.png",
@@ -68,8 +69,11 @@ export default defineConfig({
             type: "image/png",
             purpose: "maskable any",
           },
-        ]
-      }
+        ],
+      },
     }),
   ],
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
 });
