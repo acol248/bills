@@ -2,19 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+  gap: calc(0.25rem * var(--core-scale, 1));
   margin: 0;
-  padding: 0.45rem;
+  padding: calc(0.45rem * var(--core-scale, 1));
   background-color: var(--color-primary-main);
   border: 0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: calc(1rem * var(--core-scale, 1));
   font-weight: 300;
   color: var(--color-primary-contrast);
   cursor: pointer;
 
   & svg {
-    height: 1.8rem;
+    height: calc(1.75rem * var(--core-scale, 1));
     width: auto;
     fill: currentColor;
     opacity: 0.85;
@@ -23,7 +23,7 @@
   & span {
     background-color: transparent;
     color: currentColor;
-    margin: 0 0.25rem;
+    margin: 0 calc(0.25rem * var(--core-scale, 1));
     line-height: 1.2;
   }
 
@@ -108,10 +108,10 @@
   }
 
   &--tight {
-    padding: 0.25rem;
+    padding: calc(0.25rem * var(--core-scale, 1));
 
     & span {
-      margin: 0 0.125rem;
+      margin: 0 calc(0.125rem * var(--core-scale, 1));
     }
   }
 

@@ -1,20 +1,20 @@
 .input {
   display: flex;
   flex-direction: column;
-  gap: max(0.1875vh, 0.125rem);
+  gap: calc(0.125rem * var(--core-scale, 1));
   width: 100%;
 
   & .input__text {
-    font-size: calc(max(1.3125vh, 0.875rem) * var(--core-scale));
+    font-size: calc(0.875rem * var(--core-scale, 1));
     font-weight: 400;
     color: var(--core-text-color);
     margin-left: 2px;
   }
 
   & .input__input {
-    padding: max(0.525vh, 0.35rem) max(0.75vh, 0.5rem);
+    padding: calc(0.35rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
     border-radius: 6px;
-    font-size: calc(max(1.5vh, 1rem) * var(--core-scale));
+    font-size: calc(1rem * var(--core-scale, 1));
     font-weight: 400;
     border: 2px solid var(--core-text-color);
     background-color: var(--core-content-background-100);
