@@ -1,4 +1,4 @@
-import { Root, Overlay, Content, Close, Title } from "@radix-ui/react-dialog";
+import { Root, Overlay, Content, Close, Title, Portal } from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 // styles
@@ -18,31 +18,26 @@ interface ModalProps {
   onClose: () => void;
 }
 
-export default function Modal({
-  className,
-  variant,
-  title,
-  children,
-  open,
-  onClose,
-}: ModalProps) {
+export default function Modal({ className, variant, title, children, open, onClose }: ModalProps) {
   const classList = useClassList({ defaultClass: "modal", className, variant, maps, string: true }) as string;
 
   return (
-    <Root open={open} onOpenChange={(s) => !s && onClose()}>
+    <Root open={open} onOpenChange={s => !s && onClose()}>
       <Overlay className={mc("modal-overlay")} />
 
-      <Content className={classList} aria-describedby={undefined}>
-        <Title className={mc("modal__title")}>{title}</Title>
+      <Portal>
+        <Content className={classList} aria-describedby={undefined}>
+          <Title className={mc("modal__title")}>{title}</Title>
 
-        <Close asChild>
-          <button className={mc("modal__close")} aria-label="close">
-            <Cross2Icon />
-          </button>
-        </Close>
+          <Close asChild>
+            <button className={mc("modal__close")} aria-label="close">
+              <Cross2Icon />
+            </button>
+          </Close>
 
-        {children}
-      </Content>
+          {children}
+        </Content>
+      </Portal>
     </Root>
   );
 }

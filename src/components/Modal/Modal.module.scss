@@ -36,25 +36,25 @@
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   position: fixed;
-  inset: 0 auto auto 50%;
+  inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
   max-width: 552px;
   max-height: 85dvh;
-  padding: 3.75rem 1rem 1rem;
+  padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
   z-index: 10;
 
   & .modal__title {
     position: absolute;
-    inset: 1rem auto auto 1rem;
+    inset: calc(1rem * var(--core-scale, 1)) auto auto calc(1rem * var(--core-scale, 1));
     margin: 0;
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--core-scale, 1));
     font-weight: 500;
     color: var(--core-text-color);
   }
 
   & .modal__close {
     position: absolute;
-    inset: 1rem 1rem auto auto;
+    inset: calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) auto auto;
     background-color: transparent;
     border: 0;
     padding: 0;
@@ -62,8 +62,8 @@
     color: var(--core-text-color);
 
     & > svg {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: calc(1.5rem * var(--core-scale, 1));
+      height: calc(1.5rem * var(--core-scale, 1));
     }
   }
 
