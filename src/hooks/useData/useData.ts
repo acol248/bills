@@ -120,7 +120,7 @@ export default function useData(): UseData {
 
     const _items = storage.get<Array<Item>>('items');
 
-    if (!_items || !_items.length || (_items.length && items.length < 1)) return;
+    if (!_items || (_items.length && items.length < 1)) return;
 
     storage.set('items', items);
   }, [storage, items]);
