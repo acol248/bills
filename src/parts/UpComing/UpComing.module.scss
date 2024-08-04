@@ -1,18 +1,48 @@
 .up-coming {
+  max-height: calc(100dvh - calc(64px * var(--core-scale, 1)));
+  overflow-y: auto;
+
   & .up-coming__overview {
+    position: sticky;
+    top: calc(20px * var(--core-scale, 1));
     background-color: var(--core-content-background-500);
     width: fit-content;
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1.25rem;
-    text-align: right;
-    line-height: 1.1;
-    font-size: 0.875rem;
+    padding: calc(1rem * var(--core-scale, 1));
+    border-radius: calc(12px * var(--core-scale, 1));;
+    margin: calc(1rem * var(--core-scale, 1));
+    line-height: 1;
+    font-size: calc(0.75rem * var(--core-scale, 1));
     color: var(--core-text-color);
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.1);
 
     & > span {
-      font-size: 1.75rem;
+      font-size: calc(1.5rem * var(--core-scale, 1));
       font-weight: 700;
+      margin: 0 calc(0.125rem * var(--core-scale, 1)) 0 0;
+    }
+
+    & .up-comping__subtle {
+      margin: calc(0.25rem * var(--core-scale, 1)) 0 0;
+      font-size: calc(0.75rem * var(--core-scale, 1));
+      font-style: italic;
+      color: color-mix(in srgb, var(--core-text-color), transparent 40%)
+    }
+  }
+
+  & .up-coming__items {
+    & .up-coming__date {
+      margin: calc(1.25rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1)) 0;
+      color: var(--core-text-color);
+      font-size: calc(1rem * var(--core-scale, 1));
+    }
+
+    & [class~="list-item"] {
+      margin: calc(0.5rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
+    }
+
+    & hr {
+      margin: calc(1.25rem * var(--core-scale, 1));
+      border: 1px solid var(--core-content-background-400);
     }
   }
 }

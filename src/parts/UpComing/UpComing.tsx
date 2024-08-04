@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 
 // hooks
 import { DataContext } from "../../hooks/useData";
@@ -6,13 +6,14 @@ import { DataContext } from "../../hooks/useData";
 // components
 import ListItem from "../../components/ListItem";
 
+// helpers
+import { sortItemsByDate, sumRemainingItems, addDateSuffix } from "../../helpers/itemHelpers";
+
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./UpComing.module.scss";
+import { formatCurrency } from "../../helpers/formatCurrency";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
-
-// types
-import type { Item } from "../../hooks/useData";
 
 export default function UpComing() {
   const { items } = useContext(DataContext);
@@ -23,63 +24,24 @@ export default function UpComing() {
     string: true,
   }) as string;
 
-  /**
-   * Sort items array by day of the month where today is the start of the array
-   *
-   * @param arr array of items
-   */
-  const sortDatesByCurrentToNextMonth = (arr: Array<Item>) => {
-    const currentDay = new Date().getDate();
-
-    /**
-     * Get the day from an item date string (mm/dd/yyyy)
-     *
-     * @param dateStr item date input string
-     */
-    const getDay = (date: Item["date"]) => new Date(date).getDate();
-
-    /**
-     * Calculate the effective day difference considering only the day of the month\
-     *
-     * @param day input day number
-     */
-    const getDayDiff = (day: number) => (day >= currentDay ? day - currentDay : day + 30 - currentDay);
-
-    // Sort the array based on the effective day differences
-    arr.sort((a, b) => getDayDiff(getDay(a.date)) - getDayDiff(getDay(b.date)));
-
-    return arr;
-  };
-
-  /**
-   * Get the total value of all items left in this month
-   *
-   * @param arr array of items
-   * @returns totalled up value
-   */
-  const sumCurrentMonthValues = (arr: Array<Item>) => {
-    const currentDay = new Date().getDate();
-    const currentMonth = new Date().getMonth() + 1;
-
-    return arr.reduce((a, { value, date }) => {
-      const month = new Date(date).getMonth();
-      const day = new Date().getDate();
-
-      if (month !== currentMonth || day < currentDay) return a;
-
-      return (a += value);
-    }, 0);
-  };
-
   return (
     <div className={classList}>
       <div className={mc("up-coming__overview")}>
-        <span>£{sumCurrentMonthValues(items)}</span> <br /> to go
+        <span>£{sumRemainingItems(items)}</span> left this month
+        <p className={mc("up-comping__subtle")}>{formatCurrency(items.reduce((a, c) => (a += c.value), 0))} total</p>
       </div>
 
       <div className={mc("up-coming__items")}>
-        {sortDatesByCurrentToNextMonth(items).map(({ name, value, date }) => (
-          <ListItem label={name} value={value.toString()} date={date} />
+        {sortItemsByDate(items).map(({ name, value, date }, index) => (
+          <Fragment key={name + date + value}>
+            {new Date(date).getDate() !== new Date(items?.[index - 1]?.date).getDate() && (
+              <p className={mc("up-coming__date")}>{addDateSuffix(new Date(date).getDate())}</p>
+            )}
+
+            <ListItem label={name} value={value} date={date} />
+
+            {new Date(date).getDate() > new Date(items?.[index + 1]?.date).getDate() && <hr />}
+          </Fragment>
         ))}
       </div>
     </div>
