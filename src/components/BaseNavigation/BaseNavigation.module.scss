@@ -4,11 +4,11 @@
   align-items: center;
   position: fixed;
   inset: auto 0 0 0;
-  height: 64px;
+  height: calc(64px * var(--core-scale, 1));
   width: 100%;
   background-color: var(--core-content-background-100);
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 1rem 1rem 0 0;
+  border-radius: calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) 0 0;
 
   & .base-nav__link {
     display: flex;
@@ -16,8 +16,8 @@
     align-items: center;
 
     & > svg {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: calc(1.75rem * var(--core-scale, 1));
+      height: calc(1.75rem * var(--core-scale, 1));
       fill: color-mix(in srgb, var(--core-text-color), transparent 65%);
     }
 
@@ -33,24 +33,25 @@
     justify-content: center;
     align-items: center;
     margin: 0;
-    padding: 0.25rem;
+    padding: calc(0.25rem * var(--core-scale, 1));
     background-color: var(--core-content-background-500);
-    color: var(--color-common-black);
+    color: var(--core-text-color);
     border: 0;
     border-radius: 8px;
 
     & > svg {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: calc(1.75rem * var(--core-scale, 1));
+      height: calc(1.75rem * var(--core-scale, 1));
+      fill: currentColor;
     }
   }
 
   @media screen and (min-width: 552px) {
-    inset: auto 0 0.75rem 50%;
+    inset: auto 0 calc(1.5rem * var(--core-scale, 1)) 50%;
     transform: translateX(-50%);
     width: fit-content;
-    gap: 5rem;
-    padding: 0 3rem;
-    border-radius: 1rem;
+    gap: calc(5rem * var(--core-scale, 1));
+    padding: 0 calc(3rem * var(--core-scale, 1));
+    border-radius: calc(1rem * var(--core-scale, 1));
   }
 }
