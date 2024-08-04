@@ -59,10 +59,8 @@ export function sortItemsByDate(items: Array<Item>) {
 export function sumRemainingItems(items: Array<Item>) {
   const currentDay = new Date().getDate();
 
-  return items.reduce((a, { value }) => {
-    const day = new Date().getDate();
-
-    if (day < currentDay) return a;
+  return items.reduce((a, { value, date }) => {
+    if (new Date(date).getDate() < currentDay) return a;
 
     return (a += value);
   }, 0);
