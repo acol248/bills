@@ -18,7 +18,7 @@ export default defineConfig({
         name: "Bills",
         short_name: "Bills",
         description: "Keep track of your monthly expenditures.",
-        display: "fullscreen",
+        display: "standalone",
         background_color: "#fff",
         icons: [
           {
