@@ -8,7 +8,7 @@ import { SettingsContext } from "../../hooks/useSettings";
 import Slider from "../../components/Slider";
 
 export default function Settings() {
-  const { theme, forceScale, toggleTheme, toggleForceScale, updateScale } = useContext(SettingsContext);
+  const { theme, scale, forceScale, toggleTheme, toggleForceScale, updateScale } = useContext(SettingsContext);
 
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
 
@@ -28,7 +28,7 @@ export default function Settings() {
           step={0.2}
           max={1.4}
           min={0.6}
-          defaultValue={[1]}
+          defaultValue={[scale]}
           onValueChange={([s]) => updateScale(s)}
         />
       )}
