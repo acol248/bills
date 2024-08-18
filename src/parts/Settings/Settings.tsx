@@ -5,9 +5,10 @@ const mc = mapClassesCurried(maps, true);
 import Toggle from "../../interface/Toggle";
 import { useContext } from "react";
 import { SettingsContext } from "../../hooks/useSettings";
+import Slider from "../../components/Slider";
 
 export default function Settings() {
-  const { theme, forceScale, toggleTheme, toggleForceScale } = useContext(SettingsContext);
+  const { theme, forceScale, toggleTheme, toggleForceScale, updateScale } = useContext(SettingsContext);
 
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
 
@@ -21,7 +22,18 @@ export default function Settings() {
         Force Increased Text Scale
       </Toggle>
 
-      <p className={mc('settings__version')}>Version: {__APP_VERSION__}</p>
+      {forceScale && (
+        <Slider
+          className={mc("settings__scale")}
+          step={0.2}
+          max={1.4}
+          min={0.6}
+          defaultValue={[1]}
+          onValueChange={([s]) => updateScale(s)}
+        />
+      )}
+
+      <p className={mc("settings__version")}>Version: {__APP_VERSION__}</p>
     </div>
   );
 }

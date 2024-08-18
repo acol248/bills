@@ -4,6 +4,10 @@
   height: calc(100% - calc(80px * var(--core-scale, 1)));
   padding: calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) 0;
 
+  & .settings__scale {
+    margin: 1rem 0;
+  }
+
   & .settings__version {
     color: var(--core-text-color);
     margin: auto 0 calc(1rem * var(--core-scale, 1));
