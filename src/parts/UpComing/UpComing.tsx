@@ -2,20 +2,23 @@ import { Fragment, useContext, useEffect, useRef } from "react";
 
 // hooks
 import { DataContext, Item } from "../../hooks/useData";
+import useMediaQuery from "@blocdigital/usemediaquery";
 
 // components
 import ListItem from "../../components/ListItem";
 
 // helpers
 import { sortItemsByDate, sumRemainingItems, addDateSuffix } from "../../helpers/itemHelpers";
+import { formatCurrency } from "../../helpers/formatCurrency";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./UpComing.module.scss";
-import { formatCurrency } from "../../helpers/formatCurrency";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 export default function UpComing() {
+  const [isMobile] = useMediaQuery("(max-width: 767px) and (max-height: 551px)");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const overviewRef = useRef<HTMLDivElement>(null);
 
@@ -27,13 +30,20 @@ export default function UpComing() {
     string: true,
   }) as string;
 
+  /**
+   * Open edit panel, by id
+   *
+   * @param targetId id of item to edit
+   */
   const openEdit = (targetId: Item["id"]) => {
     setCurrentlyEditing(targetId);
     setAddItemOpen(true);
   };
 
-  //
+  // trigger scroll lift anim
   useEffect(() => {
+    if (!isMobile) return;
+
     const { current: container } = containerRef;
 
     if (!container) return;
@@ -42,8 +52,6 @@ export default function UpComing() {
       const { current: overview } = overviewRef;
 
       if (!overview) return;
-
-      console.log((containerRef.current?.scrollTop ?? 0) > 10);
 
       if ((containerRef.current?.scrollTop ?? 0) > 0) {
         overview.style.setProperty("box-shadow", "1px 1px 8px 1px rgba(0, 0, 0, 0.09)");
@@ -55,7 +63,7 @@ export default function UpComing() {
     container.addEventListener("scroll", updateScroll);
 
     return () => container.removeEventListener("scroll", updateScroll);
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className={classList} ref={containerRef}>
