@@ -12,6 +12,7 @@
   "dependencies": {
     "@blocdigital/useclasslist": "^0.2.1",
     "@blocdigital/uselocalstorage": "^0.2.2",
+    "@blocdigital/usemediaquery": "^0.1.3",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slider": "^1.2.0",
