@@ -16,6 +16,7 @@ interface BottomModalProps {
   children?: ReactNode;
   open: boolean;
   onClose: () => void;
+  onTransitionEnd?: () => void;
 }
 
 export default function BottomModal({
@@ -25,6 +26,7 @@ export default function BottomModal({
   children,
   open,
   onClose,
+  onTransitionEnd,
 }: BottomModalProps) {
   const classList = useClassList({
     defaultClass: "bottom-modal",
@@ -35,10 +37,10 @@ export default function BottomModal({
   }) as string;
 
   return (
-    <Root open={open} onOpenChange={(s) => !s && onClose()}>
+    <Root open={open} onOpenChange={s => !s && onClose()}>
       <Overlay className={mc("modal-overlay")} />
 
-      <Content className={classList} aria-describedby={undefined}>
+      <Content className={classList} aria-describedby={undefined} onAnimationEndCapture={() => onTransitionEnd?.()}>
         <Title className={mc("bottom-modal__title")}>{title}</Title>
 
         <Close asChild>
