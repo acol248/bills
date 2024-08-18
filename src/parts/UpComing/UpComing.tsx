@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react";
 
 // hooks
-import { DataContext } from "../../hooks/useData";
+import { DataContext, Item } from "../../hooks/useData";
 
 // components
 import ListItem from "../../components/ListItem";
@@ -16,13 +16,18 @@ import { formatCurrency } from "../../helpers/formatCurrency";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 export default function UpComing() {
-  const { items } = useContext(DataContext);
+  const { items, removeItem, setCurrentlyEditing, setAddItemOpen } = useContext(DataContext);
 
   const classList = useClassList({
     defaultClass: "up-coming",
     maps,
     string: true,
   }) as string;
+
+  const openEdit = (targetId: Item["id"]) => {
+    setCurrentlyEditing(targetId);
+    setAddItemOpen(true);
+  };
 
   return (
     <div className={classList}>
@@ -32,13 +37,19 @@ export default function UpComing() {
       </div>
 
       <div className={mc("up-coming__items")}>
-        {sortItemsByDate(items).map(({ name, value, date }, index) => (
+        {sortItemsByDate(items).map(({ id, name, value, date }, index) => (
           <Fragment key={name + date + value}>
             {new Date(date).getDate() !== new Date(items?.[index - 1]?.date).getDate() && (
               <p className={mc("up-coming__date")}>{addDateSuffix(new Date(date).getDate())}</p>
             )}
 
-            <ListItem label={name} value={value} date={date} />
+            <ListItem
+              label={name}
+              value={value}
+              date={date}
+              onEdit={() => openEdit(id)}
+              onDelete={() => removeItem(id)}
+            />
 
             {new Date(date).getDate() > new Date(items?.[index + 1]?.date).getDate() && <hr />}
           </Fragment>
