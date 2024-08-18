@@ -1,32 +1,67 @@
 .list-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  width: calc(100% - calc(4rem * var(--core-scale, 1)));
   margin: 0 calc(1rem * var(--core-scale, 1));
   padding: calc(0.5rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
-  background-color: var(--core-content-background-500);
   border-radius: calc(12px * var(--core-scale, 1));
+  background-color: var(--core-content-background-500);
 
-  & .list-item__left {
-    & .list-item__label {
-      margin: 0;
-      font-size: calc(0.75rem * var(--core-scale, 1));
-      font-weight: 300;
-      color: var(--core-text-color);
+  & .list-item__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+
+    & .list-item__left {
+      & .list-item__label {
+        margin: 0;
+        font-size: calc(0.75rem * var(--core-scale, 1));
+        font-weight: 300;
+        color: var(--core-text-color);
+        text-align: left;
+      }
+
+      & .list-item__value {
+        margin: 0;
+        font-size: calc(1rem * var(--core-scale, 1));
+        font-weight: 600;
+        color: var(--core-text-color);
+        text-align: left;
+      }
     }
 
-    & .list-item__value {
+    & .list-item__date {
       margin: 0;
-      font-size: calc(1rem * var(--core-scale, 1));
+      font-size: calc(1.125rem * var(--core-scale, 1));
       font-weight: 600;
       color: var(--core-text-color);
     }
   }
 
-  & .list-item__date {
-    margin: 0;
-    font-size: calc(1.125rem * var(--core-scale, 1));
-    font-weight: 600;
-    color: var(--core-text-color);
+  & .list-item__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(1rem * var(--core-scale, 1));
+    width: 100%;
+    overflow: hidden;
+
+    transition: height 200ms ease-in-out;
+  }
+
+  &[aria-checked="false"] {
+    & .list-item__controls {
+      height: 0;
+    }
+  }
+
+  &[aria-checked="true"] {
+    & .list-item__controls {
+      height: 54px;
+    }
   }
 }
