@@ -94,5 +94,10 @@
     & .up-coming__items {
       flex-grow: 1;
     }
+
+    &::after {
+      content: "";
+      display: none;
+    }
   }
 }
