@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 // hooks
@@ -19,7 +19,10 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 import type { DateValue } from "react-aria-components";
 
 export default function AddItem() {
-  const { addItemOpen, setAddItemOpen, addItem } = useContext(DataContext);
+  const { items, currentlyEditing, addItemOpen, setCurrentlyEditing, setAddItemOpen, addItem, editItem } =
+    useContext(DataContext);
+
+  const addFormRef = useRef<HTMLFormElement | null>(null);
 
   const [date, setDate] = useState<DateValue>();
 
@@ -39,20 +42,54 @@ export default function AddItem() {
 
     if (!date) return;
 
-    const { itemName, value } = Object.fromEntries(
-      new FormData(e.target as HTMLFormElement)
-    );
+    const { itemName, value } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
 
-    addItem({
-      id: uuidv4(),
-      name: String(itemName),
-      value: parseFloat(String(value)),
-      date: new Date(String(date)),
-    });
+    if (currentlyEditing) {
+      editItem({
+        id: currentlyEditing,
+        name: String(itemName),
+        value: parseFloat(String(value)),
+        date: new Date(String(date)),
+      });
+    } else {
+      addItem({
+        id: uuidv4(),
+        name: String(itemName),
+        value: parseFloat(String(value)),
+        date: new Date(String(date)),
+      });
+    }
 
     setDate(undefined);
     setAddItemOpen(false);
   };
+
+  // clear currently editing on close
+  useEffect(() => {
+    if (addItemOpen) return;
+
+    setCurrentlyEditing(undefined);
+  }, [addItemOpen]);
+
+  // populate on edit
+  useEffect(() => {
+    if (!addItemOpen || !currentlyEditing) return;
+
+    setTimeout(() => {
+      const { current: form } = addFormRef;
+
+      if (!form) return;
+
+      const ce = items.find(({ id }) => id === currentlyEditing);
+
+      if (!ce) return;
+
+      form.itemName.value = ce.name;
+      form.value.value = ce.value;
+
+      setDate(ce.date as any);
+    }, 0);
+  }, [currentlyEditing, addItemOpen]);
 
   return (
     <BottomModal
@@ -60,15 +97,16 @@ export default function AddItem() {
       title="Add Item"
       open={addItemOpen}
       onClose={() => setAddItemOpen(false)}
+      onTransitionEnd={() => !addItemOpen && setDate(undefined)}
     >
-      <form className={mc('add-item__form')} onSubmit={submitForm}>
+      <form className={mc("add-item__form")} onSubmit={submitForm} ref={addFormRef}>
         <Input name="itemName">Name</Input>
 
         <Input name="value" type="number" step={0.01}>
           Value
         </Input>
 
-        <Calendar selectedDate={date} onChange={(e) => setDate(e)} />
+        <Calendar selectedDate={date} onChange={e => setDate(e)} />
 
         <div className={mc("add-item__buttons")}>
           <Button type="button" onClick={() => setAddItemOpen(false)}>
