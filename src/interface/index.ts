@@ -5,7 +5,7 @@ interface ITheme {
 const theme = {
   color: {
     common: {
-      black: "#292829",
+      black: "#343334",
       white: "#F9F6EE",
       grey: "#808080",
     },
