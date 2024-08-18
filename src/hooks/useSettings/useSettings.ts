@@ -1,8 +1,13 @@
-import { createContext, useCallback, useLayoutEffect, useState } from "react";
-import { getCookie, setCookie } from "../../helpers/cookie";
+import { createContext, useCallback, useLayoutEffect, useMemo, useState } from "react";
 
 // types
-import type { Dispatch, SetStateAction } from "react";
+import useLocalStorage from "@blocdigital/uselocalstorage";
+
+type Settings = {
+  theme: "light" | "dark";
+  scale: number;
+  forceScale: boolean;
+};
 
 interface UseSettings {
   theme: "light" | "dark";
@@ -10,62 +15,69 @@ interface UseSettings {
   scale: number;
   toggleTheme: (theme?: "light" | "dark") => void;
   toggleForceScale: (state?: boolean) => void;
-  setScale: Dispatch<SetStateAction<number>>;
+  updateScale: (scale: number) => void;
 }
 
 export default function useSettings(): UseSettings {
-  const [theme, setTheme] = useState<UseSettings["theme"]>("light");
+  const storage = useLocalStorage("local");
 
-  const [forceScale, setForceScale] = useState<UseSettings["forceScale"]>(false);
-  const [scale, setScale] = useState<UseSettings["scale"]>(1.25);
+  const [data, setData] = useState<Settings>({ theme: "light", scale: 1.25, forceScale: false });
 
   const toggleTheme = useCallback<UseSettings["toggleTheme"]>(theme => {
-    setTheme(t => {
-      setCookie("theme", theme ? theme : t === "light" ? "dark" : "light", 30);
-
+    setData(d => {
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", theme === "dark" || t === "light" ? "#202020" : "#fbf7f5");
+        ?.setAttribute("content", theme === "dark" || d.theme === "light" ? "#202020" : "#fbf7f5");
 
-      return theme ? theme : t === "light" ? "dark" : "light";
+      storage.set("settings", { ...d, theme: theme ? theme : d.theme === "light" ? "dark" : "light" });
+
+      return { ...d, theme: theme ? theme : d.theme === "light" ? "dark" : "light" };
     });
   }, []);
 
-  const toggleForceScale = useCallback<UseSettings["toggleForceScale"]>(
-    state => {
-      setForceScale(s => {
-        document.body.style.setProperty("--core-scale", scale ?? !s ? scale.toString() : "1");
+  const toggleForceScale = useCallback<UseSettings["toggleForceScale"]>(state => {
+    setData(d => {
+      document.body.style.setProperty("--core-scale", state ?? !d.forceScale ? d.scale.toString() : "1");
 
-        return state ?? !s;
-      });
-    },
-    [scale]
-  );
+      storage.set("settings", { ...d, forceScale: state ?? !d.forceScale });
+
+      return { ...d, forceScale: state ?? !d.forceScale };
+    });
+  }, []);
+
+  const updateScale = useCallback<UseSettings["updateScale"]>(scale => {
+    setData(d => ({ ...d, scale }));
+  }, []);
 
   // adjust scale style
   useLayoutEffect(() => {
-    document.body.style.setProperty("--core-scale", forceScale ? scale.toString() : "1");
-  }, [forceScale, scale]);
+    document.body.style.setProperty("--core-scale", data.forceScale ? data.scale.toString() : "1");
+  }, [data.forceScale, data.scale]);
 
   // get theme cookie value
   useLayoutEffect(() => {
-    const theme = getCookie("theme");
+    if (!storage) return;
 
-    setTheme(theme as SetStateAction<"light" | "dark">);
+    const _data = storage.get<Settings>("settings");
 
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#202020" : "#fbf7f5");
-  }, []);
+      ?.setAttribute("content", (_data ?? { theme: "light" }).theme === "dark" ? "#202020" : "#fbf7f5");
 
-  return {
-    theme,
-    forceScale,
-    scale,
-    toggleTheme,
-    toggleForceScale,
-    setScale,
-  };
+    if (_data) setData(_data);
+  }, [storage]);
+
+  return useMemo(
+    () => ({
+      theme: data.theme,
+      forceScale: data.forceScale,
+      scale: data.scale,
+      toggleTheme,
+      toggleForceScale,
+      updateScale,
+    }),
+    [data.theme, data.forceScale, data.scale, toggleTheme, toggleForceScale]
+  );
 }
 
 export const SettingsContext = createContext<UseSettings>({
@@ -74,5 +86,5 @@ export const SettingsContext = createContext<UseSettings>({
   scale: 1,
   toggleTheme: () => {},
   toggleForceScale: () => {},
-  setScale: () => {},
+  updateScale: () => {},
 });
