@@ -7,7 +7,7 @@
   height: calc(64px * var(--core-scale, 1));
   width: 100%;
   background-color: var(--core-content-background-100);
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(58, 58, 104, 0.25) 0px 6px 20px 0px;
   border-radius: calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) 0 0;
 
   & .base-nav__link {
@@ -44,6 +44,10 @@
       height: calc(1.75rem * var(--core-scale, 1));
       fill: currentColor;
     }
+  }
+
+  &.base-nav--hide {
+    display: none;
   }
 
   @media screen and (min-width: 552px) {

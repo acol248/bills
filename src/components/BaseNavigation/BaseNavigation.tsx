@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useCallback, useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // hooks
 import { DataContext } from "../../hooks/useData";
@@ -11,6 +11,9 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 // assets
 import { PlusCircledIcon } from "@radix-ui/react-icons";
+import useLocalStorage from "@blocdigital/uselocalstorage";
+import { SettingsContext } from "../../hooks/useSettings";
+import { bufferToString } from "../../helpers/format";
 
 // types
 interface IBaseNavigation {
@@ -18,23 +21,65 @@ interface IBaseNavigation {
 }
 
 export default function BaseNavigation({ className }: IBaseNavigation) {
+  const storage = useLocalStorage("local");
+  const session = useLocalStorage("session");
+  const navigate = useNavigate();
+
   const { pathname } = useLocation();
 
+  const { verifyAuthentication, deAuthenticate } = useContext(SettingsContext);
   const { setAddItemOpen } = useContext(DataContext);
 
-  const classList = useClassList({
-    defaultClass: "base-nav",
-    className,
-    maps,
-    string: true,
-  }) as string;
+  const classList = useClassList(
+    {
+      defaultClass: "base-nav",
+      className,
+      maps,
+      string: true,
+    },
+    useCallback(
+      (_c: string[]) => {
+        pathname === "/" && _c.push("base-nav--hide");
+      },
+      [pathname]
+    )
+  ) as string;
+
+  // check authentication
+  useEffect(() => {
+    if (!storage || !session) return;
+
+    (async () => {
+      const hash = storage.get("check");
+      const token = session.get("check");
+
+      if (!hash) {
+        verifyAuthentication(token as string);
+        navigate("/up-coming", { replace: true });
+
+        return;
+      }
+
+      const encoded = new TextEncoder().encode(hash as string);
+      const compare = await window.crypto.subtle.digest("sha-256", encoded);
+
+      if (bufferToString(compare) !== token) {
+        deAuthenticate();
+        navigate("/", { replace: true });
+
+        return;
+      }
+
+      if (pathname === "/") navigate("/up-coming", { replace: true });
+    })();
+  }, [storage, session]);
 
   return (
     <nav className={classList}>
       <Link
         className={`${mc("base-nav__link")}${pathname === "/" ? ` ${mc("base-nav__link--active")}` : ""}`}
         aria-label="goto upcoming items"
-        to="/"
+        to="/up-coming"
       >
         <svg viewBox="0 -960 960 960">
           <path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z" />
