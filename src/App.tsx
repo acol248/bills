@@ -11,10 +11,15 @@ import BaseNavigation from "./components/BaseNavigation";
 import UpComing from "./parts/UpComing";
 import AddItem from "./parts/AddItem";
 import Settings from "./parts/Settings";
+import Authentication from "./parts/Authentication";
+import WhatsNew from "./parts/WhatsNew";
+import ManagePin from "./parts/ManagePin";
+
+// helpers
+import { generateCSSVariables, elementsDark, elementsLight, theme } from "./interface";
 
 // styles
 import "./App.module.scss";
-import { generateCSSVariables, elementsDark, elementsLight, theme } from "./interface";
 
 export default function App() {
   const data = useData();
@@ -31,12 +36,15 @@ export default function App() {
 
         <BrowserRouter basename={import.meta.env.VITE_BASENAME}>
           <Routes>
-            <Route index element={<UpComing />} />
+            <Route index element={<Authentication />} />
+            <Route path="up-coming" element={<UpComing />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="manage-pin" element={<ManagePin />} />
           </Routes>
 
           <AddItem />
 
+          <WhatsNew />
           <BaseNavigation />
         </BrowserRouter>
       </DataContext.Provider>
