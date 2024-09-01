@@ -15,3 +15,15 @@ export function formatCurrency(number: number): string {
 
   return formatter.format(number);
 }
+
+/**
+ * Convert a BufferArray to a String
+ *
+ * @param input BufferArray
+ * @returns converted string
+ */
+export function bufferToString(input: ArrayBuffer) {
+  return Array.from(new Uint8Array(input))
+    .map(byte => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
