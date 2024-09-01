@@ -1,14 +1,23 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
+
+// components
+import Slider from "../../components/Slider";
+import Button from "../../interface/Button";
+import Toggle from "../../interface/Toggle";
+
+// styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./Settings.module.scss";
 const mc = mapClassesCurried(maps, true);
 
-import Toggle from "../../interface/Toggle";
-import { useContext } from "react";
-import { SettingsContext } from "../../hooks/useSettings";
-import Slider from "../../components/Slider";
-
 export default function Settings() {
   const { theme, scale, forceScale, toggleTheme, toggleForceScale, updateScale } = useContext(SettingsContext);
+
+  const navigate = useNavigate();
 
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
 
@@ -32,6 +41,8 @@ export default function Settings() {
           onValueChange={([s]) => updateScale(s)}
         />
       )}
+
+      <Button onClick={() => navigate("/manage-pin")}>Manage Auth</Button>
 
       <p className={mc("settings__version")}>Version: {__APP_VERSION__}</p>
     </div>
