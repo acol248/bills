@@ -2,7 +2,7 @@
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./ListItem.module.scss";
 import { addDateSuffix } from "../../helpers/itemHelpers";
-import { formatCurrency } from "../../helpers/formatCurrency";
+import { formatCurrency } from "../../helpers/format";
 import Button from "../../interface/Button";
 import { useState } from "react";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;

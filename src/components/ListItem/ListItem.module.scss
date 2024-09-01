@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(100% - calc(4rem * var(--core-scale, 1)));
+  width: calc(100% - calc(2rem * var(--core-scale, 1)));
   margin: 0 calc(1rem * var(--core-scale, 1));
   border-radius: calc(12px * var(--core-scale, 1));
   background-color: var(--core-content-background-500);
@@ -68,5 +68,9 @@
       height: 54px;
       padding: 0 calc(1rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
     }
+  }
+
+  @media screen and (min-width: 768px) and (min-height: 552px) {
+    width: calc(100% - calc(1rem * var(--core-scale, 1)));
   }
 }
