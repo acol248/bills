@@ -9,7 +9,7 @@ import ListItem from "../../components/ListItem";
 
 // helpers
 import { sortItemsByDate, sumRemainingItems, addDateSuffix } from "../../helpers/itemHelpers";
-import { formatCurrency } from "../../helpers/formatCurrency";
+import { formatCurrency } from "../../helpers/format";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
