@@ -6,7 +6,7 @@ const theme = {
   color: {
     common: {
       black: "#343334",
-      white: "#F9F6EE",
+      white: "#F9F9F9",
       grey: "#808080",
     },
     grey: {
@@ -59,7 +59,8 @@ const elementsLight = {
         200: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 2.5%)`,
         300: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 5%)`,
         400: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 10%)`,
-        500: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 25%)`,
+        500: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 20%)`,
+        600: `color-mix(in srgb, ${theme.color.common.white}, ${theme.color.primary.light} 32.5%)`,
       },
     },
   },
@@ -77,7 +78,8 @@ const elementsDark = {
         200: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 2.5%)`,
         300: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 5%)`,
         400: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 10%)`,
-        500: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 25%)`,
+        500: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 20%)`,
+        600: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 32.5%)`,
       },
     },
   },
