@@ -1,0 +1,22 @@
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(2rem * var(--core-scale, 1));
+  height: 100dvh;
+
+  & .auth__dots {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--core-scale, 1));
+    height: calc(1rem * var(--core-scale, 1));
+
+    & .auth__dot {
+      width: calc(1rem * var(--core-scale, 1));
+      height: calc(1rem * var(--core-scale, 1));
+      border-radius: 50%;
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 5%);
+    }
+  }
+}
