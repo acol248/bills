@@ -2,6 +2,7 @@
   background-color: rgba(0, 0, 0, 0.15);
   position: fixed;
   inset: 0;
+  z-index: 500;
 
   &[data-state="open"] {
     animation: fadeIn 100ms ease-out;
@@ -41,7 +42,7 @@
   max-width: 552px;
   max-height: 85dvh;
   padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
-  z-index: 10;
+  z-index: 500;
 
   & .modal__title {
     position: absolute;
