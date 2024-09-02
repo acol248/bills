@@ -20,6 +20,7 @@ export default defineConfig({
         description: "Keep track of your monthly expenditures.",
         display: "standalone",
         background_color: "#fff",
+        theme_color: "#566e3d",
         icons: [
           {
             src: "icons/icon-72x72.png",
