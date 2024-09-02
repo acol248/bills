@@ -6,7 +6,6 @@ import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import Slider from "../../components/Slider";
-import Button from "../../interface/Button";
 import Toggle from "../../interface/Toggle";
 
 // styles
