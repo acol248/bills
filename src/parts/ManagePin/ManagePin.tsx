@@ -18,11 +18,11 @@ interface Props {
 }
 
 export default function ManagePin({ className }: Props) {
-  const { verifyAuthentication, setupAuthentication } = useContext(SettingsContext);
+  const { verifyAuthentication, setupAuthentication, authCheck } = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
-  const [checkAuth, setCheckAuth] = useState<boolean>(false);
+  const [checkAuth, setCheckAuth] = useState<boolean>(!authCheck);
   const [activePin, setActivePin] = useState<string | undefined>(undefined);
 
   const classList = useClassList({ defaultClass: "manage-pin", className, maps, string: true });
