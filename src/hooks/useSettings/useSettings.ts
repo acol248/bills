@@ -21,6 +21,7 @@ interface UseSettings {
   updateScale: (scale: number) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
   verifyAuthentication: (code?: string, genericCheck?: boolean) => Promise<boolean>;
+  removeAuthentication: (code: string) => Promise<Boolean>;
   deAuthenticate: () => void;
 }
 
@@ -103,6 +104,18 @@ export default function useSettings(): UseSettings {
     });
   }, []);
 
+  const removeAuthentication = useCallback<UseSettings["removeAuthentication"]>(code => {
+    return new Promise(async (resolve, reject) => {
+      const c_encoded = new TextEncoder().encode(code);
+      const c_hash = await window.crypto.subtle.digest("sha-256", c_encoded);
+
+      if (bufferToString(c_hash) !== storage.get("check")) reject(false);
+
+      storage.remove("check");
+      resolve(true);
+    });
+  }, []);
+
   // adjust scale style
   useLayoutEffect(() => {
     document.body.style.setProperty("--core-scale", data.forceScale ? data.scale.toString() : "1");
@@ -133,6 +146,7 @@ export default function useSettings(): UseSettings {
       updateScale,
       setupAuthentication,
       verifyAuthentication,
+      removeAuthentication,
       deAuthenticate: () => setAuthenticated(false),
     }),
     [
@@ -146,6 +160,7 @@ export default function useSettings(): UseSettings {
       updateScale,
       setupAuthentication,
       verifyAuthentication,
+      removeAuthentication,
     ]
   );
 }
@@ -161,5 +176,6 @@ export const SettingsContext = createContext<UseSettings>({
   updateScale: () => {},
   setupAuthentication: async () => false,
   verifyAuthentication: async () => false,
+  removeAuthentication: async () => false,
   deAuthenticate: () => {},
 });
