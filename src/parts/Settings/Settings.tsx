@@ -15,7 +15,8 @@ import maps from "./Settings.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function Settings() {
-  const { theme, scale, forceScale, toggleTheme, toggleForceScale, updateScale } = useContext(SettingsContext);
+  const { theme, scale, forceScale, authCheck, toggleTheme, toggleForceScale, updateScale } =
+    useContext(SettingsContext);
 
   const navigate = useNavigate();
 
@@ -49,7 +50,8 @@ export default function Settings() {
       <div className={mc("settings__section")}>
         <h3>Security</h3>
 
-        <Button onClick={() => navigate("/manage-pin")}>Manage Auth</Button>
+        <button onClick={() => navigate("/settings/manage-pin")}>{authCheck ? "Change Pin" : "Create Pin"}</button>
+        {authCheck && <button onClick={() => navigate("/settings/remove-pin")}>Remove</button>}
       </div>
 
       <p className={mc("settings__version")}>Version: {__APP_VERSION__}</p>
