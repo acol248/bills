@@ -1,0 +1,28 @@
+.remove-pin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(3rem * var(--core-scale, 1));
+  height: calc(100vh - calc(64px * var(--core-scale, 1)));
+
+  & .remove-pin__dots {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--core-scale, 1));
+    height: calc(1rem * var(--core-scale, 1));
+
+    & .remove-pin__dot {
+      width: calc(1rem * var(--core-scale, 1));
+      height: calc(1rem * var(--core-scale, 1));
+      border-radius: 50%;
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 5%);
+    }
+  }
+
+  & .remove-pin__text {
+    margin: 0;
+    color: color-mix(in srgb, var(--core-text-color), transparent 15%);
+
+  }
+}
