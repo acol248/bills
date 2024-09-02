@@ -23,26 +23,34 @@ export default function Settings() {
 
   return (
     <div className={classList}>
-      <Toggle checked={theme === "dark"} onChange={() => toggleTheme()}>
-        Dark Mode
-      </Toggle>
+      <div className={mc("settings__section")}>
+        <h3>Appearance</h3>
 
-      <Toggle checked={forceScale} onChange={() => toggleForceScale()}>
-        Force Increased Text Scale
-      </Toggle>
+        <Toggle checked={theme === "dark"} onChange={() => toggleTheme()}>
+          Dark Mode
+        </Toggle>
 
-      {forceScale && (
-        <Slider
-          className={mc("settings__scale")}
-          step={0.2}
-          max={1.4}
-          min={0.6}
-          defaultValue={[scale]}
-          onValueChange={([s]) => updateScale(s)}
-        />
-      )}
+        <Toggle checked={forceScale} onChange={() => toggleForceScale()}>
+          Force Increased Text Scale
+        </Toggle>
 
-      <Button onClick={() => navigate("/manage-pin")}>Manage Auth</Button>
+        {forceScale && (
+          <Slider
+            className={mc("settings__scale")}
+            step={0.2}
+            max={1.4}
+            min={0.6}
+            defaultValue={[scale]}
+            onValueChange={([s]) => updateScale(s)}
+          />
+        )}
+      </div>
+
+      <div className={mc("settings__section")}>
+        <h3>Security</h3>
+
+        <Button onClick={() => navigate("/manage-pin")}>Manage Auth</Button>
+      </div>
 
       <p className={mc("settings__version")}>Version: {__APP_VERSION__}</p>
     </div>

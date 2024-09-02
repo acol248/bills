@@ -4,8 +4,29 @@
   height: calc(100% - calc(80px * var(--core-scale, 1)));
   padding: calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) 0;
 
-  & .settings__scale {
+  & .settings__section {
     margin: 1rem 0;
+    width: 100%;
+
+    & > h3 {
+      margin: calc(0.25rem * var(--core-scale, 1)) 0 calc(0.875rem * var(--core-scale, 1));
+      line-height: 1;
+      font-size: calc(0.75rem * var(--core-scale, 1));
+      font-weight: 600;
+      color: color-mix(in srgb, var(--core-text-color), transparent 15%)
+    }
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  & .settings__scale {
+    margin: calc(1rem * var(--core-scale, 1)) 0;
   }
 
   & .settings__version {
