@@ -14,6 +14,7 @@ import Settings from "./parts/Settings";
 import Authentication from "./parts/Authentication";
 import WhatsNew from "./parts/WhatsNew";
 import ManagePin from "./parts/ManagePin";
+import RemovePin from "./parts/RemovePin";
 
 // helpers
 import { generateCSSVariables, elementsDark, elementsLight, theme } from "./interface";
@@ -39,7 +40,8 @@ export default function App() {
             <Route index element={<Authentication />} />
             <Route path="up-coming" element={<UpComing />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="manage-pin" element={<ManagePin />} />
+            <Route path="settings/manage-pin" element={<ManagePin />} />
+            <Route path="settings/remove-pin" element={<RemovePin />} />
           </Routes>
 
           <AddItem />
