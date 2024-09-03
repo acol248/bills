@@ -77,7 +77,7 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
   return (
     <nav className={classList}>
       <Link
-        className={`${mc("base-nav__link")}${pathname === "/" ? ` ${mc("base-nav__link--active")}` : ""}`}
+        className={`${mc("base-nav__link")}${pathname === "/up-coming" ? ` ${mc("base-nav__link--active")}` : ""}`}
         aria-label="goto upcoming items"
         to="/up-coming"
       >
