@@ -39,7 +39,7 @@
 }
 
 .calendar-menu {
-  width: unset;
+  min-width: min(352px, 80vw);
 
   & .calendar-menu__calendar {
     display: flex;
