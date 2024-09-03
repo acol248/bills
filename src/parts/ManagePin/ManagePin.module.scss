@@ -17,11 +17,24 @@
       height: calc(1rem * var(--core-scale, 1));
       border-radius: 50%;
       background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 5%);
+
+      animation: popIn 175ms ease-in-out forwards;
     }
   }
 
   & .manage-pin__text {
     margin: 0;
     color: color-mix(in srgb, var(--core-text-color), transparent 15%);
+  }
+
+  @keyframes popIn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 }
