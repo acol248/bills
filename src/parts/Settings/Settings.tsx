@@ -14,7 +14,7 @@ import maps from "./Settings.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function Settings() {
-  const { theme, scale, forceScale, authCheck, toggleTheme, toggleForceScale, updateScale } =
+  const { theme, pst, scale, forceScale, authCheck, toggleTheme, togglePST, toggleForceScale, updateScale } =
     useContext(SettingsContext);
 
   const navigate = useNavigate();
@@ -26,8 +26,12 @@ export default function Settings() {
       <div className={mc("settings__section")}>
         <h3>Appearance</h3>
 
-        <Toggle checked={theme === "dark"} onChange={() => toggleTheme()}>
+        <Toggle checked={theme === "dark"} disabled={pst} onChange={() => toggleTheme()}>
           Dark Mode
+        </Toggle>
+
+        <Toggle checked={pst} onChange={() => togglePST()}>
+          Prefer System Theme
         </Toggle>
 
         <Toggle checked={forceScale} onChange={() => toggleForceScale()}>

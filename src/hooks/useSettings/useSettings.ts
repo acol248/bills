@@ -6,6 +6,7 @@ import { bufferToString } from "../../helpers/format";
 
 type Settings = {
   theme: "light" | "dark";
+  pst: boolean;
   scale: number;
   forceScale: boolean;
 };
@@ -14,9 +15,11 @@ interface UseSettings {
   authCheck: boolean;
   authenticated: boolean;
   theme: "light" | "dark";
+  pst: boolean;
   forceScale: boolean;
   scale: number;
   toggleTheme: (theme?: "light" | "dark") => void;
+  togglePST: () => void;
   toggleForceScale: (state?: boolean) => void;
   updateScale: (scale: number) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
@@ -29,7 +32,7 @@ export default function useSettings(): UseSettings {
   const storage = useLocalStorage("local");
   const session = useLocalStorage("session");
 
-  const [data, setData] = useState<Settings>({ theme: "light", scale: 1.25, forceScale: false });
+  const [data, setData] = useState<Settings>({ theme: "light", pst: false, scale: 1.25, forceScale: false });
 
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -42,6 +45,14 @@ export default function useSettings(): UseSettings {
       storage.set("settings", { ...d, theme: theme ? theme : d.theme === "light" ? "dark" : "light" });
 
       return { ...d, theme: theme ? theme : d.theme === "light" ? "dark" : "light" };
+    });
+  }, []);
+
+  const togglePST = useCallback<UseSettings["togglePST"]>(() => {
+    setData(d => {
+      storage.set("settings", { ...d, pst: !d.pst });
+
+      return { ...d, pst: !d.pst };
     });
   }, []);
 
@@ -121,6 +132,15 @@ export default function useSettings(): UseSettings {
     document.body.style.setProperty("--core-scale", data.forceScale ? data.scale.toString() : "1");
   }, [data.forceScale, data.scale]);
 
+  // manage prefer system theme
+  useLayoutEffect(() => {
+    if (!data.pst) return;
+
+    const sysTheme = window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light";
+
+    setData(d => ({ ...d, theme: sysTheme }));
+  }, [data.pst]);
+
   // get theme cookie value
   useLayoutEffect(() => {
     if (!storage) return;
@@ -139,9 +159,11 @@ export default function useSettings(): UseSettings {
       authCheck: Boolean(storage.get("check")),
       authenticated,
       theme: data.theme,
+      pst: data.pst,
       forceScale: data.forceScale,
       scale: data.scale,
       toggleTheme,
+      togglePST,
       toggleForceScale,
       updateScale,
       setupAuthentication,
@@ -153,9 +175,11 @@ export default function useSettings(): UseSettings {
       storage,
       authenticated,
       data.theme,
+      data.pst,
       data.forceScale,
       data.scale,
       toggleTheme,
+      togglePST,
       toggleForceScale,
       updateScale,
       setupAuthentication,
@@ -169,9 +193,11 @@ export const SettingsContext = createContext<UseSettings>({
   authCheck: false,
   authenticated: false,
   theme: "light",
+  pst: false,
   forceScale: true,
   scale: 1,
   toggleTheme: () => {},
+  togglePST: () => {},
   toggleForceScale: () => {},
   updateScale: () => {},
   setupAuthentication: async () => false,
