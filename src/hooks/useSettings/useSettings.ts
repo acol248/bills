@@ -138,6 +138,10 @@ export default function useSettings(): UseSettings {
 
     const sysTheme = window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light";
 
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", sysTheme === "dark" ? "#202020" : "#fbf7f5");
+
     setData(d => ({ ...d, theme: sysTheme }));
   }, [data.pst]);
 
