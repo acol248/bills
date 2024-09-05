@@ -156,6 +156,9 @@ export default function useSettings(): UseSettings {
       setData(d => ({ ...d, theme: sysTheme }));
     };
 
+    // run once
+    mediaUpdate({ matches: match.matches } as MediaQueryListEvent);
+
     match.addEventListener("change", mediaUpdate);
 
     return () => match.removeEventListener("change", mediaUpdate);
