@@ -136,13 +136,29 @@ export default function useSettings(): UseSettings {
   useLayoutEffect(() => {
     if (!data.pst) return;
 
-    const sysTheme = window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light";
+    const match = window.matchMedia("(prefers-color-scheme: dark)");
 
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", sysTheme === "dark" ? "#202020" : "#fbf7f5");
+    /**
+     * Change theme config on system theme change
+     *
+     * @param eventObj event object
+     * @param eventObj.matches whether query matches
+     */
+    const mediaUpdate = ({ matches }: MediaQueryListEvent) => {
+      console.log("dog");
 
-    setData(d => ({ ...d, theme: sysTheme }));
+      const sysTheme = matches ? "dark" : "light";
+
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", sysTheme === "dark" ? "#202020" : "#fbf7f5");
+
+      setData(d => ({ ...d, theme: sysTheme }));
+    };
+
+    match.addEventListener("change", mediaUpdate);
+
+    return () => match.removeEventListener("change", mediaUpdate);
   }, [data.pst]);
 
   // get theme cookie value
