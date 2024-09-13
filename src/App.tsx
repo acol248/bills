@@ -1,20 +1,16 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 // hooks
 import useData, { DataContext } from "./hooks/useData";
 import useSettings, { SettingsContext } from "./hooks/useSettings";
 
 // components
+import AnimationRouter from "./components/AnimationRouter";
 import BaseNavigation from "./components/BaseNavigation";
 
 // parts
-import UpComing from "./parts/UpComing";
-import AddItem from "./parts/AddItem";
-import Settings from "./parts/Settings";
-import Authentication from "./parts/Authentication";
 import WhatsNew from "./parts/WhatsNew";
-import ManagePin from "./parts/ManagePin";
-import RemovePin from "./parts/RemovePin";
+import AddItem from "./parts/AddItem";
 
 // helpers
 import { generateCSSVariables, elementsDark, elementsLight, theme } from "./interface";
@@ -36,13 +32,7 @@ export default function App() {
         <style dangerouslySetInnerHTML={{ __html: elementsTheme }} />
 
         <BrowserRouter basename={import.meta.env.VITE_BASENAME}>
-          <Routes>
-            <Route index element={<Authentication />} />
-            <Route path="up-coming" element={<UpComing />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="settings/manage-pin" element={<ManagePin />} />
-            <Route path="settings/remove-pin" element={<RemovePin />} />
-          </Routes>
+          <AnimationRouter />
 
           <AddItem />
 
