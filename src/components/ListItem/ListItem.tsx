@@ -16,7 +16,6 @@ interface ItemProps {
   className?: Element["className"];
   label: string;
   value: number;
-  date: Date;
   onEdit: () => void;
   onDelete: () => void;
 }

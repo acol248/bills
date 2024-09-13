@@ -89,13 +89,7 @@ export default function UpComing() {
               <p className={mc("up-coming__date")}>{addDateSuffix(new Date(date).getDate())}</p>
             )}
 
-            <ListItem
-              label={name}
-              value={value}
-              date={date}
-              onEdit={() => openEdit(id)}
-              onDelete={() => removeItem(id)}
-            />
+            <ListItem label={name} value={value} onEdit={() => openEdit(id)} onDelete={() => removeItem(id)} />
 
             {new Date(date).getDate() > new Date(items?.[index + 1]?.date).getDate() && <hr />}
           </Fragment>
