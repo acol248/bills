@@ -56,11 +56,11 @@ const elementsLight = {
     content: {
       background: {
         100: theme.color.common.white,
-        200: `color-mix(in srgb, ${theme.color.grey[100]}, ${theme.color.primary.light} 2.5%)`,
-        300: `color-mix(in srgb, ${theme.color.grey[100]}, ${theme.color.primary.light} 5%)`,
-        400: `color-mix(in srgb, ${theme.color.grey[200]}, ${theme.color.primary.light} 10%)`,
-        500: `color-mix(in srgb, ${theme.color.grey[200]}, ${theme.color.primary.light} 20%)`,
-        600: `color-mix(in srgb, ${theme.color.grey[300]}, ${theme.color.primary.light} 35%)`,
+        200: `color-mix(in srgb, ${theme.color.grey[200]}, ${theme.color.primary.light} 2.5%)`,
+        300: `color-mix(in srgb, ${theme.color.grey[300]}, ${theme.color.primary.light} 5%)`,
+        400: `color-mix(in srgb, ${theme.color.grey[300]}, ${theme.color.primary.light} 10%)`,
+        500: `color-mix(in srgb, ${theme.color.grey[400]}, ${theme.color.primary.light} 20%)`,
+        600: `color-mix(in srgb, ${theme.color.grey[400]}, ${theme.color.primary.light} 35%)`,
       },
     },
   },
