@@ -30,6 +30,8 @@ export default function Settings() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.125, ease: "easeInOut" }}
     >
+      <h1>Settings</h1>
+
       <div className={mc("settings__section")}>
         <h3>Appearance</h3>
 
@@ -46,20 +48,22 @@ export default function Settings() {
           Prefer System Theme
         </Toggle>
 
-        <Toggle className={mc("settings__toggle")} checked={forceScale} onChange={() => toggleForceScale()}>
-          Force Increased Text Scale
-        </Toggle>
+        <div className={mc("settings__fake-item")}>
+          <Toggle className={mc("settings__toggle")} checked={forceScale} onChange={() => toggleForceScale()}>
+            Force Increased Text Scale
+          </Toggle>
 
-        {forceScale && (
-          <Slider
-            className={mc("settings__scale")}
-            step={0.2}
-            max={1.4}
-            min={0.6}
-            defaultValue={[scale]}
-            onValueChange={([s]) => updateScale(s)}
-          />
-        )}
+          {forceScale && (
+            <Slider
+              className={mc("settings__scale")}
+              step={0.2}
+              max={1.4}
+              min={0.6}
+              defaultValue={[scale]}
+              onValueChange={([s]) => updateScale(s)}
+            />
+          )}
+        </div>
       </div>
 
       <div className={mc("settings__section")}>
