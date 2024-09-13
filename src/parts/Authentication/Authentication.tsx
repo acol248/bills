@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 // components
 import Keypad from "../../components/Keypad";
 
@@ -32,7 +34,13 @@ export default function Authentication() {
   };
 
   return (
-    <div className={classList}>
+    <motion.div
+      className={classList}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -32 }}
+      transition={{ duration: 0.125, ease: "easeInOut" }}
+    >
       {authCheck && (
         <>
           <div className={mc("auth__dots")}>
@@ -48,6 +56,6 @@ export default function Authentication() {
           />
         </>
       )}
-    </div>
+    </motion.div>
   );
 }

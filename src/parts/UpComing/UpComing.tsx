@@ -1,4 +1,5 @@
 import { Fragment, useContext, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 // hooks
 import { DataContext, Item } from "../../hooks/useData";
@@ -66,7 +67,14 @@ export default function UpComing() {
   }, [isMobile]);
 
   return (
-    <div className={classList} ref={containerRef}>
+    <motion.div
+      className={classList}
+      ref={containerRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.125, ease: "easeInOut" }}
+    >
       <div className={mc("up-coming__overview")} ref={overviewRef}>
         <div className={mc("up-coming__month-total")}>
           <span>{formatCurrency(sumRemainingItems(items))}</span> left this month
@@ -93,6 +101,6 @@ export default function UpComing() {
           </Fragment>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

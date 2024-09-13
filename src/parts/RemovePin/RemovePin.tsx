@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { motion } from "framer-motion";
 
 // hooks
 import { SettingsContext } from "../../hooks/useSettings";
@@ -9,7 +10,7 @@ import Keypad from "../../components/Keypad";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./RemovePin.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const mc = mapClassesCurried(maps, true);
 
 // types
@@ -52,7 +53,20 @@ export default function ManagePin({ className }: Props) {
   };
 
   return (
-    <div className={classList}>
+    <motion.div
+      className={classList}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.125, ease: "easeInOut" }}
+    >
+      <Link className={mc("remove-pin__back")} to="/settings">
+        <svg viewBox="0 -960 960 960">
+          <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+        </svg>
+        Back
+      </Link>
+
       <div className={mc("remove-pin__dots")}>
         {activePin?.split("").map((_, index) => (
           <div className={mc("remove-pin__dot")} key={index}></div>
@@ -62,6 +76,6 @@ export default function ManagePin({ className }: Props) {
       <Keypad onChange={press} onConfirm={checkInput} />
 
       <p className={mc("remove-pin__text")}>Input your current pin</p>
-    </div>
+    </motion.div>
   );
 }

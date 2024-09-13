@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // hooks
 import { SettingsContext } from "../../hooks/useSettings";
@@ -22,19 +23,30 @@ export default function Settings() {
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
 
   return (
-    <div className={classList}>
+    <motion.div
+      className={classList}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.125, ease: "easeInOut" }}
+    >
       <div className={mc("settings__section")}>
         <h3>Appearance</h3>
 
-        <Toggle checked={theme === "dark"} disabled={pst} onChange={() => toggleTheme()}>
+        <Toggle
+          className={mc("settings__toggle")}
+          checked={theme === "dark"}
+          disabled={pst}
+          onChange={() => toggleTheme()}
+        >
           Dark Mode
         </Toggle>
 
-        <Toggle checked={pst} onChange={() => togglePST()}>
+        <Toggle className={mc("settings__toggle")} checked={pst} onChange={() => togglePST()}>
           Prefer System Theme
         </Toggle>
 
-        <Toggle checked={forceScale} onChange={() => toggleForceScale()}>
+        <Toggle className={mc("settings__toggle")} checked={forceScale} onChange={() => toggleForceScale()}>
           Force Increased Text Scale
         </Toggle>
 
@@ -56,8 +68,6 @@ export default function Settings() {
         <button onClick={() => navigate("/settings/manage-pin")}>{authCheck ? "Change Pin" : "Create Pin"}</button>
         {authCheck && <button onClick={() => navigate("/settings/remove-pin")}>Remove</button>}
       </div>
-
-      <p className={mc("settings__version")}>Version: {__APP_VERSION__}</p>
-    </div>
+    </motion.div>
   );
 }
