@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // hooks
@@ -10,8 +11,7 @@ import Keypad from "../../components/Keypad";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./ManagePin.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../../interface/Button";
+
 const mc = mapClassesCurried(maps, true);
 
 // types
@@ -72,7 +72,8 @@ export default function ManagePin({ className }: Props) {
       <Link className={mc("manage-pin__back")} to="/settings">
         <svg viewBox="0 -960 960 960">
           <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
-        </svg>Back
+        </svg>
+        Back
       </Link>
 
       <div className={mc("manage-pin__dots")}>

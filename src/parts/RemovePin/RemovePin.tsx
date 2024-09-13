@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // hooks
@@ -10,7 +11,6 @@ import Keypad from "../../components/Keypad";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./RemovePin.module.scss";
-import { Link, useNavigate } from "react-router-dom";
 const mc = mapClassesCurried(maps, true);
 
 // types

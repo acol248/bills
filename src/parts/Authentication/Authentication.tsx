@@ -1,4 +1,9 @@
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import Keypad from "../../components/Keypad";
@@ -6,9 +11,6 @@ import Keypad from "../../components/Keypad";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./Authentication.module.scss";
-import { useContext, useState } from "react";
-import { SettingsContext } from "../../hooks/useSettings";
-import { useNavigate } from "react-router-dom";
 const mc = mapClassesCurried(maps, true);
 
 export default function Authentication() {
