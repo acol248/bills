@@ -1,6 +1,6 @@
 .settings {
-  height: calc(100% - calc(80px * var(--core-scale, 1)));
-  padding: calc(1rem * var(--core-scale, 1)) 0 0;
+  min-height: calc(100% - calc(80px * var(--core-scale, 1)));
+  padding: calc(1rem * var(--core-scale, 1)) 0 calc((1.5rem * var(--core-scale, 1)) + (64px * var(--core-scale, 1)));
 
   & > h1 {
     margin: 0;
@@ -34,7 +34,8 @@
     }
 
     & > h3 {
-      margin: calc(0.125rem * var(--core-scale, 1)) 0 calc(0.5rem * var(--core-scale, 1)) calc(0.25rem * var(--core-scale, 1));
+      margin: calc(0.125rem * var(--core-scale, 1)) 0 calc(0.5rem * var(--core-scale, 1))
+        calc(0.25rem * var(--core-scale, 1));
       line-height: 1;
       font-size: calc(0.75rem * var(--core-scale, 1));
       font-weight: 600;

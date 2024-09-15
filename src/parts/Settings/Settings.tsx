@@ -15,8 +15,20 @@ import maps from "./Settings.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function Settings() {
-  const { theme, pst, scale, forceScale, authCheck, toggleTheme, togglePST, toggleForceScale, updateScale } =
-    useContext(SettingsContext);
+  const {
+    theme,
+    vibrations,
+    pst,
+    scale,
+    forceScale,
+    authCheck,
+    toggleTheme,
+    togglePST,
+    toggleForceScale,
+    updateScale,
+    toggleVibrations,
+    vibrate,
+  } = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
@@ -39,17 +51,37 @@ export default function Settings() {
           className={mc("settings__toggle")}
           checked={theme === "dark"}
           disabled={pst}
-          onChange={() => toggleTheme()}
+          onChange={() => vibrate({ callback: () => toggleTheme() })}
         >
           Dark Mode
         </Toggle>
 
-        <Toggle className={mc("settings__toggle")} checked={pst} onChange={() => togglePST()}>
+        <Toggle
+          className={mc("settings__toggle")}
+          checked={pst}
+          onChange={() => vibrate({ callback: () => togglePST() })}
+        >
           Prefer System Theme
+        </Toggle>
+      </div>
+
+      <div className={mc("settings__section")}>
+        <h3>Accessibility</h3>
+
+        <Toggle
+          className={mc("settings__toggle")}
+          checked={vibrations}
+          onChange={() => vibrate({ callback: () => toggleVibrations() })}
+        >
+          Use Vibrations
         </Toggle>
 
         <div className={mc("settings__fake-item")}>
-          <Toggle className={mc("settings__toggle")} checked={forceScale} onChange={() => toggleForceScale()}>
+          <Toggle
+            className={mc("settings__toggle")}
+            checked={forceScale}
+            onChange={() => vibrate({ callback: () => toggleForceScale() })}
+          >
             Force Increased Text Scale
           </Toggle>
 
@@ -60,7 +92,7 @@ export default function Settings() {
               max={1.4}
               min={0.6}
               defaultValue={[scale]}
-              onValueChange={([s]) => updateScale(s)}
+              onValueChange={([s]) => vibrate({ callback: () => updateScale(s) })}
             />
           )}
         </div>
@@ -69,8 +101,12 @@ export default function Settings() {
       <div className={mc("settings__section")}>
         <h3>Security</h3>
 
-        <button onClick={() => navigate("/settings/manage-pin")}>{authCheck ? "Change Pin" : "Create Pin"}</button>
-        {authCheck && <button onClick={() => navigate("/settings/remove-pin")}>Remove</button>}
+        <button onClick={() => vibrate({ callback: () => navigate("/settings/manage-pin") })}>
+          {authCheck ? "Change Pin" : "Create Pin"}
+        </button>
+        {authCheck && (
+          <button onClick={() => vibrate({ callback: () => navigate("/settings/remove-pin") })}>Remove</button>
+        )}
       </div>
     </motion.div>
   );
