@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import {
   Calendar as AriaCalendar,
   Button,
@@ -7,6 +7,9 @@ import {
   CalendarGrid,
   DateValue,
 } from "react-aria-components";
+
+// hooks
+import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import Modal from "../Modal";
@@ -23,19 +26,14 @@ interface CalendarProps {
   onChange: (v: DateValue) => void;
 }
 
-export default function Calendar({
-  className,
-  selectedDate,
-  onChange,
-}: CalendarProps) {
+export default function Calendar({ className, selectedDate, onChange }: CalendarProps) {
+  const { vibrate } = useContext(SettingsContext);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const buttonClassList = useClassList(
     { defaultClass: "calendar", className, maps, string: true },
-    useCallback(
-      (c: string[]) => selectedDate && c.push("calendar--value"),
-      [selectedDate]
-    )
+    useCallback((c: string[]) => selectedDate && c.push("calendar--value"), [selectedDate])
   ) as string;
   const menuClassList = useClassList({
     defaultClass: "calendar-menu",
@@ -49,6 +47,7 @@ export default function Calendar({
    * @param {object} v calendar value
    */
   const handleOnChange = (v: DateValue) => {
+    vibrate();
     onChange(v);
     setTimeout(() => setIsOpen(false), 0);
   };
@@ -58,24 +57,19 @@ export default function Calendar({
       <button
         type="button"
         className={buttonClassList}
-        onClick={() => setIsOpen(true)}
+        onClick={() => vibrate({ callback: () => setIsOpen(true) })}
         aria-label="open date select"
       >
-        {selectedDate
-          ? new Date(String(selectedDate))?.toLocaleDateString() || ""
-          : "No date selected"}
+        {selectedDate ? new Date(String(selectedDate))?.toLocaleDateString() || "" : "No date selected"}
       </button>
 
       <Modal
         className={menuClassList}
         title="Calendar"
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={() => vibrate({ callback: () => setIsOpen(false) })}
       >
-        <AriaCalendar
-          className={mc("calendar-menu__calendar")}
-          onChange={handleOnChange}
-        >
+        <AriaCalendar className={mc("calendar-menu__calendar")} onChange={handleOnChange}>
           <header className={mc("calendar-menu__header")}>
             <Button slot="previous">
               <svg viewBox="0 -960 960 960">
@@ -90,14 +84,7 @@ export default function Calendar({
             </Button>
           </header>
           <div className={mc("calendar-menu__inner")}>
-            <CalendarGrid>
-              {(date) => (
-                <CalendarCell
-                  className={mc("calendar-menu__cell")}
-                  date={date}
-                />
-              )}
-            </CalendarGrid>
+            <CalendarGrid>{date => <CalendarCell className={mc("calendar-menu__cell")} date={date} />}</CalendarGrid>
           </div>
         </AriaCalendar>
       </Modal>

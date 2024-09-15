@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 // components
 import Button from "../../interface/Button";
@@ -9,6 +9,7 @@ import { formatCurrency } from "../../helpers/format";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./ListItem.module.scss";
+import { SettingsContext } from "../../hooks/useSettings";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 // types
@@ -21,6 +22,8 @@ interface ItemProps {
 }
 
 export default function ListItem({ className, label, value, onEdit, onDelete }: ItemProps) {
+  const { vibrate } = useContext(SettingsContext);
+
   const [open, setOpen] = useState<boolean>(false);
 
   const classList = useClassList({ defaultClass: "list-item", className, maps, string: true }) as string;
@@ -32,7 +35,7 @@ export default function ListItem({ className, label, value, onEdit, onDelete }: 
         type="button"
         role="switch"
         aria-selected={open}
-        onClick={() => setOpen(o => !o)}
+        onClick={() => vibrate({ callback: () => setOpen(o => !o) })}
       >
         <div className={mc("list-item__left")}>
           <p className={mc("list-item__label")}>{label}</p>
@@ -45,8 +48,8 @@ export default function ListItem({ className, label, value, onEdit, onDelete }: 
       </button>
 
       <div className={mc("list-item__controls")}>
-        <Button onClick={onEdit}>Edit</Button>
-        <Button onClick={onDelete}>Delete</Button>
+        <Button onClick={() => vibrate({ callback: () => onEdit() })}>Edit</Button>
+        <Button onClick={() => vibrate({ callback: () => onDelete() })}>Delete</Button>
       </div>
     </div>
   );

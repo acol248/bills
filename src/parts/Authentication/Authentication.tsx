@@ -14,7 +14,7 @@ import maps from "./Authentication.module.scss";
 const mc = mapClassesCurried(maps, true);
 
 export default function Authentication() {
-  const { authCheck, verifyAuthentication } = useContext(SettingsContext);
+  const { authCheck, verifyAuthentication, vibrate } = useContext(SettingsContext);
 
   const [passCode, setPassCode] = useState<string | undefined>(undefined);
 
@@ -28,6 +28,7 @@ export default function Authentication() {
    * @param code key entered
    */
   const press = (code: string | undefined) => {
+    vibrate();
     setPassCode((p: string | undefined) => {
       if (code === "backspace" && p) return p.substring(0, p.length - 1);
 
@@ -54,7 +55,11 @@ export default function Authentication() {
           <Keypad
             className={mc("auth__keypad")}
             onChange={press}
-            onConfirm={() => verifyAuthentication(passCode).then(() => navigate("/up-coming", { replace: true }))}
+            onConfirm={() =>
+              vibrate({
+                callback: () => verifyAuthentication(passCode).then(() => navigate("/up-coming", { replace: true })),
+              })
+            }
           />
         </>
       )}

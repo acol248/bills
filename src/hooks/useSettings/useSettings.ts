@@ -9,6 +9,7 @@ type Settings = {
   pst: boolean;
   scale: number;
   forceScale: boolean;
+  vibrations: boolean;
 };
 
 interface UseSettings {
@@ -18,10 +19,13 @@ interface UseSettings {
   pst: boolean;
   forceScale: boolean;
   scale: number;
+  vibrations: boolean;
   toggleTheme: (theme?: "light" | "dark") => void;
   togglePST: () => void;
   toggleForceScale: (state?: boolean) => void;
   updateScale: (scale: number) => void;
+  toggleVibrations: (state?: boolean) => void;
+  vibrate: (param?: { time?: number; callback: () => void }) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
   verifyAuthentication: (code?: string, genericCheck?: boolean) => Promise<boolean>;
   removeAuthentication: (code: string) => Promise<Boolean>;
@@ -32,7 +36,13 @@ export default function useSettings(): UseSettings {
   const storage = useLocalStorage("local");
   const session = useLocalStorage("session");
 
-  const [data, setData] = useState<Settings>({ theme: "light", pst: false, scale: 1.25, forceScale: false });
+  const [data, setData] = useState<Settings>({
+    theme: "light",
+    pst: false,
+    scale: 1.25,
+    forceScale: false,
+    vibrations: false,
+  });
 
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -68,6 +78,14 @@ export default function useSettings(): UseSettings {
 
   const updateScale = useCallback<UseSettings["updateScale"]>(scale => {
     setData(d => ({ ...d, scale }));
+  }, []);
+
+  const toggleVibrations = useCallback<UseSettings["toggleVibrations"]>(state => {
+    setData(d => {
+      storage.set("settings", { ...d, vibrations: state !== undefined ? state : !d.vibrations });
+
+      return { ...d, vibrations: state !== undefined ? state : !d.vibrations };
+    });
   }, []);
 
   const setupAuthentication = useCallback<UseSettings["setupAuthentication"]>(async code => {
@@ -127,6 +145,17 @@ export default function useSettings(): UseSettings {
     });
   }, []);
 
+  const vibrate = useCallback<UseSettings["vibrate"]>(
+    param => {
+      const { time = 50, callback } = param || {};
+
+      if (data.vibrations) navigator.vibrate(time);
+
+      return callback && callback();
+    },
+    [data.vibrations]
+  );
+
   // adjust scale style
   useLayoutEffect(() => {
     document.body.style.setProperty("--core-scale", data.forceScale ? data.scale.toString() : "1");
@@ -185,10 +214,13 @@ export default function useSettings(): UseSettings {
       pst: data.pst,
       forceScale: data.forceScale,
       scale: data.scale,
+      vibrations: data.vibrations,
       toggleTheme,
       togglePST,
       toggleForceScale,
       updateScale,
+      toggleVibrations,
+      vibrate,
       setupAuthentication,
       verifyAuthentication,
       removeAuthentication,
@@ -201,10 +233,13 @@ export default function useSettings(): UseSettings {
       data.pst,
       data.forceScale,
       data.scale,
+      data.vibrations,
       toggleTheme,
       togglePST,
       toggleForceScale,
       updateScale,
+      toggleVibrations,
+      vibrate,
       setupAuthentication,
       verifyAuthentication,
       removeAuthentication,
@@ -219,10 +254,13 @@ export const SettingsContext = createContext<UseSettings>({
   pst: false,
   forceScale: true,
   scale: 1,
+  vibrations: false,
   toggleTheme: () => {},
   togglePST: () => {},
   toggleForceScale: () => {},
   updateScale: () => {},
+  toggleVibrations: () => {},
+  vibrate: () => {},
   setupAuthentication: async () => false,
   verifyAuthentication: async () => false,
   removeAuthentication: async () => false,

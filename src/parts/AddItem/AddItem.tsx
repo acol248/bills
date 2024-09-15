@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // hooks
 import { DataContext } from "../../hooks/useData";
+import { SettingsContext } from "../../hooks/useSettings";
 
 // components
 import BottomModal from "../../components/BottomModal";
@@ -19,6 +20,7 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 import type { DateValue } from "react-aria-components";
 
 export default function AddItem() {
+  const { vibrate } = useContext(SettingsContext);
   const { items, currentlyEditing, addItemOpen, setCurrentlyEditing, setAddItemOpen, addItem, editItem } =
     useContext(DataContext);
 
@@ -39,6 +41,8 @@ export default function AddItem() {
    */
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
+
+    vibrate();
 
     if (!date) return;
 
@@ -96,7 +100,7 @@ export default function AddItem() {
       className={classList}
       title="Add Item"
       open={addItemOpen}
-      onClose={() => setAddItemOpen(false)}
+      onClose={() => vibrate({ callback: () => setAddItemOpen(false) })}
       onTransitionEnd={() => !addItemOpen && setDate(undefined)}
     >
       <form className={mc("add-item__form")} onSubmit={submitForm} ref={addFormRef}>
@@ -109,7 +113,7 @@ export default function AddItem() {
         <Calendar selectedDate={date} onChange={e => setDate(e)} />
 
         <div className={mc("add-item__buttons")}>
-          <Button type="button" onClick={() => setAddItemOpen(false)}>
+          <Button type="button" onClick={() => vibrate({ callback: () => setAddItemOpen(false) })}>
             Cancel
           </Button>
           <Button>Add</Button>

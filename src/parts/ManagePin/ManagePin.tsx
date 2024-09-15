@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function ManagePin({ className }: Props) {
-  const { verifyAuthentication, setupAuthentication, authCheck } = useContext(SettingsContext);
+  const { authCheck, verifyAuthentication, setupAuthentication, vibrate } = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
@@ -33,6 +33,8 @@ export default function ManagePin({ className }: Props) {
    * Handle pin check and update
    */
   const checkInput = async () => {
+    vibrate();
+
     if (!activePin) return;
 
     if (!checkAuth && (await verifyAuthentication(activePin, true))) {
@@ -54,6 +56,7 @@ export default function ManagePin({ className }: Props) {
    * @param code key entered
    */
   const press = (code: string | undefined) => {
+    vibrate();
     setActivePin((p: string | undefined) => {
       if (code === "backspace" && p && p.length) return p.substring(0, p.length - 1);
 
