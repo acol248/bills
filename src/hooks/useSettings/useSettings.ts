@@ -147,7 +147,9 @@ export default function useSettings(): UseSettings {
 
   const vibrate = useCallback<UseSettings["vibrate"]>(
     param => {
-      const { time = 50, callback } = param || {};
+      const { time = 20, callback } = param || {};
+
+      if (!("vibrate" in navigator)) return callback && callback();
 
       if (data.vibrations) navigator.vibrate(time);
 
