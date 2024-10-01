@@ -1,0 +1,21 @@
+.add-item {
+  & .add-item__form {
+    & > label {
+      margin: 0 0 calc(0.5rem * var(--core-scale, 1));
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+
+  & .add-item__buttons {
+    display: flex;
+    gap: calc(0.5rem * var(--core-scale, 1));
+    margin: calc(0.65rem * var(--core-scale, 1)) 0 calc(0.25rem * var(--core-scale, 1)) 0;
+
+    & > button {
+      width: 50%;
+    }
+  }
+}

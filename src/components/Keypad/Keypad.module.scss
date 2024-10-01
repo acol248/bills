@@ -1,0 +1,38 @@
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    width: calc(4.5rem * var(--core-scale, 1));
+    height: calc(4.5rem * var(--core-scale, 1));
+    background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 25%);
+    color: var(--color-primary-contrast);
+    font-size: calc(1.5rem * var(--core-scale, 1));
+
+    & > svg {
+      width: calc(1.75rem * var(--core-scale, 1));
+      height: calc(1.75rem * var(--core-scale, 1));
+      fill: var(--color-primary-contrast);
+    }
+
+    &:active {
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 40%);
+    }
+
+    &:nth-of-type(10),
+    &:nth-of-type(12) {
+      background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 40%);
+
+      &:active {
+        background-color: color-mix(in srgb, var(--color-primary-main), var(--color-primary-contrast) 65%);
+      }
+    }
+  }
+}

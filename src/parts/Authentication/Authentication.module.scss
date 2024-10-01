@@ -1,0 +1,42 @@
+.auth {
+  --dot-color: var(--color-primary-main);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(2rem * var(--core-scale, 1));
+  height: 100dvh;
+
+  & .auth__dots {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--core-scale, 1));
+    height: calc(1rem * var(--core-scale, 1));
+
+    & .auth__dot {
+      width: calc(1rem * var(--core-scale, 1));
+      height: calc(1rem * var(--core-scale, 1));
+      border-radius: 50%;
+      background-color: color-mix(in srgb, var(--dot-color), var(--color-primary-contrast) 5%);
+
+      animation: popIn 175ms ease-in-out forwards;
+      transition: background-color 200ms ease-in-out;
+    }
+  }
+
+  &--fail {
+    --dot-color: var(--color-error-main);
+  }
+
+  @keyframes popIn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

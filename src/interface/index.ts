@@ -5,8 +5,8 @@ interface ITheme {
 const theme = {
   color: {
     common: {
-      black: "#202020",
-      white: "#fbf7f5",
+      black: "#343334",
+      white: "#F9F9F9",
       grey: "#808080",
     },
     grey: {
@@ -19,37 +19,30 @@ const theme = {
       700: "#757575",
       800: "#616161",
       900: "#424242",
-      1000: "#282828",
     },
     primary: {
-      light: "#85aca2",
-      main: "#52796F",
-      dark: "#293c37",
-      contrast: "#fbf7f5",
+      light: "#7c9f58",
+      main: "#566e3d",
+      dark: "#3c4d2b",
+      contrast: "#ffffff",
     },
     secondary: {
-      light: "#587483",
-      main: "#2F3E46",
-      dark: "#060809",
-      contrast: "#fbf7f5",
+      light: "#e1a066",
+      main: "#bc6c25",
+      dark: "#673b14",
+      contrast: "#ffffff",
     },
     error: {
-      light: "#ff3333",
-      main: "#cc0000",
-      dark: "#660000",
-      contrast: "#fbf7f5",
-    },
-    warning: {
-      light: "#ffd633",
-      main: "#ffcc00",
-      dark: "#cca300",
-      contrast: "#202020",
+      light: "#e44e4e",
+      main: "#bb2124",
+      dark: "#9b1818",
+      contrast: "#ffffff",
     },
     success: {
       light: "#8fd48a",
       main: "#4BB543",
       dark: "#2c6b27",
-      contrast: "#fbf7f5",
+      contrast: "#ffffff",
     },
   },
 };
@@ -57,17 +50,17 @@ const theme = {
 const elementsLight = {
   core: {
     text: {
-      color: theme.color.grey[1000],
+      color: theme.color.common.black,
       inverted: theme.color.common.white,
     },
     content: {
       background: {
         100: theme.color.common.white,
-        200: theme.color.grey[300],
-        300: theme.color.grey[400],
-        400: theme.color.grey[500],
-        500: theme.color.grey[600],
-        600: theme.color.grey[700],
+        200: `color-mix(in srgb, ${theme.color.grey[200]}, ${theme.color.primary.light} 2.5%)`,
+        300: `color-mix(in srgb, ${theme.color.grey[300]}, ${theme.color.primary.light} 5%)`,
+        400: `color-mix(in srgb, ${theme.color.grey[300]}, ${theme.color.primary.light} 10%)`,
+        500: `color-mix(in srgb, ${theme.color.grey[400]}, ${theme.color.primary.light} 20%)`,
+        600: `color-mix(in srgb, ${theme.color.grey[400]}, ${theme.color.primary.light} 35%)`,
       },
     },
   },
@@ -77,16 +70,16 @@ const elementsDark = {
   core: {
     text: {
       color: theme.color.common.white,
-      inverted: theme.color.grey[1000],
+      inverted: theme.color.common.black,
     },
     content: {
       background: {
         100: theme.color.common.black,
-        200: theme.color.grey[1000],
-        300: theme.color.grey[900],
-        400: theme.color.grey[800],
-        500: theme.color.grey[700],
-        600: theme.color.grey[600],
+        200: `color-mix(in srgb, ${theme.color.grey[900]}, ${theme.color.primary.light} 2.5%)`,
+        300: `color-mix(in srgb, ${theme.color.grey[900]}, ${theme.color.primary.light} 5%)`,
+        400: `color-mix(in srgb, ${theme.color.grey[800]}, ${theme.color.primary.light} 10%)`,
+        500: `color-mix(in srgb, ${theme.color.grey[800]}, ${theme.color.primary.light} 20%)`,
+        600: `color-mix(in srgb, ${theme.color.grey[700]}, ${theme.color.primary.light} 35%)`,
       },
     },
   },

@@ -2,13 +2,15 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  gap: calc(0.5rem * var(--core-scale, 1));
   width: 100%;
-  margin: 0.35rem 0;
+  margin: calc(0.35rem * var(--core-scale, 1)) 0;
+  background-color: color-mix(in srgb, var(--core-content-background-100), transparent 25%);
 
   & .toggle__label {
     flex: 1;
     color: var(--core-text-color);
+    font-size: calc(1rem * var(--core-scale, 1));
   }
 
   & .toggle__switch {
@@ -26,23 +28,23 @@
 
     & .toggle__switch-highlight {
       cursor: pointer;
-      width: 60px;
-      height: 30px;
+      width: calc(60px * var(--core-scale, 1));
+      height: calc(30px * var(--core-scale, 1));
       background: grey;
       display: block;
-      border-radius: 26px;
+      border-radius: calc(26px * var(--core-scale, 1));
       position: relative;
     }
 
     & .toggle__switch-highlight:after {
       content: "";
       position: absolute;
-      top: 6px;
-      left: 5px;
-      width: 18px;
-      height: 18px;
+      top: calc(6px * var(--core-scale, 1));
+      left: calc(5px * var(--core-scale, 1));
+      width: calc(18px * var(--core-scale, 1));
+      height: calc(18px * var(--core-scale, 1));
       background: #fff;
-      border-radius: 60px;
+      border-radius: calc(60px * var(--core-scale, 1));
       transition: 300ms;
     }
 
@@ -51,15 +53,15 @@
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight:after {
-      left: calc(100% - 5px);
+      left: calc(100% - (5px * var(--core-scale, 1)));
       transform: translateX(-100%);
-      top: 4px;
-      width: 22px;
-      height: 22px;
+      top: calc(4px * var(--core-scale, 1));
+      width: calc(22px * var(--core-scale, 1));
+      height: calc(22px * var(--core-scale, 1));
     }
 
     & .toggle__switch-highlight:active:after {
-      width: 30px;
+      width: calc(30px * var(--core-scale, 1));
     }
 
     &:has(.toggle__switch-checkbox:focus-visible) {
@@ -69,6 +71,22 @@
         outline: 2px solid var(--color-primary-main);
         outline-offset: 2px;
       }
+    }
+  }
+
+  &.toggle--reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  &.toggle--minimal {
+    width: fit-content;
+    padding: calc(0.25rem * var(--core-scale, 1));
+    border-radius: calc(20px * var(--core-scale, 1));
+    gap: calc(0.25rem * var(--core-scale, 1));
+
+    & .toggle__label {
+      flex: unset;
     }
   }
 }
