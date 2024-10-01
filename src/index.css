@@ -16,7 +16,8 @@ body,
 
 body {
   background-color: var(--core-content-background-100);
-  margin: 0;
+  margin: env(safe-area-inset-top) 0 0 0;
+  min-height: calc(100vh - env(safe-area-inset-top));
 }
 
 button {
