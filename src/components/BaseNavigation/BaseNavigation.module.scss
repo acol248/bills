@@ -52,6 +52,10 @@
     display: none;
   }
 
+  &.base-nav--ios {
+    padding: 0 0 1rem;
+  }
+
   @media screen and (min-width: 552px) and (min-height: 552px) {
     inset: auto 0 calc(1.5rem * var(--core-scale, 1)) 50%;
     transform: translateX(-50%);

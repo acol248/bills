@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // hooks
@@ -30,6 +30,12 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
   const { verifyAuthentication, deAuthenticate, vibrate } = useContext(SettingsContext);
   const { setAddItemOpen } = useContext(DataContext);
 
+  const isIos = useMemo(() => {
+    return ["iPad Simulator", "iPhone Simulator", "iPod Simulator", "iPad", "iPhone", "iPod"].includes(
+      navigator.platform
+    );
+  }, []);
+
   const classList = useClassList(
     {
       defaultClass: "base-nav",
@@ -40,6 +46,7 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
     useCallback(
       (_c: string[]) => {
         pathname === "/" && _c.push("base-nav--hide");
+        isIos && _c.push('base-nav--ios')
       },
       [pathname]
     )
