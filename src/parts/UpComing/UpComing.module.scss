@@ -67,6 +67,8 @@
     flex-direction: row-reverse;
 
     & .up-coming__overview {
+      position: relative;
+      top: 0;
       height: fit-content;
       min-width: 252px;
 
