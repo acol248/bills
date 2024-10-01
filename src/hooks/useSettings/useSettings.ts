@@ -25,7 +25,8 @@ interface UseSettings {
   toggleForceScale: (state?: boolean) => void;
   updateScale: (scale: number) => void;
   toggleVibrations: (state?: boolean) => void;
-  vibrate: (param?: { time?: number; callback: () => void }) => void;
+  vibrate: (param?: { time?: number; callback?:
+     () => void }) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
   verifyAuthentication: (code?: string, genericCheck?: boolean) => Promise<boolean>;
   removeAuthentication: (code: string) => Promise<Boolean>;
