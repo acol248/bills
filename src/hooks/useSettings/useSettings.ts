@@ -176,8 +176,6 @@ export default function useSettings(): UseSettings {
      * @param eventObj.matches whether query matches
      */
     const mediaUpdate = ({ matches }: MediaQueryListEvent) => {
-      console.log("dog");
-
       const sysTheme = matches ? "dark" : "light";
 
       document
