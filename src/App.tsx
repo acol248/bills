@@ -9,7 +9,6 @@ import AnimationRouter from "./components/AnimationRouter";
 import BaseNavigation from "./components/BaseNavigation";
 
 // parts
-import WhatsNew from "./parts/WhatsNew";
 import AddItem from "./parts/AddItem";
 
 // helpers
@@ -36,7 +35,6 @@ export default function App() {
 
           <AddItem />
 
-          <WhatsNew />
           <BaseNavigation />
         </BrowserRouter>
       </DataContext.Provider>
