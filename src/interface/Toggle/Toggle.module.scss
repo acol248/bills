@@ -1,11 +1,14 @@
 .toggle {
+  --toggle-color: var(--color-primary-main);
+  --toggle-background: var(--core-content-background-100);
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: calc(0.5rem * var(--core-scale, 1));
   width: 100%;
   margin: calc(0.35rem * var(--core-scale, 1)) 0;
-  background-color: color-mix(in srgb, var(--core-content-background-100), transparent 25%);
+  background-color: color-mix(in srgb, var(--toggle-background), transparent 25%);
 
   & .toggle__label {
     flex: 1;
@@ -49,7 +52,7 @@
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight {
-      background: var(--color-primary-main);
+      background: var(--toggle-color);
     }
 
     & .toggle__switch-checkbox:checked + .toggle__switch-highlight:after {
@@ -68,8 +71,29 @@
       outline: 0;
 
       & label {
-        outline: 2px solid var(--color-primary-main);
+        outline: 2px solid var(--toggle-color);
         outline-offset: 2px;
+      }
+    }
+
+    &:has(.toggle__switch-checkbox:disabled) {
+      --toggle-color: var(--color-grey-500);
+
+      & .toggle__switch-highlight:after {
+        transition: none;
+        top: calc(6px * var(--core-scale, 1));
+        left: calc(5px * var(--core-scale, 1));
+        width: calc(18px * var(--core-scale, 1));
+        height: calc(18px * var(--core-scale, 1));
+      }
+
+      & .toggle__switch-highlight {
+        cursor: default;
+        background-color: var(--color-grey-500);
+
+        &::after {
+          background-color: var(--color-grey-700);
+        }
       }
     }
   }
