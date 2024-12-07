@@ -5,13 +5,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../../hooks/useData";
 
 // styles
+import useLocalStorage from "@blocdigital/uselocalstorage";
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./BaseNavigation.module.scss";
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 // assets
-import { PlusCircledIcon } from "@radix-ui/react-icons";
-import useLocalStorage from "@blocdigital/uselocalstorage";
 import { SettingsContext } from "../../hooks/useSettings";
 import { bufferToString } from "../../helpers/format";
 
@@ -46,7 +45,7 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
     useCallback(
       (_c: string[]) => {
         pathname === "/" && _c.push("base-nav--hide");
-        isIos && _c.push('base-nav--ios')
+        isIos && _c.push("base-nav--ios");
       },
       [pathname]
     )
@@ -99,7 +98,9 @@ export default function BaseNavigation({ className }: IBaseNavigation) {
         onClick={() => vibrate({ callback: () => setAddItemOpen(true) })}
         aria-label="open add item"
       >
-        <PlusCircledIcon />
+        <svg viewBox="0 -960 960 960">
+          <path d="M438.09-278.09h83.82v-160h160v-83.82h-160v-160h-83.82v160h-160v83.82h160v160ZM480-71.87q-84.91 0-159.34-32.12-74.44-32.12-129.5-87.17-55.05-55.06-87.17-129.5Q71.87-395.09 71.87-480t32.12-159.34q32.12-74.44 87.17-129.5 55.06-55.05 129.5-87.17 74.43-32.12 159.34-32.12t159.34 32.12q74.44 32.12 129.5 87.17 55.05 55.06 87.17 129.5 32.12 74.43 32.12 159.34t-32.12 159.34q-32.12 74.44-87.17 129.5-55.06 55.05-129.5 87.17Q564.91-71.87 480-71.87Zm0-91q133.04 0 225.09-92.04 92.04-92.05 92.04-225.09 0-133.04-92.04-225.09-92.05-92.04-225.09-92.04-133.04 0-225.09 92.04-92.04 92.05-92.04 225.09 0 133.04 92.04 225.09 92.05 92.04 225.09 92.04ZM480-480Z" />
+        </svg>
       </button>
 
       <Link
