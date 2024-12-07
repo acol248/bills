@@ -79,7 +79,7 @@
     &:has(.toggle__switch-checkbox:disabled) {
       --toggle-color: var(--color-grey-500);
 
-      & .toggle__switch-highlight:after {
+      & .toggle__switch-highlight::after {
         transition: none;
         top: calc(6px * var(--core-scale, 1));
         left: calc(5px * var(--core-scale, 1));
@@ -94,6 +94,14 @@
         &::after {
           background-color: var(--color-grey-700);
         }
+      }
+
+      & .toggle__switch-checkbox:checked + .toggle__switch-highlight::after {
+        transform: translateX(-100%);
+        left: calc(100% - (5px * var(--core-scale, 1)));
+        top: calc(4px * var(--core-scale, 1));
+        width: calc(22px * var(--core-scale, 1));
+        height: calc(22px * var(--core-scale, 1));
       }
     }
   }
