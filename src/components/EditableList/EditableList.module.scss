@@ -1,0 +1,75 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  width: 100%;
+
+  & .list__item {
+    display: flex;
+    align-items: center;
+    padding: calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1))
+      calc(0.75rem * var(--core-scale, 1));
+    margin: calc(0.125rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
+    width: calc(100% - calc(2.25rem * var(--core-scale, 1)));
+    background-color: var(--core-content-background-300);
+
+    & .list__avatar {
+      margin: 0 calc(0.625rem * var(--core-scale, 1)) 0 0;
+    }
+
+    & > p {
+      margin: 0;
+      color: var(--core-text-color);
+
+      &:last-of-type {
+        margin-left: auto;
+      }
+    }
+  }
+
+  & .list__add {
+    padding: calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1))
+      calc(0.75rem * var(--core-scale, 1));
+    margin: calc(0.125rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
+    width: calc(100% - calc(1rem * var(--core-scale, 1)));
+    background-color: var(--core-content-background-400);
+    border: 0;
+    color: var(--core-text-color);
+    font-size: calc(1rem * var(--core-scale, 1));
+  }
+
+  & .list__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 calc(0.25rem * var(--core-scale, 1)) 0 calc(0.75rem * var(--core-scale, 1));
+    border: 0;
+    background-color: transparent;
+    padding: calc(0.25rem * var(--core-scale, 1));
+    background-color: color-mix(in srgb, var(--core-text-color), transparent 40%);
+    border-radius: 50%;
+
+
+    & > svg {
+      fill: var(--color-error-main);
+      height: calc(1.25rem * var(--core-scale, 1));
+      width: calc(1.25rem * var(--core-scale, 1));
+    }
+  }
+
+  & > * {
+    border-radius: 2px;
+
+    &:first-child {
+      border-radius: 12px 12px 2px 2px;
+    }
+
+    &:last-child {
+      border-radius: 2px 2px 12px 12px;
+    }
+
+    &:only-child {
+      border-radius: 12px;
+    }
+  }
+}
