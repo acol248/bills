@@ -1,0 +1,14 @@
+.avatar {
+  display: flex;
+  background-color: var(--color-primary-light);
+  padding: calc(0.375rem * var(--core-scale, 1));
+  border-radius: 50%;
+  aspect-ratio: 1;
+  width: calc(1.5rem * var(--core-scale, 1));
+
+  & .avatar__fallback {
+    color: var(--color-primary-dark);
+    text-align: center;
+    margin: auto;
+  }
+}
