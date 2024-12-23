@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -8,6 +8,10 @@ import { SettingsContext } from "../../hooks/useSettings";
 // components
 import Slider from "../../components/Slider";
 import Toggle from "../../interface/Toggle";
+import EditableList from "../../components/EditableList";
+import Modal from "../../components/Modal";
+import Input from "../../interface/Input";
+import Button from "../../interface/Button";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
@@ -22,17 +26,38 @@ export default function Settings() {
     scale,
     forceScale,
     authCheck,
+    incomeItems,
     toggleTheme,
     togglePST,
     toggleForceScale,
     updateScale,
     toggleVibrations,
     vibrate,
+    addIncomeItem,
+    removeIncomeItem,
   } = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
+  const [incomeOpen, setIncomeOpen] = useState(false);
+
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
+
+  /**
+   * Add a new income item
+   *
+   * @param e form submission event object
+   */
+  const handleAddIncome = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const { incomeName, incomeValue } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+
+    if (!incomeName || !incomeValue) return;
+
+    addIncomeItem({ name: incomeName as string, income: parseFloat(incomeValue as string) });
+    setIncomeOpen(false);
+  };
 
   return (
     <motion.div
@@ -43,6 +68,16 @@ export default function Settings() {
       transition={{ duration: 0.125, ease: "easeInOut" }}
     >
       <h1>Settings</h1>
+
+      <div className={mc("settings__section")}>
+        <h3>Income</h3>
+
+        <EditableList
+          items={(incomeItems || []).map(({ id, name, income }) => ({ id, name, value: income }))}
+          onAdd={() => setIncomeOpen(true)}
+          onRemove={removeIncomeItem}
+        />
+      </div>
 
       <div className={mc("settings__section")}>
         <h3>Appearance</h3>
@@ -108,6 +143,22 @@ export default function Settings() {
           <button onClick={() => vibrate({ callback: () => navigate("/settings/remove-pin") })}>Remove</button>
         )}
       </div>
+
+      <Modal className={mc("add-income")} title="Add Income" open={incomeOpen} onClose={() => setIncomeOpen(false)}>
+        <form onSubmit={handleAddIncome}>
+          <Input name="incomeName">Name</Input>
+          <Input name="incomeValue" type="number">
+            Income
+          </Input>
+
+          <div className={mc("add-income__buttons")}>
+            <Button type="button" onClick={() => setIncomeOpen(false)}>
+              Cancel
+            </Button>
+            <Button>Save</Button>
+          </div>
+        </form>
+      </Modal>
     </motion.div>
   );
 }

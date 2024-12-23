@@ -1,8 +1,15 @@
 import { createContext, useCallback, useLayoutEffect, useMemo, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 // types
 import useLocalStorage from "@blocdigital/uselocalstorage";
 import { bufferToString } from "../../helpers/format";
+
+type IncomeItem = {
+  id: string;
+  name: string;
+  income: number;
+};
 
 type Settings = {
   theme: "light" | "dark";
@@ -10,6 +17,7 @@ type Settings = {
   scale: number;
   forceScale: boolean;
   vibrations: boolean;
+  income: Array<IncomeItem>;
 };
 
 interface UseSettings {
@@ -20,16 +28,18 @@ interface UseSettings {
   forceScale: boolean;
   scale: number;
   vibrations: boolean;
+  incomeItems: Array<IncomeItem>;
   toggleTheme: (theme?: "light" | "dark") => void;
   togglePST: () => void;
   toggleForceScale: (state?: boolean) => void;
   updateScale: (scale: number) => void;
   toggleVibrations: (state?: boolean) => void;
-  vibrate: (param?: { time?: number; callback?:
-     () => void }) => void;
+  vibrate: (param?: { time?: number; callback?: () => void }) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
   verifyAuthentication: (code?: string, genericCheck?: boolean) => Promise<boolean>;
   removeAuthentication: (code: string) => Promise<Boolean>;
+  addIncomeItem: ({ name, income }: { name: string; income: number }) => void;
+  removeIncomeItem: (id: string) => void;
   deAuthenticate: () => void;
 }
 
@@ -43,6 +53,7 @@ export default function useSettings(): UseSettings {
     scale: 1.25,
     forceScale: false,
     vibrations: false,
+    income: [],
   });
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -146,6 +157,24 @@ export default function useSettings(): UseSettings {
     });
   }, []);
 
+  const addIncomeItem = useCallback<UseSettings["addIncomeItem"]>(({ name, income }) => {
+    setData(d => {
+      const id = uuidv4();
+
+      storage.set("settings", { ...d, income: [...(d.income || []), { id, name, income }] });
+
+      return { ...d, income: [...(d.income || []), { id, name, income }] };
+    });
+  }, []);
+
+  const removeIncomeItem = useCallback<UseSettings["removeIncomeItem"]>(targetId => {
+    setData(d => {
+      storage.set("settings", { ...d, income: d.income.filter(({ id }) => id !== targetId) });
+
+      return { ...d, income: d.income.filter(({ id }) => id !== targetId) };
+    });
+  }, []);
+
   const vibrate = useCallback<UseSettings["vibrate"]>(
     param => {
       const { time = 20, callback } = param || {};
@@ -216,6 +245,7 @@ export default function useSettings(): UseSettings {
       forceScale: data.forceScale,
       scale: data.scale,
       vibrations: data.vibrations,
+      incomeItems: data.income,
       toggleTheme,
       togglePST,
       toggleForceScale,
@@ -226,6 +256,8 @@ export default function useSettings(): UseSettings {
       verifyAuthentication,
       removeAuthentication,
       deAuthenticate: () => setAuthenticated(false),
+      addIncomeItem,
+      removeIncomeItem,
     }),
     [
       storage,
@@ -235,6 +267,7 @@ export default function useSettings(): UseSettings {
       data.forceScale,
       data.scale,
       data.vibrations,
+      data.income,
       toggleTheme,
       togglePST,
       toggleForceScale,
@@ -244,6 +277,8 @@ export default function useSettings(): UseSettings {
       setupAuthentication,
       verifyAuthentication,
       removeAuthentication,
+      addIncomeItem,
+      removeIncomeItem,
     ]
   );
 }
@@ -256,6 +291,7 @@ export const SettingsContext = createContext<UseSettings>({
   forceScale: true,
   scale: 1,
   vibrations: false,
+  incomeItems: [],
   toggleTheme: () => {},
   togglePST: () => {},
   toggleForceScale: () => {},
@@ -266,4 +302,6 @@ export const SettingsContext = createContext<UseSettings>({
   verifyAuthentication: async () => false,
   removeAuthentication: async () => false,
   deAuthenticate: () => {},
+  addIncomeItem: () => {},
+  removeIncomeItem: () => {},
 });
