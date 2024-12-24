@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import useMediaQuery from "@blocdigital/usemediaquery";
 
 // helpers
 import { formatCurrency } from "../../helpers/format";
 import { sumRemainingItems } from "../../helpers/itemHelpers";
+
+// components
+import Popover from "../Popover";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
@@ -23,17 +26,7 @@ export default function Overview({ className, items = [] }: Props) {
 
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const [open, setOpen] = useState(false);
-
-  const classList = useClassList(
-    { defaultClass: "overview", className, maps, string: true },
-    useCallback(
-      (c: string[]) => {
-        if (open) c.push("overview--open");
-      },
-      [open]
-    )
-  );
+  const classList = useClassList({ defaultClass: "overview", className, maps, string: true });
 
   // trigger scroll lift anim
   useEffect(() => {
@@ -67,11 +60,17 @@ export default function Overview({ className, items = [] }: Props) {
       </div>
       <p className={mc("overview__subtle")}>{formatCurrency(items.reduce((a, c) => (a += c.value), 0))} total</p>
 
-      <button className={mc("overview__mode-toggle")} onClick={() => setOpen(o => !o)}>
-        <svg viewBox="0 -960 960 960">
-          <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-        </svg>
-      </button>
+      <Popover
+        className={mc("popover")}
+        offset={{ align: -16 }}
+        trigger={
+          <svg viewBox="0 -960 960 960">
+            <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+          </svg>
+        }
+      >
+        <p>test</p>
+      </Popover>
     </div>
   );
 }
