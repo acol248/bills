@@ -1,12 +1,12 @@
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.075);
   backdrop-filter: blur(2px);
   position: fixed;
-  inset: 0;
+  inset: 0 0 64px;
   z-index: 250;
 
   &[data-state="open"] {
-    animation: fadeIn 175ms ease-out;
+    animation: fadeIn 250ms ease-out;
   }
 
   &[data-state="closed"] {
@@ -33,14 +33,12 @@
 }
 
 .bottom-modal {
-  background-color: var(--core-content-background-100);
-  border-radius: calc(12px * var(--core-scale, 1)) calc(12px * var(--core-scale, 1)) 0 0;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  background-color: var(--core-content-background-200);
+  border-radius: calc(12px * var(--core-scale, 1));
   position: fixed;
-  inset: auto auto 0 50%;
+  inset: auto auto 72px 50%;
   transform: translate(-50%, 0);
-  width: calc(100% - calc(2rem * var(--core-scale, 1)));
+  width: calc(100% - calc(3.5rem * var(--core-scale, 1)));
   max-width: 552px;
   max-height: 85dvh;
   padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
@@ -71,7 +69,7 @@
   }
 
   &[data-state="open"] {
-    animation: slideIn 175ms ease-out;
+    animation: slideIn 250ms ease-out;
   }
 
   &[data-state="closed"] {
@@ -79,22 +77,28 @@
   }
 
   @keyframes slideIn {
-    from {
+    0% {
       opacity: 0;
       transform: translate(-50%, calc(2rem * var(--core-scale, 1)));
     }
-    to {
+    70% {
+      opacity: 1;
+    }
+    100% {
       opacity: 1;
       transform: translate(-50%, 0);
     }
   }
 
   @keyframes slideOut {
-    from {
+    0% {
       opacity: 1;
       transform: translate(-50%, 0);
     }
-    to {
+    30% {
+      opacity: 1;
+    }
+    100% {
       opacity: 0;
       transform: translate(-50%, calc(2rem * var(--core-scale, 1)));
     }

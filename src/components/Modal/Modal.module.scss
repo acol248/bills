@@ -1,9 +1,12 @@
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2px);
   position: fixed;
   inset: 0;
-  z-index: 250;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1250;
+  transform: translateX(-12px);
 
   &[data-state="open"] {
     animation: fadeIn 100ms ease-out;
@@ -43,7 +46,7 @@
   max-width: 552px;
   max-height: 85dvh;
   padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
-  z-index: 500;
+  z-index: 1500;
 
   & .modal__title {
     position: absolute;
