@@ -7,7 +7,7 @@
     top: calc(20px * var(--core-scale, 1));
     background-color: var(--core-content-background-600);
     width: fit-content;
-    padding: calc(1rem * var(--core-scale, 1));
+    padding: calc(0.875rem * var(--core-scale, 1));
     border-radius: calc(12px * var(--core-scale, 1));
     margin: calc(1rem * var(--core-scale, 1));
     color: var(--core-text-color);
@@ -18,11 +18,13 @@
     transition-timing-function: ease-in-out;
 
     & .up-coming__month-total {
-      line-height: 1;
-      font-size: calc(0.75rem * var(--core-scale, 1));
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      font-size: calc(0.875rem * var(--core-scale, 1));
 
       & > span {
-        font-size: calc(1.5rem * var(--core-scale, 1));
+        font-size: calc(1.625rem * var(--core-scale, 1));
         font-weight: 600;
         margin: 0 calc(0.125rem * var(--core-scale, 1)) 0 0;
       }
