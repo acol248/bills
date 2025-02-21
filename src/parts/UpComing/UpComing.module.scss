@@ -48,8 +48,25 @@
     }
 
     & hr {
-      margin: calc(1.25rem * var(--core-scale, 1));
+      position: relative;
+      margin: calc(1.75rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1));
       border: 1px solid var(--core-content-background-400);
+      overflow: visible;
+
+      &::after {
+        content: 'Next Month';
+        display: block;
+        background-color: var(--core-content-background-100);
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 96px;
+        transform: translate(calc(50vw - 68px), -50%);
+        text-align: center;
+        color: var(--core-content-background-600);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
     }
   }
 
