@@ -20,7 +20,7 @@
     & .list-item__left {
       & .list-item__label {
         margin: 0;
-        font-size: calc(0.75rem * var(--core-scale, 1));
+        font-size: calc(0.875rem * var(--core-scale, 1));
         font-weight: 300;
         color: var(--core-text-color);
         text-align: left;
@@ -28,7 +28,7 @@
 
       & .list-item__value {
         margin: 0;
-        font-size: calc(1rem * var(--core-scale, 1));
+        font-size: calc(1.125rem * var(--core-scale, 1));
         font-weight: 600;
         color: var(--core-text-color);
         text-align: left;

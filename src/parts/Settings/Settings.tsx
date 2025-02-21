@@ -108,6 +108,15 @@ export default function Settings() {
           <button onClick={() => vibrate({ callback: () => navigate("/settings/remove-pin") })}>Remove</button>
         )}
       </div>
+
+      <div className={mc("settings__section")}>
+        <h3>About</h3>
+
+        <div className={mc("settings__readonly")}>
+          <p>Version</p>
+          {__APP_VERSION__}
+        </div>
+      </div>
     </motion.div>
   );
 }

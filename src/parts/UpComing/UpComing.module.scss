@@ -7,7 +7,7 @@
     top: calc(20px * var(--core-scale, 1));
     background-color: var(--core-content-background-600);
     width: fit-content;
-    padding: calc(1rem * var(--core-scale, 1));
+    padding: calc(0.875rem * var(--core-scale, 1));
     border-radius: calc(12px * var(--core-scale, 1));
     margin: calc(1rem * var(--core-scale, 1));
     color: var(--core-text-color);
@@ -18,11 +18,13 @@
     transition-timing-function: ease-in-out;
 
     & .up-coming__month-total {
-      line-height: 1;
-      font-size: calc(0.75rem * var(--core-scale, 1));
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      font-size: calc(0.875rem * var(--core-scale, 1));
 
       & > span {
-        font-size: calc(1.5rem * var(--core-scale, 1));
+        font-size: calc(1.625rem * var(--core-scale, 1));
         font-weight: 600;
         margin: 0 calc(0.125rem * var(--core-scale, 1)) 0 0;
       }
@@ -48,8 +50,25 @@
     }
 
     & hr {
-      margin: calc(1.25rem * var(--core-scale, 1));
+      position: relative;
+      margin: calc(1.75rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1));
       border: 1px solid var(--core-content-background-400);
+      overflow: visible;
+
+      &::after {
+        content: 'Next Month';
+        display: block;
+        background-color: var(--core-content-background-100);
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 96px;
+        transform: translate(calc(50vw - 68px), -50%);
+        text-align: center;
+        color: var(--core-content-background-600);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
     }
   }
 
