@@ -69,6 +69,23 @@
       }
     }
 
+    & .settings__readonly {
+      padding: calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1))
+        calc(0.5rem * var(--core-scale, 1)) calc(0.75rem * var(--core-scale, 1));
+      margin: calc(0.125rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
+      width: calc(100% - calc(2.25rem * var(--core-scale, 1)));
+      background-color: var(--core-content-background-300);
+      color: var(--core-text-color);
+      font-size: calc(0.75rem * var(--core-scale, 1));
+
+      & > p {
+        font-size: calc(1rem * var(--core-scale, 1));
+        color: var(--core-text-color);
+        margin: 0 0 calc(0.125rem * var(--core-scale, 1)) 0;
+        padding: 0;
+      }
+    }
+
     & .settings__fake-item {
       padding: calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1))
         calc(0.5rem * var(--core-scale, 1)) calc(0.75rem * var(--core-scale, 1));
