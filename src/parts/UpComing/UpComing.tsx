@@ -1,8 +1,9 @@
-import { Fragment, useContext, useEffect, useRef } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 // hooks
 import { DataContext, Item } from "../../hooks/useData";
+import { SettingsContext } from "../../hooks/useSettings";
 import useMediaQuery from "@blocdigital/usemediaquery";
 
 // components
@@ -15,6 +16,7 @@ import { formatCurrency } from "../../helpers/format";
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./UpComing.module.scss";
+
 const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 export default function UpComing() {
@@ -24,6 +26,9 @@ export default function UpComing() {
   const overviewRef = useRef<HTMLDivElement>(null);
 
   const { items, removeItem, setCurrentlyEditing, setAddItemOpen } = useContext(DataContext);
+  const { privacyMode } = useContext(SettingsContext);
+
+  const [hidden, setHidden] = useState<boolean>(true);
 
   const classList = useClassList({
     defaultClass: "up-coming",
@@ -75,11 +80,21 @@ export default function UpComing() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.125, ease: "easeInOut" }}
     >
-      <div className={mc("up-coming__overview")} ref={overviewRef}>
+      <div
+        className={mc("up-coming__overview")}
+        ref={overviewRef}
+        onTouchStart={() => setHidden(false)}
+        onTouchEnd={() => setHidden(true)}
+        onMouseDown={() => setHidden(false)}
+        onMouseUp={() => setHidden(true)}
+        onMouseLeave={() => setHidden(true)}
+      >
         <div className={mc("up-coming__month-total")}>
-          <span>{formatCurrency(sumRemainingItems(items))}</span> left this month
+          <span>{privacyMode && hidden ? "??" : formatCurrency(sumRemainingItems(items))}</span> left this month
         </div>
-        <p className={mc("up-comping__subtle")}>{formatCurrency(items.reduce((a, c) => (a += c.value), 0))} total</p>
+        <p className={mc("up-comping__subtle")}>
+          {privacyMode && hidden ? "??" : formatCurrency(items.reduce((a, c) => (a += c.value), 0))} total
+        </p>
       </div>
 
       <div className={mc("up-coming__items")}>
@@ -89,7 +104,12 @@ export default function UpComing() {
               <p className={mc("up-coming__date")}>{addDateSuffix(new Date(date).getDate())}</p>
             )}
 
-            <ListItem label={name} value={value} onEdit={() => openEdit(id)} onDelete={() => removeItem(id)} />
+            <ListItem
+              label={name}
+              value={privacyMode && hidden ? "??" : value}
+              onEdit={() => openEdit(id)}
+              onDelete={() => removeItem(id)}
+            />
 
             {new Date(date).getDate() > new Date(items?.[index + 1]?.date).getDate() && <hr />}
           </Fragment>
