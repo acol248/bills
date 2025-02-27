@@ -10,6 +10,7 @@ type Settings = {
   scale: number;
   forceScale: boolean;
   vibrations: boolean;
+  privacyMode: boolean;
 };
 
 interface UseSettings {
@@ -18,15 +19,16 @@ interface UseSettings {
   theme: "light" | "dark";
   pst: boolean;
   forceScale: boolean;
+  privacyMode: boolean;
   scale: number;
   vibrations: boolean;
   toggleTheme: (theme?: "light" | "dark") => void;
   togglePST: () => void;
   toggleForceScale: (state?: boolean) => void;
+  togglePrivacyMode: (state?: boolean) => void;
   updateScale: (scale: number) => void;
   toggleVibrations: (state?: boolean) => void;
-  vibrate: (param?: { time?: number; callback?:
-     () => void }) => void;
+  vibrate: (param?: { time?: number; callback?: () => void }) => void;
   setupAuthentication: (code: string) => Promise<boolean>;
   verifyAuthentication: (code?: string, genericCheck?: boolean) => Promise<boolean>;
   removeAuthentication: (code: string) => Promise<Boolean>;
@@ -43,6 +45,7 @@ export default function useSettings(): UseSettings {
     scale: 1.25,
     forceScale: false,
     vibrations: false,
+    privacyMode: false,
   });
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -86,6 +89,14 @@ export default function useSettings(): UseSettings {
       storage.set("settings", { ...d, vibrations: state !== undefined ? state : !d.vibrations });
 
       return { ...d, vibrations: state !== undefined ? state : !d.vibrations };
+    });
+  }, []);
+
+  const togglePrivacyMode = useCallback<UseSettings["togglePrivacyMode"]>(state => {
+    setData(d => {
+      storage.set("settings", { ...d, privacyMode: state !== undefined ? state : !d.privacyMode });
+
+      return { ...d, privacyMode: state !== undefined ? state : !d.privacyMode };
     });
   }, []);
 
@@ -216,6 +227,8 @@ export default function useSettings(): UseSettings {
       forceScale: data.forceScale,
       scale: data.scale,
       vibrations: data.vibrations,
+      privacyMode: data.privacyMode,
+      togglePrivacyMode,
       toggleTheme,
       togglePST,
       toggleForceScale,
@@ -235,6 +248,7 @@ export default function useSettings(): UseSettings {
       data.forceScale,
       data.scale,
       data.vibrations,
+      data.privacyMode,
       toggleTheme,
       togglePST,
       toggleForceScale,
@@ -256,9 +270,11 @@ export const SettingsContext = createContext<UseSettings>({
   forceScale: true,
   scale: 1,
   vibrations: false,
+  privacyMode: false,
   toggleTheme: () => {},
   togglePST: () => {},
   toggleForceScale: () => {},
+  togglePrivacyMode: () => {},
   updateScale: () => {},
   toggleVibrations: () => {},
   vibrate: () => {},
