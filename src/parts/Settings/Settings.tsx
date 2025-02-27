@@ -1,18 +1,31 @@
-import { useContext } from "react";
+import { ReactEventHandler, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // hooks
 import { SettingsContext } from "../../hooks/useSettings";
+import { DataContext } from "../../hooks/useData";
 
 // components
 import Slider from "../../components/Slider";
 import Toggle from "../../interface/Toggle";
+import Button from "../../interface/Button";
+import Input from "../../interface/Input";
+import Select from "../../interface/Select";
+import BottomModal from "../../components/BottomModal";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./Settings.module.scss";
+
 const mc = mapClassesCurried(maps, true);
+
+const accountTypes = [
+  { value: "credit", label: "Credit" },
+  { value: "debit", label: "Debit" },
+  { value: "savings", label: "Savings" },
+  { value: "checking", label: "Checking" },
+];
 
 export default function Settings() {
   const {
@@ -32,9 +45,32 @@ export default function Settings() {
     vibrate,
   } = useContext(SettingsContext);
 
+  const { accounts, accountBrands, addAccount } = useContext(DataContext);
+
   const navigate = useNavigate();
 
+  const [accOpen, setAccOpen] = useState<boolean>(false);
+
   const classList = useClassList({ defaultClass: "settings", maps, string: true });
+
+  /**
+   * Add account submission from form
+   *
+   * @param e event object
+   */
+  const onAddAccount: ReactEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+
+    const { accountName, accountType, accountBrand } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+
+    addAccount({
+      name: String(accountName),
+      type: accountType as "credit" | "debit" | "savings" | "checking",
+      brand: String(accountBrand),
+    });
+
+    setAccOpen(false);
+  };
 
   return (
     <motion.div
@@ -45,6 +81,14 @@ export default function Settings() {
       transition={{ duration: 0.125, ease: "easeInOut" }}
     >
       <h1>Settings</h1>
+
+      <div className={mc("settings__section")}>
+        <h3>Accounts</h3>
+
+        {accounts.length > 0 ? accounts.map(({ id, name }) => <button key={id}>{name}</button>) : <p>No accounts</p>}
+
+        <button onClick={() => vibrate({ callback: () => setAccOpen(true) })}>Add Account</button>
+      </div>
 
       <div className={mc("settings__section")}>
         <h3>Appearance</h3>
@@ -126,6 +170,16 @@ export default function Settings() {
           {__APP_VERSION__}
         </div>
       </div>
+
+      <BottomModal className={mc("account")} title="Add Account" open={accOpen} onClose={() => setAccOpen(false)}>
+        <form className={mc("account__form")} onSubmit={onAddAccount}>
+          <Input label="Account Nickname" name="accountName" type="text" placeholder="Name" />
+          <Select label="Account Types" items={accountTypes} />
+          <Select label="Account Brand" items={accountBrands} />
+
+          <Button>Add Account</Button>
+        </form>
+      </BottomModal>
     </motion.div>
   );
 }
