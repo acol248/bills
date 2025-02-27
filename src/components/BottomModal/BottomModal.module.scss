@@ -1,9 +1,8 @@
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2px);
   position: fixed;
-  inset: 0 0 64px;
-  z-index: 250;
+  inset: 0;
 
   &[data-state="open"] {
     animation: fadeIn 250ms ease-out;
@@ -36,13 +35,14 @@
   background-color: var(--core-content-background-200);
   border-radius: calc(12px * var(--core-scale, 1));
   position: fixed;
-  inset: auto auto 72px 50%;
+  inset: auto auto calc(72px * var(--core-scale, 1)) 50%;
   transform: translate(-50%, 0);
   width: calc(100% - calc(3.5rem * var(--core-scale, 1)));
   max-width: 552px;
   max-height: 85dvh;
   padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
   z-index: 500;
+  box-shadow: 0 0 calc(8px * var(--core-scale, 1)) calc(4px * var(--core-scale, 1)) rgba(0, 0, 0, 0.1);
 
   & .bottom-modal__title {
     position: absolute;
@@ -74,6 +74,10 @@
 
   &[data-state="closed"] {
     animation: slideOut 175ms ease-in;
+  }
+
+  @media screen and (min-width: 552px) {
+    inset: auto auto calc(96px * var(--core-scale, 1)) 50%;
   }
 
   @keyframes slideIn {
