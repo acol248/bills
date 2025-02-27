@@ -104,11 +104,9 @@ export default function AddItem() {
       onTransitionEnd={() => !addItemOpen && setDate(undefined)}
     >
       <form className={mc("add-item__form")} onSubmit={submitForm} ref={addFormRef}>
-        <Input name="itemName">Name</Input>
+        <Input label="Name" name="itemName" />
 
-        <Input name="value" type="number" step={0.01}>
-          Value
-        </Input>
+        <Input label="Value" name="value" type="number" step={0.01} />
 
         <Calendar selectedDate={date} onChange={e => setDate(e)} />
 

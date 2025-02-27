@@ -124,3 +124,13 @@
     font-size: calc(1rem * var(--core-scale, 1));
   }
 }
+
+.account {
+  & .account__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: calc(0.5rem * var(--core-scale, 1));
+  }
+}

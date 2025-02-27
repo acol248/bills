@@ -6,7 +6,7 @@
   width: 100vw;
   height: 100vh;
   z-index: 1250;
-  transform: translateX(-12px);
+  transform: translateX(calc(-12px * var(--core-scale, 1)));
 
   &[data-state="open"] {
     animation: fadeIn 100ms ease-out;
