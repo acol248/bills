@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border-radius: calc(6px * var(--core-scale, 1));
 
     & > svg {
       width: calc(1.75rem * var(--core-scale, 1));
@@ -27,6 +28,11 @@
         fill: var(--color-primary-light);
       }
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-light);
+      outline-offset: 2px;
+    }
   }
 
   & .base-nav__button {
@@ -38,13 +44,24 @@
     background-color: color-mix(in srgb, var(--core-content-background-600), var(--color-common-white) 20%);
     color: var(--color-primary-dark);
     border: 0;
-    border-radius: 14px;
+    border-radius: calc(14px * var(--core-scale, 1));
     cursor: pointer;
 
     & > svg {
       width: calc(1.6rem * var(--core-scale, 1));
       height: calc(1.6rem * var(--core-scale, 1));
       fill: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-light);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background-color: var(--color-grey-500);
+      color: var(--color-grey-700);
+      cursor: auto;
     }
   }
 
