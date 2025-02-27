@@ -18,19 +18,21 @@
     width: calc(100% - calc(1rem * var(--core-scale, 1)));
 
     & > * {
-      border-radius: 2px;
+      border-radius: calc(2px * var(--core-scale, 1));
+    }
 
-      &:first-of-type {
-        border-radius: 12px 12px 2px 2px;
-      }
+    & > *:nth-child(2) {
+      border-radius: calc(12px * var(--core-scale, 1)) calc(12px * var(--core-scale, 1))
+        calc(2px * var(--core-scale, 1)) calc(2px * var(--core-scale, 1));
+    }
 
-      &:last-of-type {
-        border-radius: 2px 2px 12px 12px;
-      }
+    & > *:last-child {
+      border-radius: calc(2px * var(--core-scale, 1)) calc(2px * var(--core-scale, 1)) calc(12px * var(--core-scale, 1))
+        calc(12px * var(--core-scale, 1));
+    }
 
-      &:only-of-type {
-        border-radius: 12px;
-      }
+    &:not(:has(:nth-child(3))) > * {
+      border-radius: calc(12px * var(--core-scale, 1));
     }
 
     & > h3 {
