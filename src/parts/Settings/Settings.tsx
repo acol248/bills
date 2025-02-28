@@ -22,11 +22,13 @@ export default function Settings() {
     scale,
     forceScale,
     authCheck,
+    privacyMode,
     toggleTheme,
     togglePST,
     toggleForceScale,
     updateScale,
     toggleVibrations,
+    togglePrivacyMode,
     vibrate,
   } = useContext(SettingsContext);
 
@@ -101,6 +103,13 @@ export default function Settings() {
       <div className={mc("settings__section")}>
         <h3>Security</h3>
 
+        <Toggle
+          className={mc("settings__toggle")}
+          checked={privacyMode}
+          onChange={() => vibrate({ callback: () => togglePrivacyMode() })}
+        >
+          Privacy Mode
+        </Toggle>
         <button onClick={() => vibrate({ callback: () => navigate("/settings/manage-pin") })}>
           {authCheck ? "Change Pin" : "Create Pin"}
         </button>

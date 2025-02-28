@@ -16,7 +16,7 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 interface ItemProps {
   className?: Element["className"];
   label: string;
-  value: number;
+  value: number | "??";
   onEdit: () => void;
   onDelete: () => void;
 }
@@ -39,7 +39,7 @@ export default function ListItem({ className, label, value, onEdit, onDelete }: 
       >
         <div className={mc("list-item__left")}>
           <p className={mc("list-item__label")}>{label}</p>
-          <p className={mc("list-item__value")}>{formatCurrency(value)}</p>
+          <p className={mc("list-item__value")}>{typeof value === "string" ? value : formatCurrency(value)}</p>
         </div>
 
         <svg viewBox="0 -960 960 960">
