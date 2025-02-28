@@ -38,6 +38,31 @@
     }
   }
 
+  & .up-coming__privacy {
+    position: absolute;
+    inset: calc(20px * var(--core-scale, 1)) calc(20px * var(--core-scale, 1)) auto auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(0.5rem * var(--core-scale, 1));
+    border-radius: calc(12px * var(--core-scale, 1));
+    z-index: 100;
+    background-color: var(--core-content-background-600);
+    border: 0;
+    cursor: pointer;
+
+    & > svg {
+      width: calc(1.25rem * var(--core-scale, 1));
+      height: calc(1.25rem * var(--core-scale, 1));
+      fill: var(--core-text-color);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--core-content-background-600);
+      outline-offset: 2px;
+    }
+  }
+
   & .up-coming__items {
     & .up-coming__date {
       margin: calc(1.25rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1)) 0;
