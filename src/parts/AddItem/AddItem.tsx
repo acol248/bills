@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 // hooks
@@ -18,10 +18,11 @@ const mc = mapClassesCurried(maps, true) as (c: string) => string;
 
 // types
 import type { DateValue } from "react-aria-components";
+import Select from "../../interface/Select";
 
 export default function AddItem() {
   const { vibrate } = useContext(SettingsContext);
-  const { items, currentlyEditing, addItemOpen, setCurrentlyEditing, setAddItemOpen, addItem, editItem } =
+  const { accounts, items, currentlyEditing, addItemOpen, setCurrentlyEditing, setAddItemOpen, addItem, editItem } =
     useContext(DataContext);
 
   const addFormRef = useRef<HTMLFormElement | null>(null);
@@ -34,6 +35,8 @@ export default function AddItem() {
     string: true,
   }) as string;
 
+  const currentItem = useMemo(() => items.find(({ id }) => id === currentlyEditing), [currentlyEditing]);
+
   /**
    * Submit add form
    *
@@ -44,27 +47,28 @@ export default function AddItem() {
 
     vibrate();
 
-    if (!date) return;
+    if (!date && !currentItem?.date) return;
 
-    const { itemName, value } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+    const { itemName, value, account } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
 
     if (currentlyEditing) {
       editItem({
         id: currentlyEditing,
         name: String(itemName),
         value: parseFloat(String(value)),
-        date: new Date(String(date)),
+        date: new Date(String(date ?? currentItem?.date)) as any,
+        account: account ? String(account) : undefined,
       });
     } else {
       addItem({
         id: uuidv4(),
         name: String(itemName),
         value: parseFloat(String(value)),
-        date: new Date(String(date)),
+        date: new Date(String(date ?? currentItem?.date)) as any,
+        account: account ? String(account) : undefined,
       });
     }
 
-    setDate(undefined);
     setAddItemOpen(false);
   };
 
@@ -75,26 +79,6 @@ export default function AddItem() {
     setCurrentlyEditing(undefined);
   }, [addItemOpen]);
 
-  // populate on edit
-  useEffect(() => {
-    if (!addItemOpen || !currentlyEditing) return;
-
-    setTimeout(() => {
-      const { current: form } = addFormRef;
-
-      if (!form) return;
-
-      const ce = items.find(({ id }) => id === currentlyEditing);
-
-      if (!ce) return;
-
-      form.itemName.value = ce.name;
-      form.value.value = ce.value;
-
-      setDate(ce.date as any);
-    }, 0);
-  }, [currentlyEditing, addItemOpen]);
-
   return (
     <BottomModal
       className={classList}
@@ -104,11 +88,21 @@ export default function AddItem() {
       onTransitionEnd={() => !addItemOpen && setDate(undefined)}
     >
       <form className={mc("add-item__form")} onSubmit={submitForm} ref={addFormRef}>
-        <Input label="Name" name="itemName" />
+        <Input label="Name" name="itemName" defaultValue={currentItem?.name} />
 
-        <Input label="Value" name="value" type="number" step={0.01} />
+        <Input label="Value" name="value" type="number" step={0.01} defaultValue={currentItem?.value} />
 
-        <Calendar selectedDate={date} onChange={e => setDate(e)} />
+        <Calendar selectedDate={date ?? currentItem?.date} onChange={e => setDate(e)} />
+
+        {accounts && accounts?.length > 0 && (
+          <Select
+            label="Associated Account"
+            name="account"
+            placeholder="Select Associated Account"
+            items={accounts.map(({ id, name }) => ({ label: name, value: id }))}
+            defaultValue={currentItem?.account}
+          />
+        )}
 
         <div className={mc("add-item__buttons")}>
           <Button type="button" onClick={() => vibrate({ callback: () => setAddItemOpen(false) })}>
