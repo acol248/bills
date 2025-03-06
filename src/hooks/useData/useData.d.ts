@@ -1,10 +1,12 @@
 import type { Dispatch, SetStateAction } from "react";
+import { DateValue } from "react-aria-components";
 
 type Item = {
   id: string;
   name: string;
   value: number;
-  date: Date;
+  date: DateValue;
+  account?: Account["id"];
 };
 
 type Category = {

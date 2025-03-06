@@ -100,11 +100,21 @@ export default function useData(): UseData {
   }, []);
 
   const addAccount = useCallback<UseData["addAccount"]>(payload => {
-    setAccounts(acc => [...acc, { ...payload, id: uuidv4() }]);
+    setAccounts(acc => {
+      const out = [...acc, { ...payload, id: uuidv4() }];
+      storage.set("accounts", out);
+
+      return out;
+    });
   }, []);
 
   const removeAccount = useCallback<UseData["removeAccount"]>(targetId => {
-    setAccounts(acc => acc.filter(({ id }) => id !== targetId));
+    setAccounts(acc => {
+      const out = acc.filter(({ id }) => id !== targetId);
+      storage.set("accounts", out);
+
+      return out;
+    });
   }, []);
 
   // update localstorage on change
@@ -112,10 +122,8 @@ export default function useData(): UseData {
     if (!storage) return;
 
     const _items = storage.get<Array<Item>>("items");
-    const _accounts = storage.get<Array<Account>>("accounts");
 
     if (_items && items.length > 0) storage.set("items", items);
-    if (_accounts && accounts.length > 0) storage.set("accounts", accounts);
   }, [storage, items, accounts]);
 
   // get/init data when app loads
