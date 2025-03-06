@@ -5,7 +5,8 @@
   width: calc(100% - calc(2rem * var(--core-scale, 1)));
   margin: 0 calc(1rem * var(--core-scale, 1));
   border-radius: calc(12px * var(--core-scale, 1));
-  background-color: var(--core-content-background-500);
+  background-color: var(--core-content-background-600);
+  -webkit-tap-highlight-color: transparent;
 
   & .list-item__content {
     display: flex;

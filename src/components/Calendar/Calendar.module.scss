@@ -11,6 +11,7 @@
   background-color: var(--color-primary-main);
   color: var(--color-common-white);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 
   &:focus-visible {
     outline: 2px solid var(--color-common-white);
