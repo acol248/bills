@@ -72,6 +72,7 @@
     }
 
     & .settings__readonly {
+      position: relative;
       padding: calc(0.5rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1))
         calc(0.5rem * var(--core-scale, 1)) calc(0.75rem * var(--core-scale, 1));
       margin: calc(0.125rem * var(--core-scale, 1)) calc(0.5rem * var(--core-scale, 1));
@@ -85,6 +86,27 @@
         color: var(--core-text-color);
         margin: 0 0 calc(0.125rem * var(--core-scale, 1)) 0;
         padding: 0;
+      }
+
+      & > button {
+        position: absolute;
+        inset: 50% calc(1rem * var(--core-scale, 1)) auto auto;
+      }
+
+      & .settings__remove {
+        inset: calc(50% - (1rem * var(--core-scale, 1))) calc(0.75rem * var(--core-scale, 1)) auto auto;
+        line-height: 0;
+        margin: 0;
+        border: 0;
+        padding: calc(0.25rem * var(--core-scale, 1));
+        background-color: var(--color-grey-400);
+        border-radius: calc(6px * var(--core-scale, 1));
+
+        & > svg {
+          fill: var(--color-error-main);
+          width: calc(1.5rem * var(--core-scale, 1));
+          height: calc(1.5rem * var(--core-scale, 1));
+        }
       }
     }
 
@@ -134,5 +156,16 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: calc(0.5rem * var(--core-scale, 1));
+    width: min(80vw, 384px);
+    padding: 0 0 calc(0.125rem * var(--core-scale, 1)) 0;
+
+    & .account__select {
+      width: 100%;
+    }
+
+    & .account__submit {
+      width: 100%;
+      margin: calc(0.25rem * var(--core-scale, 1)) 0 0;
+    }
   }
 }

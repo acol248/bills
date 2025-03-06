@@ -12,11 +12,11 @@ import Toggle from "../../interface/Toggle";
 import Button from "../../interface/Button";
 import Input from "../../interface/Input";
 import Select from "../../interface/Select";
-import BottomModal from "../../components/BottomModal";
 
 // styles
 import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
 import maps from "./Settings.module.scss";
+import Modal from "../../components/Modal";
 
 const mc = mapClassesCurried(maps, true);
 
@@ -45,7 +45,7 @@ export default function Settings() {
     vibrate,
   } = useContext(SettingsContext);
 
-  const { accounts, accountBrands, addAccount } = useContext(DataContext);
+  const { accounts, accountBrands, addAccount, removeAccount } = useContext(DataContext);
 
   const navigate = useNavigate();
 
@@ -62,6 +62,8 @@ export default function Settings() {
     e.preventDefault();
 
     const { accountName, accountType, accountBrand } = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+
+    if (!accountName || !accountType || !accountBrand) return;
 
     addAccount({
       name: String(accountName),
@@ -85,7 +87,19 @@ export default function Settings() {
       <div className={mc("settings__section")}>
         <h3>Accounts</h3>
 
-        {accounts.length > 0 ? accounts.map(({ id, name }) => <button key={id}>{name}</button>) : <p>No accounts</p>}
+        {accounts.length > 0 &&
+          accounts.map(({ id, name, type }) => (
+            <div className={mc("settings__readonly")} key={id}>
+              <p>{name}</p>
+              {type}
+
+              <button className={mc('settings__remove')} onClick={() => removeAccount(id)}>
+                <svg viewBox="0 -960 960 960">
+                  <path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" />
+                </svg>
+              </button>
+            </div>
+          ))}
 
         <button onClick={() => vibrate({ callback: () => setAccOpen(true) })}>Add Account</button>
       </div>
@@ -171,15 +185,15 @@ export default function Settings() {
         </div>
       </div>
 
-      <BottomModal className={mc("account")} title="Add Account" open={accOpen} onClose={() => setAccOpen(false)}>
+      <Modal className={mc("account")} title="Add Account" open={accOpen} onClose={() => setAccOpen(false)}>
         <form className={mc("account__form")} onSubmit={onAddAccount}>
           <Input label="Account Nickname" name="accountName" type="text" placeholder="Name" />
-          <Select label="Account Types" items={accountTypes} />
-          <Select label="Account Brand" items={accountBrands} />
+          <Select label="Account Types" name="accountType" items={accountTypes} placeholder="Select Account Type" />
+          <Select label="Account Branding" name="accountBrand" items={accountBrands} placeholder="Select Branding" />
 
-          <Button>Add Account</Button>
+          <Button className={mc("account__submit")}>Add Account</Button>
         </form>
-      </BottomModal>
+      </Modal>
     </motion.div>
   );
 }
