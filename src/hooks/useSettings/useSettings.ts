@@ -14,7 +14,6 @@ type Settings = {
 };
 
 interface UseSettings {
-  authCheck: boolean;
   authenticated: boolean;
   theme: "light" | "dark";
   pst: boolean;
@@ -22,6 +21,7 @@ interface UseSettings {
   privacyMode: boolean;
   scale: number;
   vibrations: boolean;
+  authCheck: () => boolean;
   toggleTheme: (theme?: "light" | "dark") => void;
   togglePST: () => void;
   toggleForceScale: (state?: boolean) => void;
@@ -72,7 +72,7 @@ export default function useSettings(): UseSettings {
 
   const toggleForceScale = useCallback<UseSettings["toggleForceScale"]>(state => {
     setData(d => {
-      document.body.style.setProperty("--core-scale", state ?? !d.forceScale ? d.scale.toString() : "1");
+      document.body.style.setProperty("--core-scale", (state ?? !d.forceScale) ? d.scale.toString() : "1");
 
       storage.set("settings", { ...d, forceScale: state ?? !d.forceScale });
 
@@ -220,7 +220,6 @@ export default function useSettings(): UseSettings {
 
   return useMemo(
     () => ({
-      authCheck: Boolean(storage.get("check")),
       authenticated,
       theme: data.theme,
       pst: data.pst,
@@ -228,6 +227,7 @@ export default function useSettings(): UseSettings {
       scale: data.scale,
       vibrations: data.vibrations,
       privacyMode: data.privacyMode,
+      authCheck: () => Boolean(storage.get("check")),
       togglePrivacyMode,
       toggleTheme,
       togglePST,
@@ -263,7 +263,6 @@ export default function useSettings(): UseSettings {
 }
 
 export const SettingsContext = createContext<UseSettings>({
-  authCheck: false,
   authenticated: false,
   theme: "light",
   pst: false,
@@ -271,6 +270,7 @@ export const SettingsContext = createContext<UseSettings>({
   scale: 1,
   vibrations: false,
   privacyMode: false,
+  authCheck: () => false,
   toggleTheme: () => {},
   togglePST: () => {},
   toggleForceScale: () => {},

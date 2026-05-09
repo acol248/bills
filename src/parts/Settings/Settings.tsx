@@ -21,8 +21,8 @@ export default function Settings() {
     pst,
     scale,
     forceScale,
-    authCheck,
     privacyMode,
+    authCheck,
     toggleTheme,
     togglePST,
     toggleForceScale,
@@ -111,9 +111,9 @@ export default function Settings() {
           Privacy Mode
         </Toggle>
         <button onClick={() => vibrate({ callback: () => navigate("/settings/manage-pin") })}>
-          {authCheck ? "Change Pin" : "Create Pin"}
+          {authCheck() ? "Change Pin" : "Create Pin"}
         </button>
-        {authCheck && (
+        {authCheck() && (
           <button onClick={() => vibrate({ callback: () => navigate("/settings/remove-pin") })}>Remove</button>
         )}
       </div>

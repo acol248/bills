@@ -5,28 +5,31 @@
   & .up-coming__overview {
     position: sticky;
     top: calc(20px * var(--core-scale, 1));
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     background-color: var(--core-content-background-600);
-    width: fit-content;
-    padding: calc(0.875rem * var(--core-scale, 1));
+    max-width: max(20vw, 486px);
+    padding: calc(0.5rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
     border-radius: calc(12px * var(--core-scale, 1));
     margin: calc(1rem * var(--core-scale, 1));
     color: var(--core-text-color);
     z-index: 100;
 
-    transition-duration: 250ms;
-    transition-property: box-shadow;
-    transition-timing-function: ease-in-out;
+    animation: sizeA linear both;
+    animation-timeline: scroll();
+    animation-range: 16px 64px;
 
     & .up-coming__month-total {
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
       line-height: 1.2;
-      font-size: calc(0.875rem * var(--core-scale, 1));
+      font-size: calc(0.75rem * var(--core-scale, 1));
 
       & > span {
-        font-size: calc(1.625rem * var(--core-scale, 1));
+        font-size: calc(1.375rem * var(--core-scale, 1));
         font-weight: 600;
-        margin: 0 calc(0.125rem * var(--core-scale, 1)) 0 0;
+        margin: 0 calc(0.325rem * var(--core-scale, 1)) 0 0;
       }
     }
 
@@ -76,12 +79,13 @@
 
     & hr {
       position: relative;
-      margin: calc(1.75rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1));
+      margin: calc(1.75rem * var(--core-scale, 1)) calc(1.25rem * var(--core-scale, 1))
+        calc(1.25rem * var(--core-scale, 1));
       border: 1px solid var(--core-content-background-400);
       overflow: visible;
 
       &::after {
-        content: 'Next Month';
+        content: "Next Month";
         display: block;
         background-color: var(--core-content-background-100);
         position: absolute;
@@ -145,5 +149,16 @@
       content: "";
       display: none;
     }
+  }
+}
+
+@keyframes sizeA {
+  from {
+    box-shadow: none;
+    padding: calc(0.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
+  }
+  to {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: calc(0.5rem * var(--core-scale, 1)) calc(0.75rem * var(--core-scale, 1));
   }
 }

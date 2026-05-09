@@ -3,6 +3,7 @@
   backdrop-filter: blur(2px);
   position: fixed;
   inset: 0;
+  z-index: 1250;
 
   &[data-state="open"] {
     animation: fadeIn 250ms ease-out;
@@ -41,7 +42,7 @@
   max-width: 552px;
   max-height: 85dvh;
   padding: calc(3.75rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1)) calc(1rem * var(--core-scale, 1));
-  z-index: 500;
+  z-index: 1500;
   box-shadow: 0 0 calc(8px * var(--core-scale, 1)) calc(4px * var(--core-scale, 1)) rgba(0, 0, 0, 0.1);
 
   & .bottom-modal__title {

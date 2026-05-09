@@ -24,7 +24,7 @@ export default function ManagePin({ className }: Props) {
 
   const navigate = useNavigate();
 
-  const [checkAuth, setCheckAuth] = useState<boolean>(!authCheck);
+  const [checkAuth, setCheckAuth] = useState<boolean>(!authCheck());
   const [activePin, setActivePin] = useState<string | undefined>(undefined);
 
   const classList = useClassList({ defaultClass: "manage-pin", className, maps, string: true });

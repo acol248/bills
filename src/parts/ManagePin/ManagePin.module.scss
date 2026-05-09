@@ -4,7 +4,8 @@
   align-items: center;
   flex-direction: column;
   gap: calc(3rem * var(--core-scale, 1));
-  min-height: calc(100dvh - calc(64px * var(--core-scale, 1)));
+  padding: calc(4rem * var(--core-scale, 1)) 0 0;
+  min-height: calc(100dvh - calc(64px * var(--core-scale, 1)) - calc(4rem * var(--core-scale, 1)));
 
   & .manage-pin__back {
     position: absolute;
@@ -45,7 +46,7 @@
   }
 
   @media screen and (min-width: 552px) and (min-height: 552px) {
-    min-height: calc(100dvh - calc(96px * var(--core-scale, 1)));
+    min-height: calc(100dvh - calc(96px * var(--core-scale, 1)) - calc(4rem * var(--core-scale, 1)));
   }
 
   @keyframes popIn {
